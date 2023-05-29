@@ -1,0 +1,33 @@
+{% extends 'question_library/base.html' %}
+{% load static %}
+
+{% block css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'question_library/css/category_detail.css' %}"></link>
+{% endblock css %}
+
+{% block body %}
+
+<section class='container container-card'>
+
+
+{% if category %}
+    <h1>{{category.full_name}}</h1>
+<section class="video-entries">
+    <ul class="video-entry-list">
+    {% for video in video_entries %}
+        <li class="video-entry">
+            <h3 class="video-entry-title">{{video.title}}</h3>
+            <iframe width="300" height="180" src="{{video.embed_url}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <section class="questions">{{video.questions}}</section>
+        </li>
+    {% endfor %}
+    </ul>
+</section >
+{% endif %}
+</section>
+{% endblock body %}
+
+{% block script %}
+{{ block.super }}
+{% endblock script %}

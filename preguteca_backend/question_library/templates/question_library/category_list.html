@@ -1,0 +1,26 @@
+{% extends 'question_library/base.html' %}
+{% load static %}
+
+{% block css %}
+{{ block.super }}
+    <link rel="stylesheet" href="{% static 'question_library/css/category_list.css' %}"></link>
+{% endblock css %}
+
+{% block body %}
+    {% if categories %}
+    <section class="container container-card categories-container ">
+        <h1>Categories list</h1>
+        <ul class="categories-list">
+        {% for category in categories %}
+            <li class="category"><a href={% url "question_library:category_details" category_name=category.name %}>{{category.full_name}}</a></li>
+        {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+
+{% endblock body %}
+
+
+{% block script %}
+{{ block.super }}
+{% endblock script %}

@@ -32,27 +32,11 @@
 }
 
 body {
-    width: 100vw;
-    height: 100vh;
     background-color: var(--black);
     color: white;
-    padding: 8px;
 
 }
 
-#app {
-    display: grid;
-    position: relative;
-    height: 100%;
-    width: 100%;
-    grid-template-columns: 1fr;
-    column-gap: 8px;
-    row-gap: 8px;
-    grid-template-rows: 52px 1fr;
-    grid-template-areas: "header" "content";
-    box-sizing: border-box;
-
-}
 
 .border-thin {
     border: solid 1px var(--border-color)

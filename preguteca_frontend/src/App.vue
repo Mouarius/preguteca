@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import VideoEntry from "./components/VideoEntry.vue";
 </script>
 
 <template>
+
     <header id="page-header" class="border-thin">
         <h1 id="page-title">PREGUTECA</h1>
     </header>
@@ -16,49 +18,34 @@
             <header>
                 <h2>LA ESCUELA</h2>
             </header>
-            <section class="container">
-                <ul class="video-entry-list">
-                    <li class="video-entry border-thin">
-                        <header class="video-entry_header video-entry_row">
-                            <div class="video-entry_header_number">1/12</div>
-                            <div class="video-entry_header_url"><a>https://www.youtube.com/watch?v=7gkB2DjHZu8</a>
-                            </div>
-                            <div class="video-entry_header_duration">53:12</div>
-                        </header>
-                        <div class="video-entry_iframe"></div>
-                        <div class="video-entry_detail video-entry_row">
-                            <div class="video-entry_detail_title">La Education en la epoca franquista</div>
-                            <div class="video-entry_detail_language">ES</div>
-                        </div>
-                        <div class="video-entry_detail video-entry_row">
-                            <div class="video-entry_detail_channel">De : Youtube Channel</div>
-                            <div class="video-entry_detail_pub-date">11/04/2023</div>
-                        </div>
-                        <div class="video-entry_description">
-                            <div class="video-entry_description_questions">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                                    nostrud
-                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                                    nulla
-                                    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                                    officia
-                                    deserunt mollit anim id est laborum.</p>
-                            </div>
-                            <div class="video-entry_description_tag-list">
-                                <span class="tag">Conferencia</span>
-                                <span class="tag">Videoclip</span>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </section>
+            <ul id="video-entry-list">
+
+                <VideoEntry/>
+                <VideoEntry/>
+                <VideoEntry/>
+                <VideoEntry/>
+            </ul>
         </section>
     </div>
 </template>
 
-<style scoped>
+<style>
+#app {
+    max-height: 100vh;
+    width: 100vw;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding: 8px;
+    display: grid;
+    grid-template-columns: 1fr;
+    column-gap: 8px;
+    row-gap: 8px;
+    grid-template-rows: 52px minmax(0, 1fr);
+    grid-template-areas: "header" "content";
+    overflow: hidden;
+}
 
 #page-header {
     position: relative;
@@ -76,23 +63,27 @@
 }
 
 #page-content {
-    width: 100%;
     position: relative;
+    box-sizing: border-box;
     grid-area: content;
     display: grid;
+    bottom: 0;
     grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: minmax(0, 1fr);
     grid-template-areas: "main-scroll main-scroll aside aside aside";
-    overflow: hidden;
 }
 
 #main-scroll {
     grid-area: main-scroll;
 }
 
+
 #category-container {
     grid-area: aside;
     border-left: solid 1px var(--border-color);
-
+    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 #category-container > header {
@@ -106,95 +97,20 @@
     align-items: center;
 }
 
-#category-container > section.container {
+
+#video-entry-list {
     padding: 8px;
-    overflow: scroll;
     display: flex;
     flex-direction: column;
+    align-self: stretch;
     align-items: center;
     justify-content: flex-start;
     width: 100%;
     height: 100%;
     position: relative;
+    overflow: scroll;
 }
 
-#category-container ul {
-    position: relative;
-    width: 100%;
-}
-
-.video-entry {
-    font-family: "Space Grotesk", "Arial Black", sans-serif;
-    position: relative;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 16px;
-}
-
-.video-entry > * {
-    border-bottom: solid 1px var(--border-color);
-}
-
-.video-entry_row {
-    width: 100%;
-    height: 32px;
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-}
-
-.video-entry_row > * {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    padding-left: 12px;
-    padding-right: 12px;
-}
-
-.video-entry_row > *:not(:first-child) {
-    border-left: solid 1px var(--white);
-}
-
-.video-entry_header_url, .video-entry_detail_channel, .video-entry_detail_title {
-    flex: 1;
-}
-
-.video-entry_iframe {
-    height: auto;
-    width: 100%;
-    aspect-ratio: 16/9;
-    background: red;
-    border-bottom: solid 1px;
-}
-
-.video-entry_description {
-    padding: 16px 12px;
-    font-size: 16px;
-    font-family: "Public Sans", sans-serif;
-    font-weight: 300;
-    line-height: 1.3em;
-}
-
-.tag {
-    font-size: 12px;
-    border: solid 1px var(--border-color);
-    border-radius: 100px;
-    height: 20px;
-    padding: 2px 8px;
-    margin-right: 8px;
-    cursor: default;
-}
-
-.tag:hover {
-    background: var(--white);
-    color: var(--black);
-    font-weight: 500;
-}
-
-.video-entry_description_questions {
-    margin-bottom: 24px;
-}
 
 .border-thin {
     border: solid 1px var(--border-color)

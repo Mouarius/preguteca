@@ -1,10 +1,26 @@
-from django.http import request, response, HttpResponse
+from django.contrib.auth.models import User, Group
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.template import loader
-from .models import Category, extract_video_id_from_url
 from googleapiclient.discovery import build
-from preguteca_backend.settings import YOUTUBE_API_KEY
+from rest_framework import viewsets, permissions
 from urllib3.exceptions import HTTPError
+
+from preguteca_backend.settings import YOUTUBE_API_KEY
+from .models import Category, extract_video_id_from_url
+from .serializers import UserSerializer, GroupSerializer
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class GroupViewSet(viewsets.ModelViewSet):
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 
 def category_list(request):

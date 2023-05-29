@@ -1,14 +1,18 @@
-from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 
+from question_library.models import Category, VideoEntry
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+
+class VideoEntrySerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ['username', 'email', 'groups']
+        model = VideoEntry
+        fields = ["id", "title", "questions", "video_url", "views", "youtube_id", "language"]
 
 
-class GroupSerializer(serializers.HyperlinkedModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
+    video_entries = VideoEntrySerializer(many=True, read_only=True)
+
     class Meta:
-        model = Group
-        fields = ["name"]
+        model = Category
+        fields = ["id", "name", "full_name", "video_entries"]
+        lookup_field = "name"

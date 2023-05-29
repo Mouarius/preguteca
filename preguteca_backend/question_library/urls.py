@@ -1,19 +1,12 @@
-from django.urls import include, path
-from rest_framework import routers
+from django.urls import path
 
 from . import views
 
 app_name = "question_library"
 
-router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
-
 urlpatterns = [
-    path("", views.category_list, name="category list"),
-    path('', include(router.urls)),
-    path(
-        "category/<str:category_name>", views.category_details, name="category_details"
-    ),
-    path('api-auth/', include('rest_framework.urls', namespace="rest_framework"))
+    path('categories/<str:name>', views.CategoryDetail.as_view()),
+    path('categories/', views.CategoryList.as_view()),
+    path('video_entries/<int:pk>', views.VideoEntryDetail.as_view()),
+    path('video_entries/', views.VideoEntryList.as_view()),
 ]

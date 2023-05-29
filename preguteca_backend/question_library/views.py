@@ -1,26 +1,35 @@
-from django.contrib.auth.models import User, Group
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.template import loader
 from googleapiclient.discovery import build
-from rest_framework import viewsets, permissions
+from rest_framework import generics
 from urllib3.exceptions import HTTPError
 
 from preguteca_backend.settings import YOUTUBE_API_KEY
-from .models import Category, extract_video_id_from_url
-from .serializers import UserSerializer, GroupSerializer
+from .models import Category, extract_video_id_from_url, VideoEntry
+from .serializers import CategorySerializer, VideoEntrySerializer
 
 
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
+class CategoryList(generics.ListAPIView):
+    queryset = Category.objects.all().order_by('name').prefetch_related("video_entries")
+    serializer_class = CategorySerializer
+    lookup_field = "name"
 
 
-class GroupViewSet(viewsets.ModelViewSet):
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
-    permission_classes = [permissions.IsAuthenticated]
+class CategoryDetail(generics.RetrieveAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    lookup_field = "name"
+
+
+class VideoEntryList(generics.ListAPIView):
+    queryset = VideoEntry.objects.all().order_by("id")
+    serializer_class = VideoEntrySerializer
+
+
+class VideoEntryDetail(generics.RetrieveAPIView):
+    queryset = VideoEntry.objects.all()
+    serializer_class = VideoEntrySerializer
 
 
 def category_list(request):

@@ -2,8 +2,7 @@
 
 from django.db import migrations
 
-from question_library.utils.youtube import extract_video_id_from_url, get_youtube_video_snippet, \
-    get_youtube_videos_snippet_list
+from question_library.utils.youtube import extract_video_id_from_url, get_youtube_videos_snippet_list
 
 
 def fill_video_id_and_title(apps, schema_editor):
@@ -12,6 +11,8 @@ def fill_video_id_and_title(apps, schema_editor):
     video_id_batch = []
     for video in videos:
         video_id = extract_video_id_from_url(video.url)
+        video.youtube_id = video_id
+        video.save()
         video_id_batch.append(video_id)
 
     items = get_youtube_videos_snippet_list(video_id_batch)
@@ -22,6 +23,7 @@ def fill_video_id_and_title(apps, schema_editor):
         video = VideoEntry.objects.filter(youtube_id=item["id"]).first()
         if not video:
             print(f"Video not found (id = {item['id']})")
+            continue
         video.title = snippet['title']
         video.save()
 

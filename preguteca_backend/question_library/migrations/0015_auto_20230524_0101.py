@@ -6,6 +6,7 @@ from django.db.migrations import RunPython
 
 from question_library.data import parse_video_data
 
+
 def load_video_entries(apps, schema_editor):
     parse_video_data.main()
     video_data_json_path = "question_library/data/video_data__parsed.json"

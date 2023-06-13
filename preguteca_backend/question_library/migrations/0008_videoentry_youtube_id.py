@@ -4,16 +4,20 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('question_library', '0007_alter_category_options_remove_videoentry_link_and_more'),
+        (
+            "question_library",
+            "0007_alter_category_options_remove_videoentry_link_and_more",
+        ),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='videoentry',
-            name='youtube_id',
-            field=models.CharField(default='', max_length=20, verbose_name='youtube id'),
+            model_name="videoentry",
+            name="youtube_id",
+            field=models.CharField(
+                default="", max_length=20, verbose_name="youtube id"
+            ),
             preserve_default=False,
         ),
     ]

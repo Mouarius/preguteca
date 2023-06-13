@@ -23,7 +23,7 @@ def extract_video_id_from_url(youtube_url: str) -> str | None:
 
 
 def get_youtube_videos_snippet_list(id_list: list[str]):
-    batch_list = [id_list[i:i + 50] for i in range(0, len(id_list), 50)]
+    batch_list = [id_list[i: i + 50] for i in range(0, len(id_list), 50)]
     items = []
     for batch in batch_list:
         id_string = ",".join(batch)
@@ -40,7 +40,7 @@ def get_youtube_videos_snippet_list(id_list: list[str]):
 
 def get_youtube_videos_information_list(id_list: list[str]):
     youtube = build("youtube", "v3", developerKey=settings.YOUTUBE_API_KEY)
-    batch_list = [id_list[i:i + 50] for i in range(0, len(id_list), 50)]
+    batch_list = [id_list[i: i + 50] for i in range(0, len(id_list), 50)]
     items = []
     for batch in batch_list:
         id_string = ",".join(batch)
@@ -50,7 +50,9 @@ def get_youtube_videos_information_list(id_list: list[str]):
             if response["items"]:
                 items = items + response["items"]
         except HttpError as e:
-            print(f'Error response status code : {e.status_code}, reason : {e.error_details}')
+            print(
+                f"Error response status code : {e.status_code}, reason : {e.error_details}"
+            )
     return items
 
 

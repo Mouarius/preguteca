@@ -13,6 +13,14 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(VideoEntry)
 class VideoEntryAdmin(admin.ModelAdmin):
-    fields = ("title", "questions", "video_url", "views", "language", "video_types", "youtube_id")
+    fields = (
+        "title",
+        "questions",
+        "video_url",
+        "views",
+        "language",
+        "video_types",
+        "youtube_id",
+    )
     readonly_fields = ("youtube_id",)
     filter_horizontal = ("video_types",)

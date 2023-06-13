@@ -4,20 +4,19 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('question_library', '0004_comment_author'),
+        ("question_library", "0004_comment_author"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='comment',
-            name='text_content',
-            field=models.TextField(max_length=1000, verbose_name='text content'),
+            model_name="comment",
+            name="text_content",
+            field=models.TextField(max_length=1000, verbose_name="text content"),
         ),
         migrations.AlterField(
-            model_name='videoentry',
-            name='questions',
-            field=models.TextField(max_length=1000, verbose_name='questions'),
+            model_name="videoentry",
+            name="questions",
+            field=models.TextField(max_length=1000, verbose_name="questions"),
         ),
     ]

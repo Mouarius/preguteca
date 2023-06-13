@@ -9,16 +9,16 @@ def iso8601_to_duration(duration_str):
     seconds = 0
 
     # Parse the duration components
-    if 'D' in duration_str:
-        days_str, duration_str = duration_str.split('D')
+    if "D" in duration_str:
+        days_str, duration_str = duration_str.split("D")
         days = int(days_str)
-    if 'H' in duration_str:
-        hours_str, duration_str = duration_str.split('H')
+    if "H" in duration_str:
+        hours_str, duration_str = duration_str.split("H")
         hours = int(hours_str)
-    if 'M' in duration_str:
-        minutes_str, duration_str = duration_str.split('M')
+    if "M" in duration_str:
+        minutes_str, duration_str = duration_str.split("M")
         minutes = int(minutes_str)
-    if 'S' in duration_str:
+    if "S" in duration_str:
         seconds_str = duration_str[:-1]
         seconds = int(seconds_str)
 

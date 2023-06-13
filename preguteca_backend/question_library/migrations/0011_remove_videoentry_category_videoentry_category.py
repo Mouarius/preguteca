@@ -4,19 +4,20 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('question_library', '0010_alter_videoentry_title'),
+        ("question_library", "0010_alter_videoentry_title"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='videoentry',
-            name='category',
+            model_name="videoentry",
+            name="category",
         ),
         migrations.AddField(
-            model_name='videoentry',
-            name='category',
-            field=models.ManyToManyField(to='question_library.category', verbose_name='category'),
+            model_name="videoentry",
+            name="category",
+            field=models.ManyToManyField(
+                to="question_library.category", verbose_name="category"
+            ),
         ),
     ]

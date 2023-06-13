@@ -13,13 +13,21 @@ class Command(BaseCommand):
             for tuple_id in VideoEntry.objects.all().values_list("youtube_id"):
                 yt_id_list.append(tuple_id[0])
         except FieldDoesNotExist as e:
-            raise CommandError("The youtube_id field does not exist on this model, try to create it first.")
+            raise CommandError(
+                "The youtube_id field does not exist on this model, try to create it first."
+            )
 
-        self.stdout.write(self.style.SUCCESS("Successfully retrieved ids from video entries."))
+        self.stdout.write(
+            self.style.SUCCESS("Successfully retrieved ids from video entries.")
+        )
 
         self.stdout.write("Retrieving data from Youtube API...")
         information_list = get_youtube_videos_information_list(id_list=yt_id_list)
-        self.stdout.write(self.style.SUCCESS("Successfully retrieved snippet and contentDetails from Youtube API."))
+        self.stdout.write(
+            self.style.SUCCESS(
+                "Successfully retrieved snippet and contentDetails from Youtube API."
+            )
+        )
 
         for information in information_list:
             video = VideoEntry.objects.filter(youtube_id=information["id"])[0]
@@ -37,4 +45,8 @@ class Command(BaseCommand):
             video.title = title
             video.yt_publish_time = yt_publish_time
             video.save()
-        self.stdout.write(self.style.SUCCESS("Successfully updated the video entries data from the database."))
+        self.stdout.write(
+            self.style.SUCCESS(
+                "Successfully updated the video entries data from the database."
+            )
+        )

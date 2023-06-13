@@ -1,17 +1,14 @@
-from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
-from django.template import loader
 from googleapiclient.discovery import build
 from rest_framework import generics
 from urllib3.exceptions import HTTPError
 
 from preguteca_backend.settings import YOUTUBE_API_KEY
-from .models import Category, extract_video_id_from_url, VideoEntry
+from .models import Category, VideoEntry
 from .serializers import CategorySerializer, VideoEntrySerializer
 
 
 class CategoryList(generics.ListAPIView):
-    queryset = Category.objects.all().order_by('name').prefetch_related("video_entries")
+    queryset = Category.objects.all().order_by("name").prefetch_related("video_entries")
     serializer_class = CategorySerializer
     lookup_field = "name"
 
@@ -30,38 +27,6 @@ class VideoEntryList(generics.ListAPIView):
 class VideoEntryDetail(generics.RetrieveAPIView):
     queryset = VideoEntry.objects.all()
     serializer_class = VideoEntrySerializer
-
-
-def category_list(request):
-    categories = Category.objects.all()
-    template = loader.get_template("question_library/category_list.html")
-    context = {"categories": categories}
-    return HttpResponse(template.render(context, request))
-
-
-def category_details(request, category_name):
-    category = get_object_or_404(
-        Category,
-        name__startswith=category_name,
-    )
-    video_entries = category.video_entries.all()
-    last_comments = category.comment_set.all()[:5]
-    video_data_list = []
-
-    if video_entries:
-        video_id_list = [
-            extract_video_id_from_url(video.url) for video in list(video_entries)
-        ]
-        video_data_list = fetchYoutubeVideoData(video_id_list)
-
-    context = {
-        "category": category,
-        "video_entries": video_entries,
-        "last_comments": last_comments,
-        "video_data_list": video_data_list,
-    }
-
-    return render(request, "question_library/category_detail.html", context=context)
 
 
 def fetchYoutubeVideoData(video_id_list):

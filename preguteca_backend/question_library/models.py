@@ -29,8 +29,10 @@ class Category(models.Model):
 
 def to_snake_case(string: str) -> str:
     string = unidecode(string)
-    string = re.sub(r'(?<=[a-z])(?=[A-Z])|[^a-zA-Z]', ' ', string).strip().replace(' ', '_')
-    return ''.join(string.lower())
+    string = (
+        re.sub(r"(?<=[a-z])(?=[A-Z])|[^a-zA-Z]", " ", string).strip().replace(" ", "_")
+    )
+    return "".join(string.lower())
 
 
 class VideoType(models.Model):
@@ -52,12 +54,23 @@ class VideoEntry(models.Model):
     video_url = models.CharField("video url", max_length=200, blank=True)
     views = models.IntegerField("views", default=0)
     language = models.CharField(max_length=3, default="", blank=True)
-    video_types = models.ManyToManyField("question_library.VideoType", verbose_name="Video Type", blank=True)
-    youtube_id = models.CharField(max_length=16, verbose_name="Youtube video id", default="", blank=True)
-    yt_channel_title = models.CharField(max_length=100, verbose_name="Youtube - Channel title", blank=True)
-    yt_publish_time = models.DateTimeField(verbose_name="Youtube - Video publication date", default=dt.datetime.now(),
-                                           blank=True)
-    duration = models.CharField(max_length=8, verbose_name="Youtube - Duration", blank=True)
+    video_types = models.ManyToManyField(
+        "question_library.VideoType", verbose_name="Video Type", blank=True
+    )
+    youtube_id = models.CharField(
+        max_length=16, verbose_name="Youtube video id", default="", blank=True
+    )
+    yt_channel_title = models.CharField(
+        max_length=100, verbose_name="Youtube - Channel title", blank=True
+    )
+    yt_publish_time = models.DateTimeField(
+        verbose_name="Youtube - Video publication date",
+        default=dt.datetime.now(),
+        blank=True,
+    )
+    duration = models.CharField(
+        max_length=8, verbose_name="Youtube - Duration", blank=True
+    )
 
     def __str__(self):
         return self.title

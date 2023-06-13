@@ -9,6 +9,6 @@ class Command(BaseCommand):
         videos = VideoEntry.objects.all()
         for video in videos:
             yt_id = extract_video_id_from_url(video.video_url)
-            if (yt_id):
+            if yt_id:
                 video.youtube_id = yt_id
             video.save()

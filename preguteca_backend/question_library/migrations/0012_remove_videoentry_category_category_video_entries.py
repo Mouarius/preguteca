@@ -4,19 +4,18 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('question_library', '0011_remove_videoentry_category_videoentry_category'),
+        ("question_library", "0011_remove_videoentry_category_videoentry_category"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='videoentry',
-            name='category',
+            model_name="videoentry",
+            name="category",
         ),
         migrations.AddField(
-            model_name='category',
-            name='video_entries',
-            field=models.ManyToManyField(to='question_library.videoentry'),
+            model_name="category",
+            name="video_entries",
+            field=models.ManyToManyField(to="question_library.videoentry"),
         ),
     ]

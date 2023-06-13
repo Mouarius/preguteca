@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('question_library', '0009_remove_videoentry_youtube_id'),
+        ("question_library", "0009_remove_videoentry_youtube_id"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='videoentry',
-            name='title',
-            field=models.CharField(default='', max_length=100, verbose_name='title'),
+            model_name="videoentry",
+            name="title",
+            field=models.CharField(default="", max_length=100, verbose_name="title"),
         ),
     ]

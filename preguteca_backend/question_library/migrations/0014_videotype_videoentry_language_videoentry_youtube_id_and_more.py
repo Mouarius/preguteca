@@ -4,38 +4,51 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('question_library', '0013_alter_category_video_entries'),
+        ("question_library", "0013_alter_category_video_entries"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='VideoType',
+            name="VideoType",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(blank=True, max_length=20)),
-                ('full_name', models.CharField(max_length=20)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(blank=True, max_length=20)),
+                ("full_name", models.CharField(max_length=20)),
             ],
         ),
         migrations.AddField(
-            model_name='videoentry',
-            name='language',
-            field=models.CharField(blank=True, default='', max_length=3),
+            model_name="videoentry",
+            name="language",
+            field=models.CharField(blank=True, default="", max_length=3),
         ),
         migrations.AddField(
-            model_name='videoentry',
-            name='youtube_id',
-            field=models.CharField(blank=True, max_length=16, verbose_name='Youtube video id'),
+            model_name="videoentry",
+            name="youtube_id",
+            field=models.CharField(
+                blank=True, max_length=16, verbose_name="Youtube video id"
+            ),
         ),
         migrations.AlterField(
-            model_name='videoentry',
-            name='questions',
-            field=models.TextField(blank=True, max_length=1000, verbose_name='questions'),
+            model_name="videoentry",
+            name="questions",
+            field=models.TextField(
+                blank=True, max_length=1000, verbose_name="questions"
+            ),
         ),
         migrations.AddField(
-            model_name='videoentry',
-            name='video_types',
-            field=models.ManyToManyField(to='question_library.videotype', verbose_name='Video Type'),
+            model_name="videoentry",
+            name="video_types",
+            field=models.ManyToManyField(
+                to="question_library.videotype", verbose_name="Video Type"
+            ),
         ),
     ]

@@ -11,7 +11,11 @@ def main():
     videos = pd.read_excel(file)
 
     def create_category_name(category_name):
-        if not category_name or category_name is None or not isinstance(category_name, str):
+        if (
+            not category_name
+            or category_name is None
+            or not isinstance(category_name, str)
+        ):
             return ""
         category_name = re.sub("[0-9]+", "", category_name).lower()
         category_name = re.sub("\s", "_", category_name)
@@ -27,7 +31,11 @@ def main():
         return fullname
 
     def is_youtube_url(string):
-        if string and isinstance(string, str) and string.startswith("https://www.youtube.com"):
+        if (
+            string
+            and isinstance(string, str)
+            and string.startswith("https://www.youtube.com")
+        ):
             return True
         return False
 
@@ -46,7 +54,7 @@ def main():
     videos["video_url"] = videos["video_url"].apply(clean_url)
     videos.dropna(subset=["video_url"], inplace=True)
 
-    videos.fillna('', inplace=True)
+    videos.fillna("", inplace=True)
 
     # Clean all languages
     videos["language"].replace("-", "", inplace=True)

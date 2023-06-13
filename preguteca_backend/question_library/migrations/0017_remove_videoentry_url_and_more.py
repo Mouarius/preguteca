@@ -7,18 +7,21 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('question_library', '0016_alter_videoentry_yt_publish_time'),
+        ("question_library", "0016_alter_videoentry_yt_publish_time"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='videoentry',
-            name='url',
+            model_name="videoentry",
+            name="url",
         ),
         migrations.AlterField(
-            model_name='videoentry',
-            name='yt_publish_time',
-            field=models.DateTimeField(blank=True, default=datetime.datetime(2023, 6, 12, 22, 50, 48, 87163),
-                                       verbose_name='Youtube - Video publication date'),
+            model_name="videoentry",
+            name="yt_publish_time",
+            field=models.DateTimeField(
+                blank=True,
+                default=datetime.datetime(2023, 6, 12, 22, 50, 48, 87163),
+                verbose_name="Youtube - Video publication date",
+            ),
         ),
     ]

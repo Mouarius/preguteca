@@ -6,7 +6,15 @@ from question_library.models import Category, VideoEntry
 class VideoEntrySerializer(serializers.ModelSerializer):
     class Meta:
         model = VideoEntry
-        fields = ["id", "title", "questions", "video_url", "views", "youtube_id", "language"]
+        fields = [
+            "id",
+            "title",
+            "questions",
+            "video_url",
+            "views",
+            "youtube_id",
+            "language",
+        ]
 
 
 class CategorySerializer(serializers.ModelSerializer):

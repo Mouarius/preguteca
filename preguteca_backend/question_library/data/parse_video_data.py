@@ -1,10 +1,9 @@
 import os.path
+import re
 
 import numpy as np
 import pandas as pd
-import re
 import unidecode
-
 
 
 def main():
@@ -32,8 +31,8 @@ def main():
             return True
         return False
 
-    def clean_youtube_url(url):
-        if not is_youtube_url(url) or url == "":
+    def clean_url(url):
+        if url == "":
             url = np.nan
         return url
 
@@ -44,8 +43,8 @@ def main():
     videos["category_fullname"] = videos["category_fullname"].apply(clean_fullname)
 
     # Clean all urls
-    videos["url"] = videos["url"].apply(clean_youtube_url)
-    videos.dropna(subset=["url"], inplace=True)
+    videos["video_url"] = videos["video_url"].apply(clean_url)
+    videos.dropna(subset=["video_url"], inplace=True)
 
     videos.fillna('', inplace=True)
 

@@ -6,7 +6,7 @@ import re
 from django.db import models
 from unidecode import unidecode
 
-from question_library.utils.youtube import extract_video_id_from_url, get_youtube_videos_snippet_list
+from question_library.utils.youtube import extract_video_id_from_url
 
 
 class Category(models.Model):
@@ -49,14 +49,15 @@ class VideoType(models.Model):
 class VideoEntry(models.Model):
     title = models.CharField("title", max_length=200, blank=True, default="")
     questions = models.TextField("questions", max_length=1000, blank=True)
-    video_url = models.CharField("video url", max_length=200)
+    video_url = models.CharField("video url", max_length=200, blank=True)
     views = models.IntegerField("views", default=0)
     language = models.CharField(max_length=3, default="", blank=True)
     video_types = models.ManyToManyField("question_library.VideoType", verbose_name="Video Type", blank=True)
     youtube_id = models.CharField(max_length=16, verbose_name="Youtube video id", default="", blank=True)
     yt_channel_title = models.CharField(max_length=100, verbose_name="Youtube - Channel title", blank=True)
-    yt_publish_time = models.DateTimeField(verbose_name="Youtube - Video publication date",
-                                           default=dt.datetime.now())
+    yt_publish_time = models.DateTimeField(verbose_name="Youtube - Video publication date", default=dt.datetime.now(),
+                                           blank=True)
+    duration = models.CharField(max_length=8, verbose_name="Youtube - Duration", blank=True)
 
     def __str__(self):
         return self.title
@@ -70,14 +71,14 @@ class VideoEntry(models.Model):
         return base_url + video_id
 
     def save(self, **kwargs):
-        if not self.youtube_id:
-            self.youtube_id = extract_video_id_from_url(self.video_url)
-        if not self.title:
-            data = get_youtube_videos_snippet_list([self.youtube_id])
-            if data:
-                snippet = data[0]["snippet"]
-                self.title = snippet["title"]
-                self.yt_channel_title = snippet["channelTitle"]
+        # if not self.youtube_id:
+        #     self.youtube_id = extract_video_id_from_url(self.video_url)
+        # if not self.title:
+        #     data = get_youtube_videos_snippet_list([self.youtube_id])
+        #     if data:
+        #         snippet = data[0]["snippet"]
+        #         self.title = snippet["title"]
+        #         self.yt_channel_title = snippet["channelTitle"]
         super().save(**kwargs)
 
     class Meta:

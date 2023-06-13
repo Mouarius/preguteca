@@ -4,7 +4,10 @@ certifi==2022.12.7
 charset-normalizer==3.1.0
 Django==4.1.7
 django-browser-reload==1.8.0
+django-cors-headers==4.0.0
 django-environ==0.10.0
+django-filter==23.2
+djangorestframework==3.14.0
 et-xmlfile==1.1.0
 google-api-core==2.11.0
 google-api-python-client==2.83.0
@@ -14,6 +17,8 @@ google-auth-oauthlib==1.0.0
 googleapis-common-protos==1.59.0
 httplib2==0.22.0
 idna==3.4
+Markdown==3.4.3
+metomi-isodatetime==1!3.0.0
 mypy==1.2.0
 mypy-extensions==1.0.0
 numpy==1.24.3
@@ -37,6 +42,3 @@ tzdata==2023.3
 Unidecode==1.3.6
 uritemplate==4.1.1
 urllib3==1.26.15
-
-pip~=23.1.2
-setuptools~=65.5.0

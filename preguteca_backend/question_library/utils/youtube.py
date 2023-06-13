@@ -3,10 +3,10 @@ from __future__ import annotations
 import re
 
 import requests
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
 
 from preguteca_backend import settings
-
-from googleapiclient import discovery
 
 
 def extract_video_id_from_url(youtube_url: str) -> str | None:
@@ -23,7 +23,7 @@ def extract_video_id_from_url(youtube_url: str) -> str | None:
 
 
 def get_youtube_videos_snippet_list(id_list: list[str]):
-    batch_list = [id_list[i:i+50] for i in range(0, len(id_list), 50)]
+    batch_list = [id_list[i:i + 50] for i in range(0, len(id_list), 50)]
     items = []
     for batch in batch_list:
         id_string = ",".join(batch)
@@ -36,6 +36,23 @@ def get_youtube_videos_snippet_list(id_list: list[str]):
             items = items + data["items"]
 
     return items
+
+
+def get_youtube_videos_information_list(id_list: list[str]):
+    youtube = build("youtube", "v3", developerKey=settings.YOUTUBE_API_KEY)
+    batch_list = [id_list[i:i + 50] for i in range(0, len(id_list), 50)]
+    items = []
+    for batch in batch_list:
+        id_string = ",".join(batch)
+        request = youtube.videos().list(part="snippet,contentDetails", id=id_string)
+        try:
+            response = request.execute()
+            if response["items"]:
+                items = items + response["items"]
+        except HttpError as e:
+            print(f'Error response status code : {e.status_code}, reason : {e.error_details}')
+    return items
+
 
 def get_youtube_video_snippet(youtube_id: str) -> str | None:
     if not youtube_id:

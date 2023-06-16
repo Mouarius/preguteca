@@ -14,12 +14,12 @@ const props = defineProps<CategoryDetailProps>()
 
   <section id="category-container">
     <header>
-      <h2>{{ activeCategory.full_name }}</h2>
+      <h2>{{ activeCategory.fullName }}</h2>
     </header>
     <ul id="video-entry-list">
-      <VideoEntry v-for="(video_entry, index) in activeCategory.video_entries" :key="video_entry.id"
+      <VideoEntry v-for="(video_entry, index) in activeCategory.videoEntries" :key="video_entry.id"
                   :video-entry="video_entry"
-                  :videos-in-category="activeCategory.video_entries.length" :index-in-category="index"/>
+                  :videos-in-category="activeCategory.videoEntries.length" :index-in-category="index"/>
     </ul>
   </section>
 </template>

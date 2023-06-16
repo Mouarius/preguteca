@@ -15,15 +15,15 @@ const props = defineProps<VideoEntryProps>()
   <li class="video-entry border-thin">
     <header class="video-entry_header video-entry_row">
       <div class="video-entry_header_number">{{ indexInCategory + 1 }}/{{ videosInCategory }}</div>
-      <div class="video-entry_header_url"><a :href="`https://www.youtube.com/watch?v=${videoEntry.youtube_id}`">https://www.youtube.com/watch?v={{
-          videoEntry.youtube_id
+      <div class="video-entry_header_url"><a :href="`https://www.youtube.com/watch?v=${videoEntry.youtubeId}`">https://www.youtube.com/watch?v={{
+          videoEntry.youtubeId
         }}</a>
       </div>
       <div class="video-entry_header_duration">53:12</div>
     </header>
     <div class="video-entry_iframe">
       <iframe type="text/html" width="100%" height="100%"
-              :src="`https://www.youtube.com/embed/${videoEntry.youtube_id}`"></iframe>
+              :src="`https://www.youtube.com/embed/${videoEntry.youtubeId}`"></iframe>
 
     </div>
     <div class="video-entry_detail video-entry_row">
@@ -31,8 +31,8 @@ const props = defineProps<VideoEntryProps>()
       <div class="video-entry_detail_language">ES</div>
     </div>
     <div class="video-entry_detail video-entry_row">
-      <div class="video-entry_detail_channel">De : Youtube Channel</div>
-      <div class="video-entry_detail_pub-date">11/04/2023</div>
+      <div class="video-entry_detail_channel">De : {{ videoEntry.ytChannelTitle }}</div>
+      <div class="video-entry_detail_pub-date">{{ new Date(videoEntry.ytPublishTime).toLocaleDateString() }}</div>
     </div>
     <div class="video-entry_description">
       <div class="video-entry_description_questions">

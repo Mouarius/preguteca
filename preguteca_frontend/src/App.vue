@@ -1,16 +1,18 @@
 <script setup lang="ts">
-import {reactive} from "vue";
+import { reactive } from "vue";
 import CategoryDetail from "./components/CategoryDetail.vue";
-import useCategories from "./queries/useCategories.ts";
-import {TCategory} from "./types";
+import { TCategory } from "./types";
+import { useCategories } from "./queries/useCategories.ts";
 
 
 const globalState = reactive({
   activeCategory: {} as TCategory
 })
-const {isLoading, isError, categories, error} = useCategories()
 
-function handleCategoryClick(category) {
+
+const categoriesQ = reactive(useCategories())
+
+function handleCategoryClick(category: TCategory) {
   globalState.activeCategory = category
 
 }
@@ -19,25 +21,24 @@ function handleCategoryClick(category) {
 </script>
 
 <template>
-
   <header id="page-header" class="border-thin">
     <h1 id="page-title">PREGUTECA</h1>
   </header>
   <div id="page-content" class="border-thin">
     <section id="main-scroll">
       <div id="scroll-illustration">
-        <div v-if="isLoading">Loading...</div>
-        <div v-else-if="isError">{{ error.message }}</div>
-        <ul v-else-if="categories">
-          <li v-for="category in categories">
+        <div v-if="categoriesQ.isLoading">Loading...</div>
+        <div v-else-if="categoriesQ.isError">{{ categoriesQ.error.message }}</div>
+        <ul v-else-if="categoriesQ.data">
+          <li v-for="category in categoriesQ.data as TCategory[]">
             <button v-on:click="handleCategoryClick(category)" :value="category.name">
-              {{ category.full_name }}
+              {{ category.fullName }}
             </button>
           </li>
         </ul>
       </div>
     </section>
-    <CategoryDetail :active-category="globalState.activeCategory"/>
+    <CategoryDetail :active-category="globalState.activeCategory" />
   </div>
 </template>
 

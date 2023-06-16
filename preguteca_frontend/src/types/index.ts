@@ -2,16 +2,20 @@ export interface TVideoEntry {
     id: number,
     title: string,
     questions: string,
-    video_url: string,
+    videoUrl: string,
     views: number,
-    youtube_id: string,
-    language: string
+    language: string,
+    youtubeId: string,
+    ytChannelTitle: string,
+    ytPublishTime: string,
+    duration: string,
+
 }
 
 export interface TCategory {
     id: number,
     name: string,
-    full_name: string,
-    video_entries: TVideoEntry[]
+    fullName: string,
+    videoEntries: TVideoEntry[]
 }
 

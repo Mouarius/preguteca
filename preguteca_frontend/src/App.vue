@@ -3,7 +3,7 @@ import { reactive } from "vue";
 import CategoryDetail from "./components/CategoryDetail.vue";
 import { TCategory } from "./types";
 import { useCategories } from "./queries/useCategories.ts";
-
+import MainIllustration from "./components/MainIllustration.vue";
 
 const globalState = reactive({
   activeCategory: {} as TCategory
@@ -27,15 +27,8 @@ function handleCategoryClick(category: TCategory) {
   <div id="page-content" class="border-thin">
     <section id="main-scroll">
       <div id="scroll-illustration">
-        <div v-if="categoriesQ.isLoading">Loading...</div>
-        <div v-else-if="categoriesQ.isError">{{ categoriesQ.error.message }}</div>
-        <ul v-else-if="categoriesQ.data">
-          <li v-for="category in categoriesQ.data as TCategory[]">
-            <button v-on:click="handleCategoryClick(category)" :value="category.name">
-              {{ category.fullName }}
-            </button>
-          </li>
-        </ul>
+
+<MainIllustration/>
       </div>
     </section>
     <CategoryDetail :active-category="globalState.activeCategory" />
@@ -88,6 +81,10 @@ function handleCategoryClick(category: TCategory) {
 
 #main-scroll {
   grid-area: main-scroll;
+  overflow-y: scroll;
+}
+
+#scroll-illustration{
 }
 
 

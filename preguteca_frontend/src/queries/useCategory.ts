@@ -1,7 +1,7 @@
 import {axiosInstance} from "../main.ts";
 import {useQuery} from "@tanstack/vue-query";
 
-export default (name: string) => {
+export const useCategory = (name: string) => {
     const axios = axiosInstance
     const {isLoading, isError, data: category, error} =
         useQuery({

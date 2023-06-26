@@ -1,3 +1,8 @@
+export interface TVideoType{
+    id: number,
+    name: string,
+    fullName: string
+}
 export interface TVideoEntry {
     id: number,
     title: string,
@@ -9,6 +14,7 @@ export interface TVideoEntry {
     ytChannelTitle: string,
     ytPublishTime: string,
     duration: string,
+    videoTypes: TVideoType[]
 
 }
 

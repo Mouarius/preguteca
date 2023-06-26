@@ -19,7 +19,13 @@ function handleCategoryClick(category: TCategory) {
 
 function setActiveCategory(categoryName: string){
   const category = categoriesQ.data.find(category => category.name === categoryName)
+  console.log(category)
+  if(!category) return
   globalState.activeCategory = category
+  const videoEntryList = document.querySelector("#video-entry-list") as HTMLElement
+  console.log(videoEntryList)
+  videoEntryList.scrollTo(0,0)
+
 }
 
 </script>

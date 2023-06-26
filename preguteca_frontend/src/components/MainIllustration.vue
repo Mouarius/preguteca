@@ -69,8 +69,6 @@ onMounted(()=>{
                 categoryName.value = clickedElement.dataset.categoryName
                 props.setActiveCategory(categoryName.value)
             }
-            console.log(categoryName)
-            console.log(event.target.dataset.categoryName)
         })
     }
 })

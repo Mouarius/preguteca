@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import VideoEntry from "./VideoEntry.vue";
 import {TCategory} from "../types";
+import { watch } from "vue";
 
 interface CategoryDetailProps {
   activeCategory: TCategory
 }
 
 const props = defineProps<CategoryDetailProps>()
+
 
 </script>
 

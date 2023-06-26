@@ -1,9 +1,14 @@
 from rest_framework import serializers
 
-from question_library.models import Category, VideoEntry
+from question_library.models import Category, VideoEntry, VideoType
 
+class VideoTypeSerializer(serializers.ModelSerializer):
+   class Meta:
+       model = VideoType 
+       fields = "__all__"
 
 class VideoEntrySerializer(serializers.ModelSerializer):
+    video_types = VideoTypeSerializer(many=True, read_only=True)
     class Meta:
         model = VideoEntry
         fields = [
@@ -17,6 +22,7 @@ class VideoEntrySerializer(serializers.ModelSerializer):
             "yt_channel_title",
             "yt_publish_time",
             "duration",
+            "video_types"
         ]
 
 

@@ -39,8 +39,7 @@ const props = defineProps<VideoEntryProps>()
         <p>{{ videoEntry.questions }}</p>
       </div>
       <div class="video-entry_description_tag-list">
-        <span class="tag">Conferencia</span>
-        <span class="tag">Videoclip</span>
+        <span v-for="videoType in videoEntry.videoTypes" class="tag">{{ videoType.fullName}}</span>
       </div>
     </div>
   </li>
@@ -66,8 +65,8 @@ a {
 
 .video-entry_row {
   width: 100%;
-  height: 32px;
   display: flex;
+  padding: 8px 0px;
   flex-direction: row;
   align-items: stretch;
 }

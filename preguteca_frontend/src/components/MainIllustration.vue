@@ -3122,7 +3122,7 @@ onMounted(()=>{
                 <polygon points="1125 5960.24 1125 6457.49 1044.03 6504.24 613.4 6255.61 1125 5960.24" />
             </g>
             <g class="cls-60">
-                <image data-clickable="true" data-category-name="la_depuadora" width="715" height="702" transform="translate(744.61 6090.68) scale(0.43)"
+                <image data-clickable="true" data-category-name="la_depuradora" width="715" height="702" transform="translate(744.61 6090.68) scale(0.43)"
                     :href="image43" />
             </g>
             <g>

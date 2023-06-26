@@ -17,6 +17,10 @@ function handleCategoryClick(category: TCategory) {
 
 }
 
+function setActiveCategory(categoryName: string){
+  const category = categoriesQ.data.find(category => category.name === categoryName)
+  globalState.activeCategory = category
+}
 
 </script>
 
@@ -28,7 +32,7 @@ function handleCategoryClick(category: TCategory) {
     <section id="main-scroll">
       <div id="scroll-illustration">
 
-<MainIllustration/>
+<MainIllustration :set-active-category="setActiveCategory"/>
       </div>
     </section>
     <CategoryDetail :active-category="globalState.activeCategory" />

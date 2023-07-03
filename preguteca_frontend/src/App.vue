@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { reactive } from "vue";
+import {reactive} from "vue";
 import CategoryDetail from "./components/CategoryDetail.vue";
-import { TCategory } from "./types";
-import { useCategories } from "./queries/useCategories.ts";
+import {TCategory} from "./types";
+import {useCategories} from "./queries/useCategories.ts";
 import MainIllustration from "./components/MainIllustration.vue";
+import AppHeader from "./components/AppHeader.vue";
 
 const globalState = reactive({
   activeCategory: {} as TCategory
@@ -17,31 +18,27 @@ function handleCategoryClick(category: TCategory) {
 
 }
 
-function setActiveCategory(categoryName: string){
+function setActiveCategory(categoryName: string) {
   const category = categoriesQ.data.find(category => category.name === categoryName)
-  console.log(category)
-  if(!category) return
+  if (!category) return
   globalState.activeCategory = category
   const videoEntryList = document.querySelector("#video-entry-list") as HTMLElement
-  console.log(videoEntryList)
-  videoEntryList.scrollTo(0,0)
+  videoEntryList.scrollTo(0, 0)
 
 }
 
 </script>
 
 <template>
-  <header id="page-header" class="border-thin">
-    <h1 id="page-title">PREGUTECA</h1>
-  </header>
+  <AppHeader/>
   <div id="page-content" class="border-thin">
     <section id="main-scroll">
       <div id="scroll-illustration">
 
-<MainIllustration :set-active-category="setActiveCategory"/>
+        <MainIllustration :set-active-category="setActiveCategory"/>
       </div>
     </section>
-    <CategoryDetail :active-category="globalState.activeCategory" />
+    <CategoryDetail :active-category="globalState.activeCategory"/>
   </div>
 </template>
 
@@ -63,20 +60,6 @@ function setActiveCategory(categoryName: string){
   overflow: hidden;
 }
 
-#page-header {
-  position: relative;
-  top: 0;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding-left: 16px;
-  grid-area: header;
-}
-
-#page-title {
-  font-size: 32px;
-  font-weight: 500;
-}
 
 #page-content {
   position: relative;
@@ -92,9 +75,10 @@ function setActiveCategory(categoryName: string){
 #main-scroll {
   grid-area: main-scroll;
   overflow-y: scroll;
+  position:relative;
 }
 
-#scroll-illustration{
+#scroll-illustration {
 }
 
 

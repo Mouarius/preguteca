@@ -59,8 +59,7 @@ interface MainIllustrationProps {
 const props = defineProps<MainIllustrationProps>()
 const categoryName = ref("")
 
-onMounted(() => {
-    console.log("mounted")
+onMounted(()=>{
     const clickables = document.querySelectorAll("svg *[data-clickable='true']")
 
     for (const clickable of clickables) {
@@ -71,6 +70,7 @@ onMounted(() => {
                 const clickedElement = event.target as HTMLElement
                 categoryName.value = clickedElement.dataset.categoryName
                 props.setActiveCategory(categoryName.value)
+              console.log(categoryName.value)
             }
         })
     }
@@ -78,8 +78,13 @@ onMounted(() => {
 
 </script>
 <style scoped>
-@keyframes shake {
-    from {
+svg{
+  top:-100px;
+  position: absolute;
+  fill: var(--black);
+}
+@keyframes shake{
+    from{
         transform: translateX(-10)
     }
 
@@ -632,9 +637,6 @@ onMounted(() => {
             <g id="TEXT">
                 <text class="cls-12" transform="matrix(1, -0.01, 0.01, 1, 60.61, 720.07)">5</text>
             </g>
-            <g id="CIRCLE">
-                <path class="cls-11" d="M36.5,699.22A41.76,41.76,0,1,1,78.26,741,41.76,41.76,0,0,1,36.5,699.22Z" />
-            </g>
             <g id="LINE-39" data-name="LINE">
                 <polygon class="cls-8"
                     points="344.46 785.51 313.44 785.51 282.43 821.33 282.43 796.97 220.4 832.78 220.4 865.37 154.45 903.44 154.45 844.15 109.22 844.15 63.98 896.38 63.98 923.16 0 960.1 0 658.04 31.93 626 87.43 617.6 159.02 658.93 175.78 649.26 264.12 700.26 264.12 739.13 344.46 785.51" />
@@ -684,9 +686,6 @@ onMounted(() => {
             </g>
             <g id="TEXT-2" data-name="TEXT">
                 <text class="cls-12" transform="matrix(1, -0.01, 0.01, 1, 691.92, 760.68)">6</text>
-            </g>
-            <g id="CIRCLE-2" data-name="CIRCLE">
-                <path class="cls-11" d="M667.57,739.65a41.76,41.76,0,1,1,41.76,41.76,41.76,41.76,0,0,1-41.76-41.76Z" />
             </g>
             <g>
                 <g>
@@ -840,6 +839,13 @@ onMounted(() => {
                 <polygon class="cls-8"
                     points="1125 1224.69 1125 1384.21 1085.9 1406.79 1085.9 1440.82 1046.18 1439.75 1006.45 1486.69 941.19 1449.01 980.91 1402.07 1020.64 1403.14 1020.64 1369.11 1031.27 1362.97 1031.27 1335.33 965.05 1297.1 874.97 1349.11 874.97 1414.86 789.45 1365.48 789.45 1341.1 712.04 1296.41 712.04 1281.43 618.08 1227.19 694.56 1183.03 711.07 1192.57 774.34 1156.04 774.34 1132.63 830.59 1100.16 873.9 1125.17 893.47 1113.87 925.76 1116.45 958.06 1151.16 958.06 1170.75 977.79 1182.13 1038.04 1147.35 1106.16 1186.68 1106.16 1213.81 1125 1224.69" />
             </g>
+          <g class="">
+            <clipPath id="clip-path__prostibulo">
+              <polygon class="cls-1"
+                       points="971.19 1449.01 941.19 1539.44 874.97 1414.86 874.97 1432.4 1031.27 1335.33 941.19 1387.34 " />
+            </clipPath>
+            <image data-clickable="true" data-category-name="el_prostibulo" style="clip-path:url('#clip-path__prostibulo')" width="149" height="166" transform="translate(850.42 1200.24) scale(1.94)" :href="image9" />
+          </g>
             <g>
                 <g id="LINE-85" data-name="LINE">
                     <line class="cls-7" x1="941.19" y1="1449.01" x2="941.19" y2="1539.44" />
@@ -914,9 +920,6 @@ onMounted(() => {
                     <tspan class="cls-23">1</tspan>
                     <tspan x="30.62" y="0">1</tspan>
                 </text>
-            </g>
-            <g id="CIRCLE-3" data-name="CIRCLE">
-                <path class="cls-18" d="M1015.11,1711.6a41.76,41.76,0,1,1,41.76,41.76,41.76,41.76,0,0,1-41.76-41.76Z" />
             </g>
             <g>
                 <g id="LINE-98" data-name="LINE">
@@ -1080,9 +1083,6 @@ onMounted(() => {
             </g>
             <g id="TEXT-4" data-name="TEXT">
                 <text class="cls-12" transform="matrix(1, -0.01, 0.01, 1, 450.71, 1960.28)">14</text>
-            </g>
-            <g id="CIRCLE-4" data-name="CIRCLE">
-                <path class="cls-18" d="M446.83,1939.22A41.77,41.77,0,1,1,488.6,1981a41.77,41.77,0,0,1-41.77-41.76Z" />
             </g>
             <g id="LWPOLYLINE-6" data-name="LWPOLYLINE">
                 <line class="cls-7" x1="783.28" y1="2247.62" x2="683.84" y2="2305.03" />

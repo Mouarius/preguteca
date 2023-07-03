@@ -12,8 +12,19 @@ const globalState = reactive({
 
 const categoriesQ = reactive(useCategories());
 
+function toggleCategoryDetails() {
+  const categoryDetailEl = document.querySelector(
+    ".category-container"
+  ) as HTMLElement;
+  categoryDetailEl.classList.toggle("category-container--hidden");
+}
+
 function setActiveCategory(categoryName: string) {
-  const category = categoriesQ.data.find(
+  if (categoriesQ.isError) return;
+
+  toggleCategoryDetails();
+
+  const category = categoriesQ.data?.find(
     (category) => category.name === categoryName
   );
   if (!category) return;
@@ -28,12 +39,15 @@ function setActiveCategory(categoryName: string) {
 <template>
   <AppHeader />
   <div id="page-content" class="border-thin">
-    <section id="main-scroll">
+    <section id="main-scroll" class="scrollable">
       <div id="scroll-illustration">
         <MainIllustration :set-active-category="setActiveCategory" />
       </div>
     </section>
-    <CategoryDetail :active-category="globalState.activeCategory" />
+    <CategoryDetail
+      :toggle-category-details="toggleCategoryDetails"
+      :active-category="globalState.activeCategory"
+    />
   </div>
 </template>
 
@@ -61,18 +75,37 @@ function setActiveCategory(categoryName: string) {
   grid-area: content;
   display: grid;
   bottom: 0;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: 1fr;
   grid-template-rows: minmax(0, 1fr);
-  grid-template-areas: "main-scroll main-scroll aside aside aside";
+  grid-template-areas: "main-scroll";
+}
+
+@media (min-width: 768px) {
+  #page-content {
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+    grid-template-areas: "main-scroll main-scroll aside aside aside";
+  }
 }
 
 #main-scroll {
   grid-area: main-scroll;
   overflow-y: scroll;
   position: relative;
+  height: 100%;
 }
 
-#scroll-illustration {
+.sr-only {
+  border: 0 !important;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+  -webkit-clip-path: inset(50%) !important;
+  clip-path: inset(50%) !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  position: absolute !important;
+  width: 1px !important;
+  white-space: nowrap !important;
 }
 
 .border-thin {

@@ -1,20 +1,33 @@
 <script setup lang="ts">
 import VideoEntry from "./VideoEntry.vue";
 import { TCategory } from "../types";
+import ChevronLeft from "../assets/chevron-left.svg";
 
 interface CategoryDetailProps {
   activeCategory: TCategory;
+  toggleCategoryDetails: () => void;
+}
+
+function scrollTop(event: MouseEvent) {
+  event.preventDefault();
+  const videoEntryListEl = document.querySelector(".video-entry-list");
+  videoEntryListEl?.scrollTo(0, 0);
 }
 
 defineProps<CategoryDetailProps>();
 </script>
 
 <template>
-  <section id="category-container">
-    <header>
+  <section class="category-container category-container--hidden">
+    <header @click="scrollTop" class="category-container__header">
+      <img
+        @click="toggleCategoryDetails"
+        :src="ChevronLeft"
+        alt="chevron-left"
+      />
       <h2>{{ activeCategory.fullName }}</h2>
     </header>
-    <ul id="video-entry-list">
+    <ul id="video-entry-list" class="video-entry-list scrollable">
       <VideoEntry
         v-for="(video_entry, index) in activeCategory.videoEntries"
         :key="video_entry.id"
@@ -27,27 +40,58 @@ defineProps<CategoryDetailProps>();
 </template>
 
 <style scoped>
-#category-container {
-  grid-area: aside;
-  border-left: solid 1px var(--border-color);
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-
-#category-container > header {
+.category-container__header {
+  padding-left: 10px;
+  padding-right: 12px;
   background: var(--white);
-  padding-left: 16px;
   height: 42px;
   width: 100%;
-  color: var(--text);
+  color: var(--black);
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  justify-content: space-between;
+}
+.category-container__header img {
+  cursor: pointer;
+}
+.category-container {
+  background-color: var(--black);
+  grid-area: aside;
+  border-left: solid 1px var(--border-color);
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform: translateX(0);
+  transition: all 0.4s ease-in;
+}
+.category-container--hidden {
+  transform: translateX(100vw);
+}
+
+@media (min-width: 768px) {
+  .category-container {
+    transform: translateX(0);
+    display: flex;
+    position: relative;
+    flex-direction: column;
+  }
+  .category-container__header {
+    padding-left: 12px;
+    justify-content: flex-start;
+  }
+  .category-container__header img {
+    display: none;
+  }
 }
 
 #video-entry-list {
   padding: 8px;
+  scroll-behavior: smooth;
   display: flex;
   flex-direction: column;
   align-self: stretch;

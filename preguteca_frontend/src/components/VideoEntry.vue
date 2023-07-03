@@ -48,9 +48,12 @@ defineProps<VideoEntryProps>();
         <p>{{ videoEntry.questions }}</p>
       </div>
       <div class="video-entry_description_tag-list">
-        <span v-for="videoType in videoEntry.videoTypes" class="tag" :key="videoType.name">{{
-          videoType.fullName
-        }}</span>
+        <span
+          v-for="videoType in videoEntry.videoTypes"
+          class="tag"
+          :key="videoType.name"
+          >{{ videoType.fullName }}</span
+        >
       </div>
     </div>
   </li>
@@ -77,7 +80,6 @@ a {
 .video-entry_row {
   width: 100%;
   display: flex;
-  padding: 8px 0px;
   flex-direction: row;
   align-items: stretch;
 }
@@ -85,6 +87,7 @@ a {
 .video-entry_row > * {
   height: 100%;
   display: flex;
+  padding: 8px 0px;
   align-items: center;
   padding-left: 12px;
   padding-right: 12px;
@@ -98,6 +101,14 @@ a {
 .video-entry_detail_channel,
 .video-entry_detail_title {
   flex: 1;
+}
+
+.video-entry_detail_title {
+  font-weight: bold;
+}
+
+.video-entry_detail_channel {
+  font-style: italic;
 }
 
 .video-entry_iframe {

@@ -1,10 +1,18 @@
 <script setup lang="ts">
 import { TVideoEntry } from "../types";
+import PlayButton from "../assets/play-button--orange.svg";
+import { ref } from "vue";
 
 interface VideoEntryProps {
   videoEntry: TVideoEntry;
   videosInCategory: number;
   indexInCategory: number;
+}
+
+const isVideoVisible = ref(false);
+
+function setVideoVisible() {
+  isVideoVisible.value = true;
 }
 
 defineProps<VideoEntryProps>();
@@ -17,19 +25,22 @@ defineProps<VideoEntryProps>();
         {{ indexInCategory + 1 }}/{{ videosInCategory }}
       </div>
       <div class="video-entry_header_url">
-        <a :href="`https://www.youtube.com/watch?v=${videoEntry.youtubeId}`"
-          >https://www.youtube.com/watch?v={{ videoEntry.youtubeId }}</a
-        >
+        <a :href="`https://www.youtube.com/watch?v=${videoEntry.youtubeId}`">https://www.youtube.com/watch?v={{
+          videoEntry.youtubeId }}</a>
       </div>
-      <div class="video-entry_header_duration">53:12</div>
+      <div class="video-entry_header_duration">{{ videoEntry.duration }}</div>
     </header>
-    <div class="video-entry_iframe">
-      <iframe
-        type="text/html"
-        width="100%"
-        height="100%"
-        :src="`https://www.youtube.com/embed/${videoEntry.youtubeId}`"
-      ></iframe>
+    <div class="video-entry__viewport">
+      <iframe v-if="isVideoVisible" class="video-entry__viewport__iframe" type="text/html" width="100%" height="100%"
+        allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0"
+        :src="`https://www.youtube.com/embed/${videoEntry.youtubeId}?autoplay=1`"></iframe>
+      <template v-else>
+        <button class="video-entry__viewport__button" @click="setVideoVisible">
+          <img :src="PlayButton" alt="" />
+        </button>
+        <img class="video-entry__viewport__thumbnail" :src="videoEntry.thumbnailUrl" alt="Video Thumbnail" height="360"
+          width="480" />
+      </template>
     </div>
     <div class="video-entry_detail video-entry_row">
       <div class="video-entry_detail_title">{{ videoEntry.title }}</div>
@@ -48,12 +59,7 @@ defineProps<VideoEntryProps>();
         <p>{{ videoEntry.questions }}</p>
       </div>
       <div class="video-entry_description_tag-list">
-        <span
-          v-for="videoType in videoEntry.videoTypes"
-          class="tag"
-          :key="videoType.name"
-          >{{ videoType.fullName }}</span
-        >
+        <span v-for="videoType in videoEntry.videoTypes" class="tag" :key="videoType.name">{{ videoType.fullName }}</span>
       </div>
     </div>
   </li>
@@ -73,7 +79,7 @@ a {
   color: var(--white);
 }
 
-.video-entry > * {
+.video-entry>*:not(:last-child) {
   border-bottom: solid 1px var(--border-color);
 }
 
@@ -84,7 +90,7 @@ a {
   align-items: stretch;
 }
 
-.video-entry_row > * {
+.video-entry_row>* {
   height: 100%;
   display: flex;
   padding: 8px 0px;
@@ -93,7 +99,7 @@ a {
   padding-right: 12px;
 }
 
-.video-entry_row > *:not(:first-child) {
+.video-entry_row>*:not(:first-child) {
   border-left: solid 1px var(--white);
 }
 
@@ -111,12 +117,41 @@ a {
   font-style: italic;
 }
 
-.video-entry_iframe {
+.video-entry__viewport {
   height: auto;
+  position: relative;
   width: 100%;
   aspect-ratio: 16/9;
   border-bottom: solid 1px;
 }
+
+.video-entry__viewport__button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.video-entry__viewport__button img {
+  height: 48px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.video-entry__viewport__button img:hover {
+  transform: scale(1.1);
+}
+
+.video-entry__viewport__thumbnail {
+  object-fit: cover;
+  aspect-ratio: 16/9;
+  height: auto;
+  width: 100%;
+}
+
+.video-entry__viewport__iframe {}
 
 .video-entry_description {
   padding: 16px 12px;

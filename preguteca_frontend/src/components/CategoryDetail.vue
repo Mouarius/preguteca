@@ -20,21 +20,12 @@ defineProps<CategoryDetailProps>();
 <template>
   <section class="category-container category-container--hidden">
     <header @click="scrollTop" class="category-container__header">
-      <img
-        @click="toggleCategoryDetails"
-        :src="ChevronLeft"
-        alt="chevron-left"
-      />
+      <img @click="toggleCategoryDetails" :src="ChevronLeft" alt="chevron-left" />
       <h2>{{ activeCategory.fullName }}</h2>
     </header>
     <ul id="video-entry-list" class="video-entry-list scrollable">
-      <VideoEntry
-        v-for="(video_entry, index) in activeCategory.videoEntries"
-        :key="video_entry.id"
-        :video-entry="video_entry"
-        :videos-in-category="activeCategory.videoEntries.length"
-        :index-in-category="index"
-      />
+      <VideoEntry v-for="(video_entry, index) in activeCategory.videoEntries" :key="video_entry.id"
+        :video-entry="video_entry" :videos-in-category="activeCategory.videoEntries.length" :index-in-category="index" />
     </ul>
   </section>
 </template>
@@ -52,9 +43,11 @@ defineProps<CategoryDetailProps>();
   align-items: center;
   justify-content: space-between;
 }
+
 .category-container__header img {
   cursor: pointer;
 }
+
 .category-container {
   background-color: var(--black);
   grid-area: aside;
@@ -69,6 +62,7 @@ defineProps<CategoryDetailProps>();
   transform: translateX(0);
   transition: all 0.4s ease-in;
 }
+
 .category-container--hidden {
   transform: translateX(100vw);
 }
@@ -80,10 +74,12 @@ defineProps<CategoryDetailProps>();
     position: relative;
     flex-direction: column;
   }
+
   .category-container__header {
     padding-left: 12px;
     justify-content: flex-start;
   }
+
   .category-container__header img {
     display: none;
   }

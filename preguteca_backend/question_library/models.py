@@ -71,6 +71,7 @@ class VideoEntry(models.Model):
     duration = models.CharField(
         max_length=8, verbose_name="Youtube - Duration", blank=True
     )
+    thumbnail_url = models.URLField(verbose_name="Video thumblail url", default="")
 
     def __str__(self):
         return self.title

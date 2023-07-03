@@ -44,10 +44,7 @@ function setActiveCategory(categoryName: string) {
         <MainIllustration :set-active-category="setActiveCategory" />
       </div>
     </section>
-    <CategoryDetail
-      :toggle-category-details="toggleCategoryDetails"
-      :active-category="globalState.activeCategory"
-    />
+    <CategoryDetail :toggle-category-details="toggleCategoryDetails" :active-category="globalState.activeCategory" />
   </div>
 </template>
 

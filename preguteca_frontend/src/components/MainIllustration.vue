@@ -45,26 +45,29 @@ import image43 from "../assets/main-illustration/img/main_illustration_v343.png"
 import image44 from "../assets/main-illustration/img/main_illustration_v344.png"
 import image45 from "../assets/main-illustration/img/main_illustration_v345.png"
 import image46 from "../assets/main-illustration/img/main_illustration_v346.png"
+import image47 from "../assets/main-illustration/img/main_illustration_v347.png"
+import image48 from "../assets/main-illustration/img/main_illustration_v348.png"
+import image49 from "../assets/main-illustration/img/main_illustration_v349.png"
+import image50 from "../assets/main-illustration/img/main_illustration_v350.png"
 
-import {onMounted, ref} from "vue"
-import useCategory from "../queries/useCategory"
+import { onMounted, ref } from "vue"
 
 interface MainIllustrationProps {
-  setActiveCategory: any
+    setActiveCategory: any
 }
 
 const props = defineProps<MainIllustrationProps>()
 const categoryName = ref("")
 
-onMounted(()=>{
+onMounted(() => {
     console.log("mounted")
     const clickables = document.querySelectorAll("svg *[data-clickable='true']")
-    
-    for(const clickable of clickables){
+
+    for (const clickable of clickables) {
         clickable.addEventListener("click", (event) => {
             event.preventDefault()
             event.stopPropagation()
-            if(event.target.dataset){
+            if (event.target.dataset) {
                 const clickedElement = event.target as HTMLElement
                 categoryName.value = clickedElement.dataset.categoryName
                 props.setActiveCategory(categoryName.value)
@@ -75,21 +78,39 @@ onMounted(()=>{
 
 </script>
 <style scoped>
-@keyframes shake{
-    from{
+@keyframes shake {
+    from {
         transform: translateX(-10)
-    }to{
-        transform:translateX(10)
+    }
+
+    to {
+        transform: translateX(10)
     }
 }
 
-[data-clickable="true"]{
-    cursor:pointer;
+[data-clickable="true"] {
+    cursor: pointer;
     border: solid 1px red;
     transition: all 0.3s ease;
 }
-[data-clickable="true"]:hover{
-    filter:grayscale(100%)
+
+[data-clickable="true"]:hover {
+    filter: grayscale(100%)
+}
+
+.el_prostibulo__image {
+    clip-path: url("#clip-path__el_prostibulo")
+}
+
+.el_tribunal__image {
+    clip-path: url("#clip-path__el_tribunal")
+}
+
+.la_television__image {
+    clip-path: url("#clip-path__la_television")
+}
+.la_estacion__image {
+    clip-path: url("#clip-path__la_estacion")
 }
 </style>
 <template>
@@ -278,6 +299,22 @@ onMounted(()=>{
                 <polygon class="cls-1"
                     points="1125.01 6635.5 1125.01 7625 0.01 7625 0.01 7379.28 1015.59 6792.94 0.01 6206.59 0.01 5985.98 1125.01 6635.5" />
             </clipPath>
+            <clipPath id="clip-path__el_prostibulo">
+                <polygon class="cls-1"
+                    points="1031.27 1335.24 1031.27 1362.88 1020.64 1369.02 1020.64 1403.05 980.91 1401.98 941.18 1448.92 941.18 1539.35 926.13 1530.66 926.13 1461.84 874.97 1432.31 874.97 1349.02 965.05 1297.01 1031.27 1335.24" />
+            </clipPath>
+            <clipPath id="clip-path__el_tribunal">
+                <polygon class="cls-1"
+                    points="1102.71 3474.49 1102.71 3570.15 1017.18 3619.53 901.72 3552.87 901.72 3457.21 987.26 3407.83 1044.98 3414.05 1102.71 3474.49" />
+            </clipPath>
+            <clipPath id="clip-path__la_television">
+                <polygon class="cls-1"
+                    points="533.21 4323.03 533.21 4440.12 453.75 4485.98 368.21 4436.6 368.21 4319.52 407.93 4272.58 447.66 4273.65 533.21 4323.03" />
+            </clipPath>
+            <clipPath id="clip-path__la_estacion">
+                <polygon class="cls-1"
+                    points="931.12 4696.62 931.12 4733.71 854.53 4777.93 690.75 4683.37 690.75 4646.27 767.34 4602.06 931.12 4696.62" />
+            </clipPath>
         </defs>
         <g id="fondo_negro" data-name="fondo negro">
             <rect class="cls-2" width="1125" height="7625" />
@@ -287,8 +324,8 @@ onMounted(()=>{
                 <polygon points="738.46 388.38 198.68 700.02 0 585.31 0 143.65 314.58 143.65 738.46 388.38" />
             </g>
             <g class="cls-4">
-                <image data-clickable="true" data-category-name="los_jardines" width="171" height="176" transform="translate(25.28 394.77) scale(1.94)"
-                    :href="image1" />
+                <image data-clickable="true" data-category-name="los_jardines" width="171" height="176"
+                    transform="translate(25.28 394.77) scale(1.94)" :href="image1" />
             </g>
             <g id="LINE-2" data-name="LINE">
                 <polygon class="cls-1"
@@ -547,9 +584,9 @@ onMounted(()=>{
             </g>
         </g>
         <g id="isla3">
-            <g class="cls-9" >
-                <image data-clickable="true" data-category-name="el_mercado" width="137" height="152" transform="translate(698.14 427.83) scale(1.94)"
-                   :href="image2" />
+            <g class="cls-9">
+                <image data-clickable="true" data-category-name="el_mercado" width="137" height="152"
+                    transform="translate(698.14 427.83) scale(1.94)" :href="image2" />
             </g>
             <g id="LINE-28" data-name="LINE">
                 <polygon class="cls-1"
@@ -605,12 +642,12 @@ onMounted(()=>{
         </g>
         <g id="isla6">
             <g class="cls-13">
-                <image data-clickable="true" data-category-name="la_farmacia" width="100" height="113" transform="translate(465.66 692.92) scale(2.23)"
-                    :href="image3" />
+                <image data-clickable="true" data-category-name="la_farmacia" width="100" height="113"
+                    transform="translate(465.66 692.92) scale(2.23)" :href="image3" />
             </g>
             <g class="cls-14">
-                <image data-clickable="true" data-category-name="el_banco" width="106" height="119" transform="translate(864.48 824.38) scale(2.23)"
-                    :href="image4" />
+                <image data-clickable="true" data-category-name="el_banco" width="106" height="119"
+                    transform="translate(864.48 824.38) scale(2.23)" :href="image4" />
             </g>
             <g id="LINE-40" data-name="LINE">
                 <polygon class="cls-1"
@@ -680,12 +717,12 @@ onMounted(()=>{
         </g>
         <g id="isla7">
             <g class="cls-16">
-                <image data-clickable="true" data-category-name="la_residencia_de_ancianos" width="146" height="150" transform="translate(57.93 846.66) scale(2.23)"
-                    :href="image5" />
+                <image data-clickable="true" data-category-name="la_residencia_de_ancianos" width="146" height="150"
+                    transform="translate(57.93 846.66) scale(2.23)" :href="image5" />
             </g>
             <g class="cls-17">
-                <image data-clickable="true" data-category-name="el_ayuntamiento" width="152" height="145" transform="translate(461.2 971.43) scale(2.23)"
-                    :href="image6" />
+                <image data-clickable="true" data-category-name="el_ayuntamiento" width="152" height="145"
+                    transform="translate(461.2 971.43) scale(2.23)" :href="image6" />
             </g>
             <g id="LINE-56" data-name="LINE">
                 <polygon class="cls-1"
@@ -764,8 +801,8 @@ onMounted(()=>{
         </g>
         <g id="isla8">
             <g class="cls-20">
-                <image data-clickable="true" data-category-name="como_se_habla" width="138" height="150" transform="translate(33.06 1195.97) scale(1.94)"
-                    :href="image7" />
+                <image data-clickable="true" data-category-name="como_se_habla" width="138" height="150"
+                    transform="translate(33.06 1195.97) scale(1.94)" :href="image7" />
             </g>
             <g id="LINE-77" data-name="LINE">
                 <polygon class="cls-1"
@@ -795,6 +832,10 @@ onMounted(()=>{
             <line class="cls-7" x1="103.41" y1="1400.8" x2="171.64" y2="1440.2" />
         </g>
         <g id="isla9">
+            <g class="el_prostibulo__image">
+                <image data-clickable="true" data-category-name="el_prostibulo" width="109" height="110"
+                    transform="translate(1150.59 1386.38) rotate(135) scale(3)" :href="image47" />
+            </g>
             <g id="LINE-84" data-name="LINE">
                 <polygon class="cls-8"
                     points="1125 1224.69 1125 1384.21 1085.9 1406.79 1085.9 1440.82 1046.18 1439.75 1006.45 1486.69 941.19 1449.01 980.91 1402.07 1020.64 1403.14 1020.64 1369.11 1031.27 1362.97 1031.27 1335.33 965.05 1297.1 874.97 1349.11 874.97 1414.86 789.45 1365.48 789.45 1341.1 712.04 1296.41 712.04 1281.43 618.08 1227.19 694.56 1183.03 711.07 1192.57 774.34 1156.04 774.34 1132.63 830.59 1100.16 873.9 1125.17 893.47 1113.87 925.76 1116.45 958.06 1151.16 958.06 1170.75 977.79 1182.13 1038.04 1147.35 1106.16 1186.68 1106.16 1213.81 1125 1224.69" />
@@ -828,8 +869,8 @@ onMounted(()=>{
         </g>
         <g id="isla10">
             <g class="cls-21">
-                <image data-clickable="true" data-category-name="el_cine" width="122" height="130" transform="translate(327.52 1368.02) scale(2.23)"
-                    :href="image8" />
+                <image data-clickable="true" data-category-name="el_cine" width="122" height="130"
+                    transform="translate(327.52 1368.02) scale(2.23)" :href="image8" />
             </g>
             <g id="LINE-90" data-name="LINE">
                 <polygon class="cls-1"
@@ -857,8 +898,8 @@ onMounted(()=>{
         </g>
         <g id="isla11">
             <g class="cls-22">
-                <image data-clickable="true" data-category-name="el_centro_computacional" width="149" height="166" transform="translate(723.42 1573.24) scale(1.94)"
-                    :href="image9" />
+                <image data-clickable="true" data-category-name="el_centro_computacional" width="149" height="166"
+                    transform="translate(723.42 1573.24) scale(1.94)" :href="image9" />
             </g>
             <g id="LINE-96" data-name="LINE">
                 <polygon class="cls-1"
@@ -878,9 +919,6 @@ onMounted(()=>{
                 <path class="cls-18" d="M1015.11,1711.6a41.76,41.76,0,1,1,41.76,41.76,41.76,41.76,0,0,1-41.76-41.76Z" />
             </g>
             <g>
-            <g class="">
-<!--                 <image data-clickable="true" data-category-name="el_prostibulo" width="149" height="166" transform="translate(850.42 1200.24) scale(1.94)":href="image9" /> -->
-            </g>
                 <g id="LINE-98" data-name="LINE">
                     <line class="cls-7" x1="787.95" y1="1796.02" x2="787.95" y2="1675.8" />
                 </g>
@@ -912,12 +950,12 @@ onMounted(()=>{
         </g>
         <g id="isla12">
             <g class="cls-24">
-                <image data-clickable="true" data-category-name="la_universidad" width="101" height="117" transform="translate(44.56 1644.29) scale(2.23)"
-                    :href="image10" />
+                <image data-clickable="true" data-category-name="la_universidad" width="101" height="117"
+                    transform="translate(44.56 1644.29) scale(2.23)" :href="image10" />
             </g>
             <g class="cls-25">
-                <image data-clickable="true" data-category-name="la_escuela" width="119" height="133" transform="translate(437.55 1588.79) scale(1.94)"
-                    :href="image11" />
+                <image data-clickable="true" data-category-name="la_escuela" width="119" height="133"
+                    transform="translate(437.55 1588.79) scale(1.94)" :href="image11" />
             </g>
             <g id="LINE-106" data-name="LINE">
                 <polygon class="cls-1"
@@ -979,12 +1017,12 @@ onMounted(()=>{
         </g>
         <g id="isla14">
             <g class="cls-26">
-                <image data-clickable="true" data-category-name="la_inmobiliaria" width="108" height="118" transform="translate(171.56 1933.94) scale(2.23)"
-                    :href="image12" />
+                <image data-clickable="true" data-category-name="la_inmobiliaria" width="108" height="118"
+                    transform="translate(171.56 1933.94) scale(2.23)" :href="image12" />
             </g>
             <g class="cls-27">
-                <image data-clickable="true" data-category-name="el_hotel" width="140" height="147" transform="translate(516.91 2005.24) scale(2.23)"
-                    :href="image13" />
+                <image data-clickable="true" data-category-name="el_hotel" width="140" height="147"
+                    transform="translate(516.91 2005.24) scale(2.23)" :href="image13" />
             </g>
             <g id="LINE-122" data-name="LINE">
                 <polygon class="cls-1"
@@ -1056,8 +1094,8 @@ onMounted(()=>{
         </g>
         <g id="isla15">
             <g class="cls-28">
-                <image data-clickable="true" data-category-name="el_parking" width="108" height="83" transform="translate(846.66 1873.78) scale(2.23)"
-                    :href="image14" />
+                <image data-clickable="true" data-category-name="el_parking" width="108" height="83"
+                    transform="translate(846.66 1873.78) scale(2.23)" :href="image14" />
             </g>
             <g id="LINE-139" data-name="LINE">
                 <polygon class="cls-1"
@@ -1093,8 +1131,8 @@ onMounted(()=>{
         </g>
         <g id="isla16">
             <g class="cls-29">
-                <image data-clickable="true" data-category-name="la_bolsa" width="119" height="137" transform="translate(806.55 2080.99) scale(2.23)"
-                    :href="image15" />
+                <image data-clickable="true" data-category-name="la_bolsa" width="119" height="137"
+                    transform="translate(806.55 2080.99) scale(2.23)" :href="image15" />
             </g>
             <g id="LINE-149" data-name="LINE">
                 <polygon class="cls-1"
@@ -1137,12 +1175,12 @@ onMounted(()=>{
         </g>
         <g id="isla17">
             <g class="cls-30">
-                <image data-clickable="true" data-category-name="el_hospital" width="118" height="121" transform="translate(227.26 2257.01) scale(2.23)"
-                    :href="image16" />
+                <image data-clickable="true" data-category-name="el_hospital" width="118" height="121"
+                    transform="translate(227.26 2257.01) scale(2.23)" :href="image16" />
             </g>
             <g class="cls-31">
-                <image data-clickable="true" data-category-name="el_veterinario" width="109" height="110" transform="translate(33.42 2399.6) scale(2.23)"
-                    :href="image17" />
+                <image data-clickable="true" data-category-name="el_veterinario" width="109" height="110"
+                    transform="translate(33.42 2399.6) scale(2.23)" :href="image17" />
             </g>
             <g id="LINE-160" data-name="LINE">
                 <polygon class="cls-1"
@@ -1201,12 +1239,12 @@ onMounted(()=>{
         </g>
         <g id="isla18">
             <g class="cls-32">
-                <image data-clickable="true" data-category-name="el_instituto" width="137" height="151" transform="translate(790.95 2379.55) scale(2.23)"
-                    :href="image18" />
+                <image data-clickable="true" data-category-name="el_instituto" width="137" height="151"
+                    transform="translate(790.95 2379.55) scale(2.23)" :href="image18" />
             </g>
             <g class="cls-33">
-                <image data-clickable="true" data-category-name="el_museo" width="137" height="148" transform="translate(470.12 2334.99) scale(2.23)"
-                    :href="image19" />
+                <image data-clickable="true" data-category-name="el_museo" width="137" height="148"
+                    transform="translate(470.12 2334.99) scale(2.23)" :href="image19" />
             </g>
             <g id="LWPOLYLINE-12" data-name="LWPOLYLINE">
                 <polygon class="cls-1"
@@ -1265,8 +1303,8 @@ onMounted(()=>{
         </g>
         <g id="isla20">
             <g class="cls-34">
-                <image data-clickable="true" data-category-name="el_club_de_futbol" width="202" height="175" transform="translate(280.73 2568.93) scale(2.23)"
-                    :href="image20" />
+                <image data-clickable="true" data-category-name="el_club_de_futbol" width="202" height="175"
+                    transform="translate(280.73 2568.93) scale(2.23)" :href="image20" />
             </g>
             <g id="LINE-188" data-name="LINE">
                 <path class="cls-1"
@@ -1306,8 +1344,8 @@ onMounted(()=>{
         </g>
         <g id="isla21">
             <g class="cls-35">
-                <image data-clickable="true" data-category-name="el_teatro" width="93" height="123" transform="translate(69.07 2689.25) scale(2.23)"
-                    :href="image21" />
+                <image data-clickable="true" data-category-name="el_teatro" width="93" height="123"
+                    transform="translate(69.07 2689.25) scale(2.23)" :href="image21" />
             </g>
             <g id="LINE-194" data-name="LINE">
                 <polygon class="cls-1"
@@ -1350,8 +1388,8 @@ onMounted(()=>{
                 </g>
             </g>
             <g class="cls-37">
-                <image data-clickable="true" data-category-name="el_huerto_urbano" width="124" height="107" transform="translate(115.86 3016.77) scale(2.23)"
-                    :href="image22" />
+                <image data-clickable="true" data-category-name="el_huerto_urbano" width="124" height="107"
+                    transform="translate(115.86 3016.77) scale(2.23)" :href="image22" />
             </g>
             <g id="LINE-205" data-name="LINE">
                 <polygon class="cls-1"
@@ -1597,9 +1635,15 @@ onMounted(()=>{
             </g>
         </g>
         <g id="isla25">
+            <g id="el_tribunal">
+                <g class="el_tribunal__image">
+                    <image data-clickable="true" data-category-name="el_tribunal" width="100" height="113"
+                        transform="translate(1115.5 3639.83) rotate(180) scale(2.23)" :href="image48" />
+                </g>
+            </g>
             <g class="cls-39">
-                <image data-clickable="true" data-category-name="los_bomberos" width="113" height="144" transform="translate(579.29 3172.73) scale(2.23)"
-                    :href="image24" />
+                <image data-clickable="true" data-category-name="los_bomberos" width="113" height="144"
+                    transform="translate(579.29 3172.73) scale(2.23)" :href="image24" />
             </g>
             <g id="LINE-227" data-name="LINE">
                 <polygon class="cls-1"
@@ -1667,8 +1711,8 @@ onMounted(()=>{
         </g>
         <g id="isla26">
             <g class="cls-40">
-                <image data-clickable="true" data-category-name="la_discoteca" width="110" height="134" transform="translate(249.54 3399.99) scale(2.23)"
-                    :href="image25" />
+                <image data-clickable="true" data-category-name="la_discoteca" width="110" height="134"
+                    transform="translate(249.54 3399.99) scale(2.23)" :href="image25" />
             </g>
             <g id="LINE-243" data-name="LINE">
                 <polygon class="cls-1"
@@ -1705,8 +1749,8 @@ onMounted(()=>{
         </g>
         <g id="isla27">
             <g class="cls-41">
-                <image data-clickable="true" data-category-name="el_parlamento" width="144" height="163" transform="translate(11.14 3609.43) scale(2.23)"
-                    :href="image26" />
+                <image data-clickable="true" data-category-name="el_parlamento" width="144" height="163"
+                    transform="translate(11.14 3609.43) scale(2.23)" :href="image26" />
             </g>
             <g id="LINE-251" data-name="LINE">
                 <polygon class="cls-1"
@@ -1748,8 +1792,8 @@ onMounted(()=>{
         </g>
         <g id="isla28">
             <g class="cls-42">
-                <image data-clickable="true" data-category-name="el_supermercado" width="158" height="181" transform="translate(672.87 3569.32) scale(2.23)"
-                    :href="image27" />
+                <image data-clickable="true" data-category-name="el_supermercado" width="158" height="181"
+                    transform="translate(672.87 3569.32) scale(2.23)" :href="image27" />
             </g>
             <g id="LINE-261" data-name="LINE">
                 <polygon class="cls-8"
@@ -1788,15 +1832,16 @@ onMounted(()=>{
         </g>
         <g id="isla29">
             <g class="cls-43">
-                <image data-clickable="true" data-category-name="la_empresa" width="90" height="119" transform="translate(802.1 3972.6) scale(2.23)"
-                    :href="image28" />
+                <image data-clickable="true" data-category-name="la_empresa" width="90" height="119"
+                    transform="translate(802.1 3972.6) scale(2.23)" :href="image28" />
             </g>
             <g id="LINE-270" data-name="LINE">
                 <polygon class="cls-8"
                     points="1049.85 4050.09 1018.83 4050.09 987.81 4085.9 987.81 4034.83 903.86 3986.36 815.4 4037.44 815.4 4064.22 899.35 4112.69 854.11 4112.69 808.88 4164.92 676.67 4088.59 676.67 4134.98 590.73 4085.36 590.73 4057.9 427.68 3963.76 550.48 3892.86 550.48 3870.42 605.97 3814.74 661.47 3806.34 733.07 3847.67 749.82 3838 838.16 3889.01 838.16 3935.67 888.79 3964.9 918.5 3947.75 986.93 3987.26 986.93 4013.76 1049.85 4050.09" />
             </g>
             <g class="cls-44">
-                <image data-clickable="true" data-category-name="el_observatorio" width="169" height="134" transform="translate(493 3885)" :href="image29" />
+                <image data-clickable="true" data-category-name="el_observatorio" width="169" height="134"
+                    transform="translate(493 3885)" :href="image29" />
             </g>
             <g id="SPLINE-12" data-name="SPLINE">
                 <path class="cls-7" d="M504.17,3967.27q-2.64,40,70.17,44.8t75.46-35.16" />
@@ -1826,19 +1871,23 @@ onMounted(()=>{
             </g>
         </g>
         <g id="isla30">
+            <g class="la_television__image">
+                <image data-clickable="true" data-category-name="la_television" width="101" height="117"
+                    transform="translate(321.48 4247.3) scale(2.23)" :href="image49" />
+            </g>
             <g class="cls-45">
-                <image data-clickable="true" data-category-name="el_manicomio" width="136" height="152" transform="translate(-3.11 4040.38) scale(2.23)"
-                    :href="image30" />
+                <image data-clickable="true" data-category-name="el_manicomio" width="136" height="152"
+                    transform="translate(-3.11 4040.38) scale(2.23)" :href="image30" />
             </g>
             <g class="cls-46">
-                <image data-clickable="true" data-category-name="una_comunidad" width="80" height="114" transform="translate(570.38 4124.11) scale(2.23)"
-                    :href="image31" />
+                <image data-clickable="true" data-category-name="una_comunidad" width="80" height="114"
+                    transform="translate(570.38 4124.11) scale(2.23)" :href="image31" />
             </g>
             <g id="LINE-275" data-name="LINE">
                 <polygon class="cls-8"
                     points="661.78 4247.47 599.63 4283.35 599.63 4304.35 532.63 4343.05 532.63 4323.03 447.08 4273.65 407.35 4272.57 367.62 4319.52 367.62 4301.85 296.04 4260.53 296.04 4308.91 225.27 4268.06 225.27 4243.68 158.76 4205.27 235.24 4161.13 235.24 4138.65 164.27 4097.69 221.06 4064.91 221.06 4041.49 277.31 4009.03 320.62 4034.03 340.19 4022.74 372.49 4025.32 404.78 4060.03 404.78 4079.61 424.51 4090.99 484.76 4056.22 552.88 4095.55 552.88 4122.68 620.65 4161.81 585.16 4182.31 585.16 4203.23 661.78 4247.47" />
             </g>
-            <g data-clickable="true" data-category-name="la_estacion" >
+            <g data-clickable="true" data-category-name="la_estacion">
                 <g id="LINE-276" data-name="LINE">
                     <line class="cls-7" x1="532.63" y1="4343.05" x2="532.63" y2="4440.11" />
                 </g>
@@ -1922,8 +1971,8 @@ onMounted(()=>{
         </g>
         <g id="isla31">
             <g class="cls-47">
-                <image data-clickable="true" data-category-name="la_policia" width="150" height="154" transform="translate(773.13 4304.58) scale(2.23)"
-                    :href="image32" />
+                <image data-clickable="true" data-category-name="la_policia" width="150" height="154"
+                    transform="translate(773.13 4304.58) scale(2.23)" :href="image32" />
             </g>
             <g id="LINE-294" data-name="LINE">
                 <polygon class="cls-8"
@@ -1957,6 +2006,10 @@ onMounted(()=>{
             </g>
         </g>
         <g id="isla35">
+            <g class="la_estacion__image">
+                <image data-clickable="true" data-category-name="la_estacion" width="93" height="123"
+                    transform="translate(939.43 4598.59) rotate(90) scale(2.23)" :href="image50" />
+            </g>
             <g>
                 <g id="LINE-302" data-name="LINE">
                     <line class="cls-5" x1="-0.93" y1="4397.45" x2="631.08" y2="4762.34" />
@@ -2015,8 +2068,8 @@ onMounted(()=>{
         </g>
         <g id="isla32">
             <g class="cls-48">
-                <image data-clickable="true" data-category-name="la_asociacion_cannabica" width="158" height="135" transform="translate(-91.47 4431.78) scale(2.23)"
-                    :href="image33" />
+                <image data-clickable="true" data-category-name="la_asociacion_cannabica" width="158" height="135"
+                    transform="translate(-91.47 4431.78) scale(2.23)" :href="image33" />
             </g>
             <g id="LINE-316" data-name="LINE">
                 <polygon class="cls-8"
@@ -2051,12 +2104,12 @@ onMounted(()=>{
         </g>
         <g id="isla33">
             <g class="cls-49">
-                <image data-clickable="true" data-category-name="el_restaurante" width="96" height="123" transform="translate(360.29 4770.06) scale(2.23)"
-                    :href="image34" />
+                <image data-clickable="true" data-category-name="el_restaurante" width="96" height="123"
+                    transform="translate(360.29 4770.06) scale(2.23)" :href="image34" />
             </g>
             <g class="cls-50">
-                <image data-clickable="true" data-category-name="la_carcel" width="88" height="112" transform="translate(73.53 4687.8) scale(2.23)"
-                    :href="image35" />
+                <image data-clickable="true" data-category-name="la_carcel" width="88" height="112"
+                    transform="translate(73.53 4687.8) scale(2.23)" :href="image35" />
             </g>
             <g id="LINE-322" data-name="LINE">
                 <polygon class="cls-8"
@@ -2117,12 +2170,12 @@ onMounted(()=>{
         </g>
         <g id="isla36">
             <g class="cls-51">
-                <image data-clickable="true" data-category-name="el_cuartel_militar" width="109" height="128" transform="translate(828.83 5001.95) scale(2.23)"
-                    :href="image36" />
+                <image data-clickable="true" data-category-name="el_cuartel_militar" width="109" height="128"
+                    transform="translate(828.83 5001.95) scale(2.23)" :href="image36" />
             </g>
             <g class="cls-52">
-                <image data-clickable="true" data-category-name="la_guarderia" width="94" height="124" transform="translate(554.78 4944.02) scale(2.23)"
-                    :href="image37" />
+                <image data-clickable="true" data-category-name="la_guarderia" width="94" height="124"
+                    transform="translate(554.78 4944.02) scale(2.23)" :href="image37" />
             </g>
             <g id="LINE-334" data-name="LINE">
                 <polygon class="cls-8"
@@ -2185,8 +2238,8 @@ onMounted(()=>{
         </g>
         <g id="isla37">
             <g class="cls-53">
-                <image data-clickable="true" data-category-name="la_plaza_de_toros" width="108" height="104" transform="translate(130.6 5125.66) scale(2.29)"
-                    :href="image38" />
+                <image data-clickable="true" data-category-name="la_plaza_de_toros" width="108" height="104"
+                    transform="translate(130.6 5125.66) scale(2.29)" :href="image38" />
             </g>
             <g id="LINE-349" data-name="LINE">
                 <path class="cls-8"
@@ -2223,8 +2276,8 @@ onMounted(()=>{
                 <polygon points="1029.48 5507.69 844.33 5614.59 472.18 5399.73 657.33 5292.83 1029.48 5507.69" />
             </g>
             <g class="cls-54">
-                <image data-clickable="true" data-category-name="el_cementerio" width="113" height="90" transform="translate(724.44 5426.49) scale(2.23)"
-                    :href="image39" />
+                <image data-clickable="true" data-category-name="el_cementerio" width="113" height="90"
+                    transform="translate(724.44 5426.49) scale(2.23)" :href="image39" />
             </g>
             <g>
                 <g id="LINE-352" data-name="LINE">
@@ -2447,8 +2500,8 @@ onMounted(()=>{
                     points="304.02 5513.88 177.6 5586.87 63.06 5653 0 5616.59 0 5506.75 145.83 5422.56 304.02 5513.88" />
             </g>
             <g class="cls-55">
-                <image data-clickable="true" data-category-name="la_granja" width="170" height="133" transform="translate(96.02 5732.11) scale(2.23)"
-                    :href="image40" />
+                <image data-clickable="true" data-category-name="la_granja" width="170" height="133"
+                    transform="translate(96.02 5732.11) scale(2.23)" :href="image40" />
             </g>
             <g>
                 <g id="LINE-422" data-name="LINE">
@@ -2826,8 +2879,8 @@ onMounted(()=>{
                 </g>
             </g>
             <g class="cls-58">
-                <image data-clickable="true" data-category-name="el_zoo" width="136" height="100" transform="translate(717.83 5669.03) scale(2.23)"
-                    :href="image41" />
+                <image data-clickable="true" data-category-name="el_zoo" width="136" height="100"
+                    transform="translate(717.83 5669.03) scale(2.23)" :href="image41" />
             </g>
             <g>
                 <g id="LINE-499" data-name="LINE">
@@ -2977,8 +3030,8 @@ onMounted(()=>{
                     points="863.32 6059.55 568.57 6229.73 254.76 6048.53 480.7 5918.09 549.51 5878.36 610.83 5913.77 863.32 6059.55" />
             </g>
             <g class="cls-59">
-                <image data-clickable="true" data-category-name="la_central_electrica" width="186" height="155" transform="translate(360.76 5903.73) scale(2.23)"
-                    :href="image42" />
+                <image data-clickable="true" data-category-name="la_central_electrica" width="186" height="155"
+                    transform="translate(360.76 5903.73) scale(2.23)" :href="image42" />
             </g>
             <g>
                 <g id="LINE-545" data-name="LINE">
@@ -3120,8 +3173,8 @@ onMounted(()=>{
                 <polygon points="1125 5960.24 1125 6457.49 1044.03 6504.24 613.4 6255.61 1125 5960.24" />
             </g>
             <g class="cls-60">
-                <image data-clickable="true" data-category-name="la_depuradora" width="715" height="702" transform="translate(744.61 6090.68) scale(0.43)"
-                    :href="image43" />
+                <image data-clickable="true" data-category-name="la_depuradora" width="715" height="702"
+                    transform="translate(744.61 6090.68) scale(0.43)" :href="image43" />
             </g>
             <g>
                 <g id="ELLIPSE-14" data-name="ELLIPSE">
@@ -3265,8 +3318,8 @@ onMounted(()=>{
                     points="480.23 6563.17 239.26 6702.29 -0.01 6564.15 0.41 6330.11 38.48 6308.13 480.23 6563.17" />
             </g>
             <g class="cls-61">
-                <image data-clickable="true" data-category-name="el_vertedero" width="95" height="79" transform="translate(157.36 6563.61) scale(2.23)"
-                    :href="image44" />
+                <image data-clickable="true" data-category-name="el_vertedero" width="95" height="79"
+                    transform="translate(157.36 6563.61) scale(2.23)" :href="image44" />
             </g>
             <g>
                 <g id="LINE-603" data-name="LINE">
@@ -3463,8 +3516,8 @@ onMounted(()=>{
                 <polygon class="cls-8" points="859.61 6782.21 -0.01 7278.51 -0.01 6894.5 527.05 6590.21 859.61 6782.21" />
             </g>
             <g class="cls-62">
-                <image data-clickable="true" data-category-name="el_puerto" width="120" height="108" transform="translate(571.61 6629.5) scale(2.23)"
-                    :href="image45" />
+                <image data-clickable="true" data-category-name="el_puerto" width="120" height="108"
+                    transform="translate(571.61 6629.5) scale(2.23)" :href="image45" />
             </g>
             <g>
                 <g id="LINE-656" data-name="LINE">
@@ -3785,8 +3838,8 @@ onMounted(()=>{
         </g>
         <g id="isla46">
             <g class="cls-63">
-                <image data-clickable="true" data-category-name="el_mar" width="495" height="723" transform="translate(2.27 5984.01) scale(2.27)"
-                    :href="image46" />
+                <image data-clickable="true" data-category-name="el_mar" width="495" height="723"
+                    transform="translate(2.27 5984.01) scale(2.27)" :href="image46" />
             </g>
             <g id="LWPOLYLINE-48" data-name="LWPOLYLINE">
                 <polygon class="cls-7"
@@ -4005,7 +4058,6 @@ onMounted(()=>{
     </svg>
 </template>
 <style scoped>
-
 .cls-1,
 .cls-11,
 .cls-15,

@@ -1,33 +1,32 @@
 <script setup lang="ts">
 import VideoEntry from "./VideoEntry.vue";
-import {TCategory} from "../types";
-import { watch } from "vue";
+import { TCategory } from "../types";
 
 interface CategoryDetailProps {
-  activeCategory: TCategory
+  activeCategory: TCategory;
 }
 
-const props = defineProps<CategoryDetailProps>()
-
-
+defineProps<CategoryDetailProps>();
 </script>
 
 <template>
-
   <section id="category-container">
     <header>
       <h2>{{ activeCategory.fullName }}</h2>
     </header>
     <ul id="video-entry-list">
-      <VideoEntry v-for="(video_entry, index) in activeCategory.videoEntries" :key="video_entry.id"
-                  :video-entry="video_entry"
-                  :videos-in-category="activeCategory.videoEntries.length" :index-in-category="index"/>
+      <VideoEntry
+        v-for="(video_entry, index) in activeCategory.videoEntries"
+        :key="video_entry.id"
+        :video-entry="video_entry"
+        :videos-in-category="activeCategory.videoEntries.length"
+        :index-in-category="index"
+      />
     </ul>
   </section>
 </template>
 
 <style scoped>
-
 #category-container {
   grid-area: aside;
   border-left: solid 1px var(--border-color);
@@ -46,7 +45,6 @@ const props = defineProps<CategoryDetailProps>()
   justify-content: flex-start;
   align-items: center;
 }
-
 
 #video-entry-list {
   padding: 8px;

@@ -1,45 +1,56 @@
 <script setup lang="ts">
-import {TVideoEntry} from "../types"
+import { TVideoEntry } from "../types";
 
 interface VideoEntryProps {
-  videoEntry: TVideoEntry,
-  videosInCategory: number,
-  indexInCategory: number
+  videoEntry: TVideoEntry;
+  videosInCategory: number;
+  indexInCategory: number;
 }
 
-const props = defineProps<VideoEntryProps>()
-
+defineProps<VideoEntryProps>();
 </script>
 
 <template>
   <li class="video-entry border-thin">
     <header class="video-entry_header video-entry_row">
-      <div class="video-entry_header_number">{{ indexInCategory + 1 }}/{{ videosInCategory }}</div>
-      <div class="video-entry_header_url"><a :href="`https://www.youtube.com/watch?v=${videoEntry.youtubeId}`">https://www.youtube.com/watch?v={{
-          videoEntry.youtubeId
-        }}</a>
+      <div class="video-entry_header_number">
+        {{ indexInCategory + 1 }}/{{ videosInCategory }}
+      </div>
+      <div class="video-entry_header_url">
+        <a :href="`https://www.youtube.com/watch?v=${videoEntry.youtubeId}`"
+          >https://www.youtube.com/watch?v={{ videoEntry.youtubeId }}</a
+        >
       </div>
       <div class="video-entry_header_duration">53:12</div>
     </header>
     <div class="video-entry_iframe">
-      <iframe type="text/html" width="100%" height="100%"
-              :src="`https://www.youtube.com/embed/${videoEntry.youtubeId}`"></iframe>
-
+      <iframe
+        type="text/html"
+        width="100%"
+        height="100%"
+        :src="`https://www.youtube.com/embed/${videoEntry.youtubeId}`"
+      ></iframe>
     </div>
     <div class="video-entry_detail video-entry_row">
       <div class="video-entry_detail_title">{{ videoEntry.title }}</div>
       <div class="video-entry_detail_language">ES</div>
     </div>
     <div class="video-entry_detail video-entry_row">
-      <div class="video-entry_detail_channel">De : {{ videoEntry.ytChannelTitle }}</div>
-      <div class="video-entry_detail_pub-date">{{ new Date(videoEntry.ytPublishTime).toLocaleDateString() }}</div>
+      <div class="video-entry_detail_channel">
+        De : {{ videoEntry.ytChannelTitle }}
+      </div>
+      <div class="video-entry_detail_pub-date">
+        {{ new Date(videoEntry.ytPublishTime).toLocaleDateString() }}
+      </div>
     </div>
     <div class="video-entry_description">
       <div class="video-entry_description_questions">
         <p>{{ videoEntry.questions }}</p>
       </div>
       <div class="video-entry_description_tag-list">
-        <span v-for="videoType in videoEntry.videoTypes" class="tag">{{ videoType.fullName}}</span>
+        <span v-for="videoType in videoEntry.videoTypes" class="tag" :key="videoType.name">{{
+          videoType.fullName
+        }}</span>
       </div>
     </div>
   </li>
@@ -56,7 +67,7 @@ const props = defineProps<VideoEntryProps>()
 }
 
 a {
-  color: var(--white)
+  color: var(--white);
 }
 
 .video-entry > * {
@@ -83,7 +94,9 @@ a {
   border-left: solid 1px var(--white);
 }
 
-.video-entry_header_url, .video-entry_detail_channel, .video-entry_detail_title {
+.video-entry_header_url,
+.video-entry_detail_channel,
+.video-entry_detail_title {
   flex: 1;
 }
 
@@ -121,5 +134,4 @@ a {
 .video-entry_description_questions {
   margin-bottom: 24px;
 }
-
 </style>

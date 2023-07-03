@@ -1,44 +1,39 @@
 <script setup lang="ts">
-import {reactive} from "vue";
+import { reactive } from "vue";
 import CategoryDetail from "./components/CategoryDetail.vue";
-import {TCategory} from "./types";
-import {useCategories} from "./queries/useCategories.ts";
+import { TCategory } from "./types";
+import { useCategories } from "./queries/useCategories.ts";
 import MainIllustration from "./components/MainIllustration.vue";
 import AppHeader from "./components/AppHeader.vue";
 
 const globalState = reactive({
-  activeCategory: {} as TCategory
-})
+  activeCategory: {} as TCategory,
+});
 
-
-const categoriesQ = reactive(useCategories())
-
-function handleCategoryClick(category: TCategory) {
-  globalState.activeCategory = category
-
-}
+const categoriesQ = reactive(useCategories());
 
 function setActiveCategory(categoryName: string) {
-  const category = categoriesQ.data.find(category => category.name === categoryName)
-  if (!category) return
-  globalState.activeCategory = category
-  const videoEntryList = document.querySelector("#video-entry-list") as HTMLElement
-  videoEntryList.scrollTo(0, 0)
-
+  const category = categoriesQ.data.find(
+    (category) => category.name === categoryName
+  );
+  if (!category) return;
+  globalState.activeCategory = category;
+  const videoEntryList = document.querySelector(
+    "#video-entry-list"
+  ) as HTMLElement;
+  videoEntryList.scrollTo(0, 0);
 }
-
 </script>
 
 <template>
-  <AppHeader/>
+  <AppHeader />
   <div id="page-content" class="border-thin">
     <section id="main-scroll">
       <div id="scroll-illustration">
-
-        <MainIllustration :set-active-category="setActiveCategory"/>
+        <MainIllustration :set-active-category="setActiveCategory" />
       </div>
     </section>
-    <CategoryDetail :active-category="globalState.activeCategory"/>
+    <CategoryDetail :active-category="globalState.activeCategory" />
   </div>
 </template>
 
@@ -60,7 +55,6 @@ function setActiveCategory(categoryName: string) {
   overflow: hidden;
 }
 
-
 #page-content {
   position: relative;
   box-sizing: border-box;
@@ -75,17 +69,15 @@ function setActiveCategory(categoryName: string) {
 #main-scroll {
   grid-area: main-scroll;
   overflow-y: scroll;
-  position:relative;
+  position: relative;
 }
 
 #scroll-illustration {
 }
 
-
 .border-thin {
-  border: solid 1px var(--border-color)
+  border: solid 1px var(--border-color);
 }
-
 
 h1 {
   font-family: "Space Grotesk", "Arial Black", sans-serif;
@@ -107,7 +99,6 @@ h3 {
 li {
   list-style-type: none;
 }
-
 
 .container {
   display: block;

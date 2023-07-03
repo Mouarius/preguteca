@@ -1,6 +1,4 @@
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <header>
@@ -17,12 +15,11 @@ header {
   align-items: center;
   padding-left: 16px;
   grid-area: header;
-  border: solid 1px var(--border-color)
+  border: solid 1px var(--border-color);
 }
 
 #page-title {
   font-size: 32px;
   font-weight: 500;
 }
-
 </style>

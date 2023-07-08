@@ -51,7 +51,6 @@ import image49 from "../assets/main-illustration/img/main_illustration_v349.png"
 import image50 from "../assets/main-illustration/img/main_illustration_v350.png";
 
 import { onMounted, ref } from "vue";
-
 interface MainIllustrationProps {
   setActiveCategory: (categoryName: string) => void;
 }
@@ -61,6 +60,12 @@ const categoryName = ref("");
 
 onMounted(() => {
   const clickables = document.querySelectorAll("svg *[data-clickable='true']") as NodeListOf<HTMLElement>;
+  const tagTextList = document.querySelectorAll("#etiquetes text") as NodeListOf<SVGTextElement>;
+
+  // Adjust the translateY for the text in the tags
+  tagTextList.forEach(text => {
+    text.transform.baseVal[0].matrix.f += 4
+  })
 
   for (const clickable of clickables) {
     clickable.addEventListener("click", (event: MouseEvent) => {
@@ -81,15 +86,6 @@ svg {
   top: -100px;
   position: absolute;
   fill: var(--black);
-}
-@keyframes shake {
-  from {
-    transform: translateX(-10);
-  }
-
-  to {
-    transform: translateX(10);
-  }
 }
 
 [data-clickable="true"] {
@@ -116,8 +112,16 @@ svg {
 .la_estacion__image {
   clip-path: url("#clip-path__la_estacion");
 }
+
+.illustration-container{
+  position:relative;
+}
+#etiquetes text {
+  font-family: "Schibsted Grotesk", serif !important;
+}
 </style>
 <template>
+  <div class="illustration-container">
   <svg
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -8264,6 +8268,7 @@ svg {
       <circle class="cls-67" cx="145.27" cy="4448.22" r="5.27" />
     </g>
   </svg>
+  </div>
 </template>
 <style scoped>
 .cls-1,
@@ -8569,12 +8574,18 @@ svg {
 
 .cls-65,
 .cls-70 {
-  font-size: 20px;
-  font-family: PTMono-Regular, PT Mono;
+  font-size: 24px;
+  margin-top:2px;
+  position: relative;
+  display:block;
 }
 
 .cls-68 {
   stroke: #c9c9c9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position:relative;
 }
 
 .cls-69 {

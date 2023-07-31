@@ -14,7 +14,9 @@ def extract_video_id_from_url(youtube_url: str) -> str | None:
     # video url is likely in this form : https://www.youtube.com/watch?v=[VIDEO_ID]&[SOME_OTHER_THINGS]
     if not youtube_url:
         return None
-    pattern = re.compile("youtube\.com\/watch\?v=([0-9a-zA-Z\-_]{11})")
+    pattern = re.compile(
+        r"(?:youtu\.be/|youtube\.com/(?:watch\?(?:.*&)?v=|(?:embed|v)/))([^/?]{11})"
+    )
     if not pattern:
         return None
     video_id_match_list = re.findall(pattern, youtube_url)

@@ -15,6 +15,7 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(VideoEntry)
 class VideoEntryAdmin(admin.ModelAdmin):
     list_display = ["video_title", "visible", "video_url"]
+    search_fields = ["youtube_id", "author"]
     empty_value_display = "???"
 
     @admin.display(empty_value="???")

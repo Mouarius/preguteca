@@ -33,13 +33,14 @@ defineProps<VideoEntryProps>();
     <div class="video-entry__viewport">
       <iframe v-if="isVideoVisible" class="video-entry__viewport__iframe" type="text/html" width="100%" height="100%"
         allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0"
-        :src="`https://www.youtube.com/embed/${videoEntry.youtubeId}?autoplay=1`"></iframe>
+        :src="`${videoEntry.videoEmbedUrl}?autoplay=1`"></iframe>
       <template v-else>
         <button class="video-entry__viewport__button" @click="setVideoVisible">
           <img :src="PlayButton" alt="" />
         </button>
-        <img class="video-entry__viewport__thumbnail" :src="videoEntry.thumbnailUrl" alt="Video Thumbnail" height="360"
-          width="480" />
+        <img v-if="videoEntry.thumbnailUrl" class="video-entry__viewport__thumbnail" :src="videoEntry.thumbnailUrl"
+          alt="Video Thumbnail" height="360" width="480" />
+
       </template>
     </div>
     <div class="video-entry_detail video-entry_row">
@@ -48,7 +49,7 @@ defineProps<VideoEntryProps>();
     </div>
     <div class="video-entry_detail video-entry_row">
       <div class="video-entry_detail_channel">
-        De : {{ videoEntry.ytChannelTitle }}
+        De : {{ videoEntry.author }}
       </div>
       <div class="video-entry_detail_pub-date">
         {{ new Date(videoEntry.ytPublishTime).toLocaleDateString() }}

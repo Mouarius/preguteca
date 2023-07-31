@@ -17,8 +17,10 @@ class VideoEntrySerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "title",
+            "author",
             "questions",
             "video_url",
+            "video_embed_url",
             "views",
             "language",
             "youtube_id",

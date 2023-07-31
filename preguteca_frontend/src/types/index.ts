@@ -6,8 +6,10 @@ export interface TVideoType {
 export interface TVideoEntry {
   id: number;
   title: string;
+  author:string;
   questions: string;
   videoUrl: string;
+  videoEmbedUrl: string;
   views: number;
   language: string;
   youtubeId: string;

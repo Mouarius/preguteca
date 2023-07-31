@@ -7,16 +7,31 @@ admin.site.register([Comment, VideoType])
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
+    list_display = ["name", "full_name"]
     fields = ("name", "full_name", "video_entries")
     filter_horizontal = ("video_entries",)
 
 
 @admin.register(VideoEntry)
 class VideoEntryAdmin(admin.ModelAdmin):
+    list_display = ["video_title", "visible", "video_url"]
+    empty_value_display = "???"
+
+    @admin.display(empty_value="???")
+    def video_title(self, obj):
+        if not obj.title:
+            return "???"
+        return obj.title
+
     fields = (
-        "title",
+        (
+            "title",
+            "visible",
+        ),
+        "author",
         "questions",
-        "video_url",
+        ("video_url", "video_embed_url"),
+        "thumbnail_url",
         "views",
         "language",
         "video_types",

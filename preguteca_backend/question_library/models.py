@@ -49,9 +49,14 @@ class VideoType(models.Model):
 
 
 class VideoEntry(models.Model):
+    visible = models.BooleanField(verbose_name="Est Visible ?", default=True)
     title = models.CharField("title", max_length=200, blank=True, default="")
-    questions = models.TextField("questions", max_length=1000, blank=True)
+    questions = models.TextField("questions", max_length=2000, blank=True)
     video_url = models.CharField("video url", max_length=200, blank=True)
+    video_embed_url = models.CharField(
+        "video embed url", max_length=200, default="", blank=True
+    )
+    author = models.CharField("author", max_length=100, default="", blank=True)
     views = models.IntegerField("views", default=0)
     language = models.CharField(max_length=3, default="", blank=True)
     video_types = models.ManyToManyField(
@@ -71,18 +76,12 @@ class VideoEntry(models.Model):
     duration = models.CharField(
         max_length=8, verbose_name="Youtube - Duration", blank=True
     )
-    thumbnail_url = models.URLField(verbose_name="Video thumblail url", default="")
+    thumbnail_url = models.URLField(
+        verbose_name="Video thumblail url", default="", blank=True
+    )
 
     def __str__(self):
-        return self.title
-
-    @property
-    def embed_url(self):
-        base_url = "https://www.youtube.com/embed/"
-        video_id = extract_video_id_from_url(self.video_url)
-        if not video_id:
-            return ""
-        return base_url + video_id
+        return f"{self.title} (id={self.id})"
 
     def save(self, **kwargs):
         # if not self.youtube_id:

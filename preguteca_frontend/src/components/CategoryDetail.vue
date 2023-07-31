@@ -19,18 +19,42 @@ defineProps<CategoryDetailProps>();
 
 <template>
   <section class="category-container category-container--hidden">
-    <header @click="scrollTop" class="category-container__header">
+    <header v-if="activeCategory.fullName" @click="scrollTop" class="category-container__header">
       <img @click="toggleCategoryDetails" :src="ChevronLeft" alt="chevron-left" />
       <h2>{{ activeCategory.fullName }}</h2>
     </header>
-    <ul id="video-entry-list" class="video-entry-list scrollable">
+    <ul v-if="activeCategory.fullName" id="video-entry-list" class="video-entry-list scrollable">
       <VideoEntry v-for="(video_entry, index) in activeCategory.videoEntries" :key="video_entry.id"
         :video-entry="video_entry" :videos-in-category="activeCategory.videoEntries.length" :index-in-category="index" />
     </ul>
+    <div v-else class="category-placeholder">
+      <div class="category-placeholder__welcome">
+        <h3>Bienvenue sur Preguteca.com</h3>
+        <p>Ce site regroupe des vidéos sur des sujets de société, des vidéos qui m'ont amenés à me questionner, et que
+          j'ai voulu consigner dans ce site web. Pour commencer cliquez sur un batiment pour découvrir les vidéos.</p>
+      </div>
+    </div>
   </section>
 </template>
 
 <style scoped>
+.category-placeholder {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.category-placeholder__welcome {
+  width: 80%;
+  max-width: 480px;
+}
+
+.category-placeholder__welcome h3 {
+  margin-bottom: 16px;
+}
+
 .category-container__header {
   padding-left: 10px;
   padding-right: 12px;

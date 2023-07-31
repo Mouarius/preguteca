@@ -15,3 +15,5 @@
    `python manage.py extract_youtube_id`
 5. Generate the missing content with Youtube API:  
    `python manage.py generate_youtube_data`
+6. Fill video channels and thumbnails:
+   `python manage.py get_youtube_channel get_youtube_thumbnails`

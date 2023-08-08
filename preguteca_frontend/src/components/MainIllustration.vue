@@ -62,6 +62,12 @@ const category = computed(() => categories.data?.find(
 
 onMounted(() => {
   const clickables = document.querySelectorAll("svg *[data-clickable='true']") as NodeListOf<HTMLElement>;
+  const tagTextList = document.querySelectorAll("#etiquetes text") as NodeListOf<SVGTextElement>;
+
+  // Adjust the translateY for the text in the tags
+  tagTextList.forEach(text => {
+    text.transform.baseVal[0].matrix.f += 4
+  })
 
   for (const clickable of clickables) {
     clickable.addEventListener("click", (event: MouseEvent) => {
@@ -120,6 +126,14 @@ svg {
 
 .la_estacion__image {
   clip-path: url("#clip-path__la_estacion");
+}
+
+.illustration-container {
+  position: relative;
+}
+
+#etiquetes text {
+  font-family: "Schibsted Grotesk", serif !important;
 }
 </style>
 <template>
@@ -4146,7 +4160,7 @@ svg {
       <circle class="cls-67" cx="145.27" cy="4448.22" r="5.27" />
     </g>
   </svg>
-</template>
+</div></template>
 <style scoped>
 .cls-1,
 .cls-11,
@@ -4451,12 +4465,18 @@ svg {
 
 .cls-65,
 .cls-70 {
-  font-size: 20px;
-  font-family: PTMono-Regular, PT Mono;
+  font-size: 24px;
+  margin-top: 2px;
+  position: relative;
+  display: block;
 }
 
 .cls-68 {
   stroke: #c9c9c9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 .cls-69 {

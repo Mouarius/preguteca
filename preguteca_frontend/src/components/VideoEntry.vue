@@ -128,6 +128,12 @@ a {
 
 .video-entry__viewport__button {
   position: absolute;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height:100%;
   top: 0;
   left: 0;
   right: 0;

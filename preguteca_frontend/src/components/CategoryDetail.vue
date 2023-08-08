@@ -1,12 +1,7 @@
 <script setup lang="ts">
 import VideoEntry from "./VideoEntry.vue";
-import { TCategory } from "../types";
 import ChevronLeft from "../assets/chevron-left.svg";
-
-interface CategoryDetailProps {
-  activeCategory: TCategory;
-  toggleCategoryDetails: () => void;
-}
+import { store } from "../store";
 
 function scrollTop(event: MouseEvent) {
   event.preventDefault();
@@ -14,18 +9,18 @@ function scrollTop(event: MouseEvent) {
   videoEntryListEl?.scrollTo(0, 0);
 }
 
-defineProps<CategoryDetailProps>();
 </script>
 
 <template>
-  <section class="category-container category-container--hidden">
-    <header v-if="activeCategory.fullName" @click="scrollTop" class="category-container__header">
-      <img @click="toggleCategoryDetails" :src="ChevronLeft" alt="chevron-left" />
-      <h2>{{ activeCategory.fullName }}</h2>
+  <section v-if="store.activeCategory" class="category-container">
+    <header v-if="store.activeCategory.fullName" @click="scrollTop" class="category-container__header">
+      <img :src="ChevronLeft" alt="chevron-left" />
+      <h2>{{ store.activeCategory.fullName }}</h2>
     </header>
-    <ul v-if="activeCategory.fullName" id="video-entry-list" class="video-entry-list scrollable">
-      <VideoEntry v-for="(video_entry, index) in activeCategory.videoEntries" :key="video_entry.id"
-        :video-entry="video_entry" :videos-in-category="activeCategory.videoEntries.length" :index-in-category="index" />
+    <ul v-if="store.activeCategory.fullName" id="video-entry-list" class="video-entry-list scrollable">
+      <VideoEntry v-for="(video_entry, index) in store.activeCategory.videoEntries" :key="video_entry.id"
+        :video-entry="video_entry" :videos-in-category="store.activeCategory.videoEntries.length"
+        :index-in-category="index" />
     </ul>
     <div v-else class="category-placeholder">
       <div class="category-placeholder__welcome">

@@ -1,39 +1,19 @@
 <script setup lang="ts">
-import { reactive } from "vue";
+import { reactive, watchEffect } from "vue";
 import CategoryDetail from "./components/CategoryDetail.vue";
-import { TCategory } from "./types";
 import { useCategories } from "./queries/useCategories.ts";
 import MainIllustration from "./components/MainIllustration.vue";
 import AppHeader from "./components/AppHeader.vue";
-
-const globalState = reactive({
-  activeCategory: {} as TCategory,
-});
+import { store, updateActiveCategory } from "./store"
 
 const categoriesQ = reactive(useCategories());
 
-function toggleCategoryDetails() {
-  const categoryDetailEl = document.querySelector(
-    ".category-container"
-  ) as HTMLElement;
-  categoryDetailEl.classList.toggle("category-container--hidden");
-}
-
-function setActiveCategory(categoryName: string) {
-  if (categoriesQ.isError) return;
-
-  toggleCategoryDetails();
-
-  const category = categoriesQ.data?.find(
-    (category) => category.name === categoryName
-  );
-  if (!category) return;
-  globalState.activeCategory = category;
-  const videoEntryList = document.querySelector(
-    "#video-entry-list"
-  ) as HTMLElement;
-  videoEntryList.scrollTo(0, 0);
-}
+watchEffect(async () => {
+  if (categoriesQ.data && !categoriesQ.isError) {
+    const categoryToShow = await categoriesQ.data[Math.floor(Math.random() * categoriesQ.data.length)]
+    await updateActiveCategory(categoryToShow)
+  }
+})
 </script>
 
 <template>
@@ -41,10 +21,10 @@ function setActiveCategory(categoryName: string) {
   <div id="page-content" class="border-thin">
     <section id="main-scroll" class="scrollable">
       <div id="scroll-illustration">
-        <MainIllustration :set-active-category="setActiveCategory" />
+        <MainIllustration />
       </div>
     </section>
-    <CategoryDetail :toggle-category-details="toggleCategoryDetails" :active-category="globalState.activeCategory" />
+    <CategoryDetail v-if="store.activeCategory" :active-category="store.activeCategory" />
   </div>
 </template>
 

@@ -50,14 +50,15 @@ import image48 from "../assets/main-illustration/img/main_illustration_v348.png"
 import image49 from "../assets/main-illustration/img/main_illustration_v349.png";
 import image50 from "../assets/main-illustration/img/main_illustration_v350.png";
 
-import { onMounted, ref } from "vue";
+import { onMounted, ref, reactive, computed } from "vue";
+import { store, updateActiveCategory } from "../store"
+import { useCategories } from "../queries/useCategories";
 
-interface MainIllustrationProps {
-  setActiveCategory: (categoryName: string) => void;
-}
-
-const props = defineProps<MainIllustrationProps>();
 const categoryName = ref("");
+const categories = reactive(useCategories())
+const category = computed(() => categories.data?.find(
+  (cat) => cat.name === categoryName.value
+));
 
 onMounted(() => {
   const clickables = document.querySelectorAll("svg *[data-clickable='true']") as NodeListOf<HTMLElement>;
@@ -70,7 +71,9 @@ onMounted(() => {
       event.stopPropagation();
       if (elem.dataset) {
         categoryName.value = elem.dataset.categoryName ?? "";
-        props.setActiveCategory(categoryName.value);
+        if (category.value) {
+          updateActiveCategory(category.value);
+        }
       }
     });
   }

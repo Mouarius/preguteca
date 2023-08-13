@@ -1,19 +1,32 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "Python: Django",
-            "type": "python",
-            "request": "launch",
-            "program": "${workspaceFolder}/preguteca_backend/manage.py",
-            "args": [
-                "runserver"
-            ],
-            "django": true,
-            "justMyCode": true
-        }
-    ]
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "front dev",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev"
+      ],
+      "cwd": "${workspaceFolder}/preguteca_frontend",
+      "console": "integratedTerminal",
+      "restart": true
+    },
+    {
+      "name": "Python: Django",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/preguteca_backend/manage.py",
+      "args": [
+        "runserver"
+      ],
+      "django": true,
+      "justMyCode": true
+    }
+  ]
 }

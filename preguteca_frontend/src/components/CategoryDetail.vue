@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import VideoEntry from "./VideoEntry.vue";
 import ChevronLeft from "../assets/chevron-left.svg";
-import { store } from "../store";
+import { store, toggleCategoryContainer } from "../store";
 
 function scrollTop(event: MouseEvent) {
   event.preventDefault();
@@ -12,9 +12,10 @@ function scrollTop(event: MouseEvent) {
 </script>
 
 <template>
-  <section v-if="store.activeCategory" class="category-container">
+  <section v-if="store.activeCategory"
+    :class="{ 'category-container': true, 'category-container--hidden': !store.isCategoryContainerVisible }">
     <header v-if="store.activeCategory.fullName" @click="scrollTop" class="category-container__header">
-      <img :src="ChevronLeft" alt="chevron-left" />
+      <img @click="toggleCategoryContainer" :src="ChevronLeft" alt="chevron-left" />
       <h2>{{ store.activeCategory.fullName }}</h2>
     </header>
     <ul v-if="store.activeCategory.fullName" id="video-entry-list" class="video-entry-list scrollable">

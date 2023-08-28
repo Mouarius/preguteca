@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ComputedRef, Ref, computed, reactive, ref, watchEffect, } from "vue";
+import { Ref, computed, reactive, ref, } from "vue";
 import SearchIcon from "../assets/search-icon.svg";
 import { useCategories } from "../queries/useCategories";
 import { TCategory } from "../types";
 import { updateActiveCategory } from "../store";
 
-const CHOICES_DISPLAY_COUNT = 10
+// const CHOICES_DISPLAY_COUNT = 10
 const MIN_CHARACTERS_TO_START = 3
 
 
@@ -31,7 +31,7 @@ function getMatchedCategories(searchText: string, categoriesList: TCategory[]): 
 
 function handleFormSubmit(event: Event) {
     event.preventDefault();
-    if (!searchText && categories.isError) return
+    if (!searchText.value && categories.isError) return
     if (categories.data) {
         const matchedCategories = getMatchedCategories(searchText.value, categories.data)
         if (matchedCategories.length === 0) return

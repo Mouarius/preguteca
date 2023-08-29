@@ -91,7 +91,7 @@ WSGI_APPLICATION = "preguteca_backend.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-if not DEBUG:
+if env("ENVIRONMENT") == "PRODUCTION":
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.mysql",
@@ -102,6 +102,18 @@ if not DEBUG:
             "PORT": "3306",
         }
     }
+
+elif env("ENVIRONMENT") == "DEV":
+    SECURE_SSL_REDIRECT = False
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
+    ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -161,14 +173,3 @@ REST_FRAMEWORK = {
     ],
 }
 
-if env("ENVIRONMENT") == "DEV":
-    SECURE_SSL_REDIRECT = False
-    SESSION_COOKIE_SECURE = False
-    CSRF_COOKIE_SECURE = False
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
-    }
-    ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]

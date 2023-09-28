@@ -20,11 +20,11 @@ def render_vite_bundle():
     """
   
     try:
-        fd = open(f"{settings.BASE_DIR}/dist/manifest.json", "r")
+        fd = open(f"{settings.FRONTEND_DIR}/dist/manifest.json", "r")
         manifest = json.load(fd)
     except:
         raise Exception(
-            f"Vite manifest file not found or invalid. Maybe your {settings.BASE_DIR}/dist/manifest.json file is empty?"
+            f"Vite manifest file not found or invalid. Maybe your {settings.FRONTEND_DIR}/dist/manifest.json file is empty?"
         )
 
     return mark_safe(

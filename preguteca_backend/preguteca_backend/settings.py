@@ -92,19 +92,18 @@ WSGI_APPLICATION = "preguteca_backend.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-if env("ENVIRONMENT") == "PRODUCTION":
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.mysql",
-            "NAME": "pregcfye_preguteca_db",
-            "USER": env("DATABASE_USERNAME"),
-            "PASSWORD": env("DATABASE_PASSWORD"),
-            "HOST": "localhost",
-            "PORT": "3306",
-        }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "pregcfye_preguteca_db",
+        "USER": env("DATABASE_USERNAME"),
+        "PASSWORD": env("DATABASE_PASSWORD"),
+        "HOST": "localhost",
+        "PORT": "3306",
     }
+}
 
-elif env("ENVIRONMENT") == "DEV":
+if env("ENVIRONMENT") == "DEV":
     SECURE_SSL_REDIRECT = False
     SESSION_COOKIE_SECURE = False
     CSRF_COOKIE_SECURE = False

@@ -1,8 +1,13 @@
 from rest_framework import generics
+from django.shortcuts import render
+from django.views.generic import TemplateView
 
 from .models import Category, VideoEntry
 from .serializers import CategorySerializer, VideoEntrySerializer
 
+
+class DefaultView(TemplateView):
+    template_name="question_library/index.html"
 
 class CategoryList(generics.ListAPIView):
     queryset = Category.objects.all().order_by("name").prefetch_related("video_entries")

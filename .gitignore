@@ -111,3 +111,5 @@ jspm_packages/
 
 # vite
 .vite
+
+dist

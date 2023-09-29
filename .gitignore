@@ -2,7 +2,6 @@
 .DS_Store
 
 # Web production things
-passenger_wsgi.py
 tmp
 
 # Byte-compiled / optimized / DLL files

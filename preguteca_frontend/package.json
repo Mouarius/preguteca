@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
+    "upload": "scp -r ./dist preguteca:/home/pregcfye/repositories/preguteca/preguteca_frontend/",
+    "deploy": "npm run build && npm run upload",
     "preview": "vite preview",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
     "format": "prettier .  --write"

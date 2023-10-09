@@ -62,6 +62,24 @@ function getSelectedCategory(categoryElements: HTMLLIElement[]) {
     return categories.data?.find(cat => cat.id === parseInt(categoryId, 10))
 }
 
+function handleSuggestionHover(event: MouseEvent) {
+    event.preventDefault()
+    if (!event.target) return;
+    activeChoice.key = parseInt((event.target as HTMLElement).dataset.key ?? "0", 10) ?? 0
+    activeChoice.category = getSelectedCategory(matchedCategoryElements.value)
+}
+
+function handleSuggestionClick(event: MouseEvent) {
+    event.preventDefault()
+    if (!event.target) return;
+    activeChoice.key = parseInt((event.target as HTMLElement).dataset.key ?? "0", 10) ?? 0
+    activeChoice.category = getSelectedCategory(matchedCategoryElements.value)
+    if (!activeChoice.category || !activeChoice.key) return
+    updateActiveCategory(activeChoice.category)
+    clearSearchBar()
+
+}
+
 function handleKeyDown(event: KeyboardEvent) {
     switch (event.key) {
         case "ArrowDown":
@@ -93,7 +111,8 @@ function handleKeyDown(event: KeyboardEvent) {
         <div v-if="matchedCategories.length > 0 && searchText.length >= MIN_CHARACTERS_TO_START" class="suggestions">
             <ul>
                 <li v-for="(category, index) in matchedCategories" :class="{ active: index === activeChoice.key }"
-                    :key="category.id" :data-key="index" ref="matchedCategoryElements" :data-category-id="category.id"> {{
+                    :key="category.id" :data-key="index" ref="matchedCategoryElements" :data-category-id="category.id"
+                    class="suggestion__element" @mouseenter="handleSuggestionHover" @click="handleSuggestionClick"> {{
                         category.fullName.toLowerCase() }} </li>
             </ul>
         </div>

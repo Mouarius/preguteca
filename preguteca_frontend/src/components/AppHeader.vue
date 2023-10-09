@@ -6,8 +6,14 @@ import SearchBar from './SearchBar.vue';
 
 <template>
   <header>
-    <div class="page-title__container">
-      <h1 id="page-title">PREGUTECA</h1>
+    <div class="logo-title__container">
+      <div class="logo-container">
+        <img src="/src/assets/preguteca_logo_120.svg" alt="logo" id="logo" height="120" width="120">
+      </div>
+      <div class="title__container">
+        <h1 id="page-title">PREGUTECA</h1>
+        <div class="subtitle">/ Explorando alternativas</div>
+      </div>
     </div>
     <div class="search-bar__label">
       <label for="page-header__search-category" class="sr-only">Buscar</label>
@@ -19,46 +25,68 @@ import SearchBar from './SearchBar.vue';
 </template>
 
 <style scoped>
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 4px;
+  border-right: solid 1px var(--border-color);
+}
+
+.title__container {
+  display: none;
+  align-items: baseline;
+}
+
+.subtitle {
+  display: none;
+}
+
+#logo {
+  height: 40px;
+  width: 40px;
+  object-fit: cover;
+}
+
 header {
   height: 100%;
-  display: grid;
+  display: flex;
+  position: relative;
   flex-direction: row;
   align-items: center;
   justify-items: stretch;
-  grid-template-columns: repeat(5, 1fr);
   grid-area: header;
+  box-sizing: border-box;
   border: solid 1px var(--border-color);
 }
 
-header>* {
+
+
+.logo-title__container {
+  display: flex;
+  flex: 1;
   height: 100%;
   align-items: center;
-  display: flex;
-  padding: 8px 8px;
+  overflow: visible;
 }
 
-.page-title__container {
-  grid-column: 1 / 3;
-  padding-left: 16px;
+.search-bar__container {
+  padding: 8px;
+  height: 100%;
 }
 
 
 @media (min-width: 768px) {
-  header {
-    grid-template-columns: repeat(5, 1fr);
+
+  .title__container {
+    display: flex;
+    align-items: baseline;
   }
 
-  .page-title__container {
-    grid-column: 1 / 3;
-    padding-left: 16px;
-  }
-
-  .search-bar__label {
-    grid-column: 3 / 4;
-  }
-
-  .search-bar__container {
-    grid-column: 4 / 6;
+  .subtitle {
+    display: block;
+    font-style: italic;
   }
 }
 
@@ -66,6 +94,6 @@ header>* {
 #page-title {
   font-size: 32px;
   font-weight: 500;
-  margin: 0;
+  margin: 0px 8px;
 }
 </style>

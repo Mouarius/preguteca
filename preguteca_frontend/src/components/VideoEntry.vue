@@ -25,22 +25,35 @@ defineProps<VideoEntryProps>();
         {{ indexInCategory + 1 }}/{{ videosInCategory }}
       </div>
       <div class="video-entry_header_url">
-        <a :href="`https://www.youtube.com/watch?v=${videoEntry.youtubeId}`">https://www.youtube.com/watch?v={{
-          videoEntry.youtubeId }}</a>
+        <a :href="`https://www.youtube.com/watch?v=${videoEntry.youtubeId}`"
+          >https://www.youtube.com/watch?v={{ videoEntry.youtubeId }}</a
+        >
       </div>
       <div class="video-entry_header_duration">{{ videoEntry.duration }}</div>
     </header>
     <div class="video-entry__viewport">
-      <iframe v-if="isVideoVisible" class="video-entry__viewport__iframe" type="text/html" width="100%" height="100%"
-        allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0"
-        :src="`${videoEntry.videoEmbedUrl}?autoplay=1`"></iframe>
+      <iframe
+        v-if="isVideoVisible"
+        class="video-entry__viewport__iframe"
+        type="text/html"
+        width="100%"
+        height="100%"
+        allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture"
+        frameborder="0"
+        :src="`${videoEntry.videoEmbedUrl}?autoplay=1`"
+      ></iframe>
       <template v-else>
         <button class="video-entry__viewport__button" @click="setVideoVisible">
           <img :src="PlayButton" alt="" />
         </button>
-        <img v-if="videoEntry.thumbnailUrl" class="video-entry__viewport__thumbnail" :src="videoEntry.thumbnailUrl"
-          alt="Video Thumbnail" height="360" width="480" />
-
+        <img
+          v-if="videoEntry.thumbnailUrl"
+          class="video-entry__viewport__thumbnail"
+          :src="videoEntry.thumbnailUrl"
+          alt="Video Thumbnail"
+          height="360"
+          width="480"
+        />
       </template>
     </div>
     <div class="video-entry_detail video-entry_row">
@@ -48,9 +61,7 @@ defineProps<VideoEntryProps>();
       <div class="video-entry_detail_language">ES</div>
     </div>
     <div class="video-entry_detail video-entry_row">
-      <div class="video-entry_detail_channel">
-        De : {{ videoEntry.author }}
-      </div>
+      <div class="video-entry_detail_channel">De : {{ videoEntry.author }}</div>
       <div class="video-entry_detail_pub-date">
         {{ new Date(videoEntry.ytPublishTime).toLocaleDateString() }}
       </div>
@@ -60,7 +71,12 @@ defineProps<VideoEntryProps>();
         <p>{{ videoEntry.questions }}</p>
       </div>
       <div class="video-entry_description_tag-list">
-        <span v-for="videoType in videoEntry.videoTypes" class="tag" :key="videoType.name">{{ videoType.fullName }}</span>
+        <span
+          v-for="videoType in videoEntry.videoTypes"
+          class="tag"
+          :key="videoType.name"
+          >{{ videoType.fullName }}</span
+        >
       </div>
     </div>
   </li>
@@ -80,7 +96,7 @@ a {
   color: var(--white);
 }
 
-.video-entry>*:not(:last-child) {
+.video-entry > *:not(:last-child) {
   border-bottom: solid 1px var(--border-color);
 }
 
@@ -91,7 +107,7 @@ a {
   align-items: stretch;
 }
 
-.video-entry_row>* {
+.video-entry_row > * {
   height: 100%;
   display: flex;
   padding: 8px 0px;
@@ -100,10 +116,9 @@ a {
   padding-right: 12px;
 }
 
-.video-entry_row>*:not(:first-child) {
+.video-entry_row > *:not(:first-child) {
   border-left: solid 1px var(--white);
 }
-
 
 .video-entry_header_url {
   position: relative;
@@ -176,7 +191,6 @@ a {
   height: auto;
   width: 100%;
 }
-
 
 .video-entry_description {
   padding: 16px 12px;

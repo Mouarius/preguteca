@@ -6,7 +6,7 @@ export interface TVideoType {
 export interface TVideoEntry {
   id: number;
   title: string;
-  author:string;
+  author: string;
   questions: string;
   videoUrl: string;
   videoEmbedUrl: string;

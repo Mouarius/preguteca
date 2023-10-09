@@ -1,14 +1,18 @@
 <script setup lang="ts">
-import SearchBar from './SearchBar.vue';
-
-
+import SearchBar from "./SearchBar.vue";
 </script>
 
 <template>
   <header>
     <div class="logo-title__container">
       <div class="logo-container">
-        <img src="/src/assets/preguteca_logo_120.svg" alt="logo" id="logo" height="120" width="120">
+        <img
+          src="/src/assets/preguteca_logo_120.svg"
+          alt="logo"
+          id="logo"
+          height="120"
+          width="120"
+        />
       </div>
       <div class="title__container">
         <h1 id="page-title">PREGUTECA</h1>
@@ -61,8 +65,6 @@ header {
   border: solid 1px var(--border-color);
 }
 
-
-
 .logo-title__container {
   display: flex;
   flex: 1;
@@ -76,9 +78,7 @@ header {
   height: 100%;
 }
 
-
 @media (min-width: 768px) {
-
   .title__container {
     display: flex;
     align-items: baseline;
@@ -89,7 +89,6 @@ header {
     font-style: italic;
   }
 }
-
 
 #page-title {
   font-size: 32px;

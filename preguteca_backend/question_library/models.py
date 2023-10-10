@@ -15,6 +15,7 @@ class Category(models.Model):
     video_entries = models.ManyToManyField(
         "question_library.VideoEntry", verbose_name="Video entries"
     )
+    description = models.TextField("description", max_length=500, blank=True, null=True)
 
     def __str__(self):
         return self.full_name

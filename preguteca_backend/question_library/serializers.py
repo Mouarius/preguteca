@@ -37,5 +37,5 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ["id", "name", "full_name", "video_entries"]
+        fields = ["id", "name", "full_name","description", "video_entries"]
         lookup_field = "name"

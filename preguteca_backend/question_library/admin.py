@@ -8,7 +8,7 @@ admin.site.register([Comment, VideoType])
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ["name", "full_name"]
-    fields = ("name", "full_name", "video_entries")
+    fields = ("name", "full_name", "description", "video_entries")
     filter_horizontal = ("video_entries",)
 
 

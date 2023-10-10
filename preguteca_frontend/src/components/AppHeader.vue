@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import MenuButton from "./MenuButton.vue";
 import SearchBar from "./SearchBar.vue";
 </script>
 

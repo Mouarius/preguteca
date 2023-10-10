@@ -25,4 +25,5 @@ export interface TCategory {
   name: string;
   fullName: string;
   videoEntries: TVideoEntry[];
+  description: string;
 }

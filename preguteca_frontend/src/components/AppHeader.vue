@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import MenuButton from "./MenuButton.vue";
 import SearchBar from "./SearchBar.vue";
 </script>
 
@@ -6,13 +7,7 @@ import SearchBar from "./SearchBar.vue";
   <header>
     <div class="logo-title__container">
       <div class="logo-container">
-        <img
-          src="/src/assets/preguteca_logo_120.svg"
-          alt="logo"
-          id="logo"
-          height="120"
-          width="120"
-        />
+        <img src="/src/assets/preguteca_logo_120.svg" alt="logo" id="logo" height="120" width="120" />
       </div>
       <div class="title__container">
         <h1 id="page-title">PREGUTECA</h1>
@@ -29,6 +24,10 @@ import SearchBar from "./SearchBar.vue";
 </template>
 
 <style scoped>
+#preguteca-menu-button {
+  display: flex;
+}
+
 .logo-container {
   display: flex;
   align-items: center;
@@ -79,6 +78,10 @@ header {
 }
 
 @media (min-width: 768px) {
+  #preguteca-menu-button {
+    display: none;
+  }
+
   .title__container {
     display: flex;
     align-items: baseline;

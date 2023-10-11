@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { TVideoEntry } from "../types";
 import PlayButton from "../assets/play-button--orange.svg";
-import { VNodeRef, ref } from "vue";
+import { ref } from "vue";
 
 interface VideoEntryProps {
   videoEntry: TVideoEntry;

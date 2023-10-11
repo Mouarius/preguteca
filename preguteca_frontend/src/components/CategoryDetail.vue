@@ -19,9 +19,9 @@ function scrollTop(event: MouseEvent) {
       <img @click="toggleCategoryContainer" :src="ChevronLeft" alt="chevron-left" />
       <h2>{{ store.activeCategory.fullName }}</h2>
     </header>
-    <div class="category-description">
+    <!-- <div class="category-description">
       {{ store.activeCategory.description }}
-    </div>
+    </div> -->
     <ul v-if="store.activeCategory.fullName" id="video-entry-list" class="video-entry-list scrollable">
       <VideoEntry v-for="(video_entry, index) in store.activeCategory.videoEntries" :key="video_entry.id"
         :video-entry="video_entry" :videos-in-category="store.activeCategory.videoEntries.length"
@@ -44,7 +44,9 @@ function scrollTop(event: MouseEvent) {
 <style scoped>
 .category-description {
   padding: 8px;
-  border-bottom: solid 1px var(--border-color)
+  border-bottom: solid 1px var(--border-color);
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+  line-height: normal;
 }
 
 .category-placeholder {
@@ -75,6 +77,11 @@ function scrollTop(event: MouseEvent) {
   justify-content: flex-start;
   align-items: center;
   justify-content: space-between;
+}
+
+.category-container__header h2 {
+  font-family: 'Times New Roman', Times, serif;
+  font-style: italic;
 }
 
 .category-container__header img {

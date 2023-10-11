@@ -47,15 +47,15 @@ defineProps<VideoEntryProps>();
 
 <template>
   <li class="video-entry border-thin">
-    <header class="video-entry_header video-entry_row">
-      <div class="video-entry_header_number">
+    <header class="video-entry__header video-entry__row">
+      <div class="video-entry__header__number">
         {{ indexInCategory + 1 }}/{{ videosInCategory }}
       </div>
-      <div class="video-entry_header_url">
+      <div class="video-entry__header__url">
         <a :href="`https://www.youtube.com/watch?v=${videoEntry.youtubeId}`">https://www.youtube.com/watch?v={{
           videoEntry.youtubeId }}</a>
       </div>
-      <div class="video-entry_header_duration">{{ videoEntry.duration }}</div>
+      <div class="video-entry__header_duration">{{ videoEntry.duration }}</div>
     </header>
     <div class="video-entry__viewport">
       <iframe v-if="isVideoVisible" class="video-entry__viewport__iframe" type="text/html" width="100%" height="100%"
@@ -69,18 +69,18 @@ defineProps<VideoEntryProps>();
           alt="Video Thumbnail" height="360" width="480" />
       </template>
     </div>
-    <div class="video-entry_detail video-entry_row">
-      <div class="video-entry_detail_title">{{ videoEntry.title }}</div>
-      <div class="video-entry_detail_language">ES</div>
+    <div class="video-entry__detail video-entry__row">
+      <div class="video-entry__detail__title">{{ videoEntry.title }}</div>
+      <div class="video-entry__detail__language">ES</div>
     </div>
-    <div class="video-entry_detail video-entry_row">
-      <div class="video-entry_detail_channel">De : {{ videoEntry.author }}</div>
-      <div class="video-entry_detail_pub-date">
+    <div class="video-entry__detail video-entry__row">
+      <div class="video-entry__detail__channel">De : {{ videoEntry.author }}</div>
+      <div class="video-entry__detail__pub-date">
         {{ new Date(videoEntry.ytPublishTime).toLocaleDateString() }}
       </div>
     </div>
-    <div class="video-entry_description">
-      <div class="video-entry_description_questions">
+    <div class="video-entry__description">
+      <div class="video-entry__description__questions">
         <span class="video-entry__questions__visible-questions">
           {{ getFirstQuestionsFormatted(videoEntry.questions) }}
           <button class="see-more-button" aria-label="See more" @click="toggleLastQuestionsVisibility"
@@ -95,7 +95,7 @@ defineProps<VideoEntryProps>();
         </span>
 
       </div>
-      <div class="video-entry_description_tag-list">
+      <div class="video-entry__description__tag-list">
         <span v-for=" videoType  in  videoEntry.videoTypes " class="tag" :key="videoType.name">{{ videoType.fullName
         }}</span>
       </div>
@@ -105,7 +105,7 @@ defineProps<VideoEntryProps>();
 
 <style scoped>
 .video-entry {
-  font-family: "Space Grotesk", "Arial Black", sans-serif;
+  font-family: "Open Sans", "Arial Black", sans-serif;
   position: relative;
   width: 100%;
   display: flex;
@@ -142,14 +142,14 @@ a {
   border-bottom: solid 1px var(--border-color);
 }
 
-.video-entry_row {
+.video-entry__row {
   width: 100%;
   display: flex;
   flex-direction: row;
   align-items: stretch;
 }
 
-.video-entry_row>* {
+.video-entry__row>* {
   height: 100%;
   display: flex;
   padding: 8px 0px;
@@ -158,11 +158,15 @@ a {
   padding-right: 12px;
 }
 
-.video-entry_row>*:not(:first-child) {
+.video-entry__row>*:not(:first-child) {
   border-left: solid 1px var(--white);
 }
 
-.video-entry_header_url {
+.video-entry__header__number {
+  font-weight: 600;
+}
+
+.video-entry__header__url {
   position: relative;
   display: block;
   white-space: nowrap;
@@ -170,24 +174,31 @@ a {
   overflow: hidden;
 }
 
-.video-entry_header_url a {
+.video-entry__header__url a {
   width: 100%;
   max-width: 100%;
   text-overflow: ellipsis;
   overflow: hidden;
 }
 
-.video-entry_header_url,
-.video-entry_detail_channel,
-.video-entry_detail_title {
+.video-entry__detail {
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.video-entry__header__url,
+.video-entry__detail__channel,
+.video-entry__detail__title {
   flex: 1;
 }
 
-.video-entry_detail_title {
+.video-entry__detail__title {
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
   font-weight: bold;
 }
 
-.video-entry_detail_channel {
+.video-entry__detail__channel,
+.video-entry__detail__pub-date,
+.video-entry__detail__language {
   font-style: italic;
 }
 
@@ -234,7 +245,7 @@ a {
   width: 100%;
 }
 
-.video-entry_description {
+.video-entry__description {
   padding: 16px 12px;
   font-size: 16px;
   font-family: "Public Sans", sans-serif;
@@ -258,7 +269,7 @@ a {
   font-weight: 500;
 }
 
-.video-entry_description_questions {
+.video-entry__description__questions {
   margin-bottom: 24px;
   text-align: justify;
 }

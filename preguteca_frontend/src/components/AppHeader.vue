@@ -43,6 +43,7 @@ import SearchBar from "./SearchBar.vue";
 
 .subtitle {
   display: none;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 #logo {
@@ -93,6 +94,7 @@ header {
 }
 
 #page-title {
+  font-family: 'Times New Roman', Times, serif;
   font-size: 32px;
   font-weight: 500;
   margin: 0px 8px;

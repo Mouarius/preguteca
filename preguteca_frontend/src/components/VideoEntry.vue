@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { TVideoEntry } from "../types";
 import PlayButton from "../assets/play-button--orange.svg";
-import { ref } from "vue";
+import { VNodeRef, ref } from "vue";
 
 interface VideoEntryProps {
   videoEntry: TVideoEntry;
@@ -10,9 +10,36 @@ interface VideoEntryProps {
 }
 
 const isVideoVisible = ref(false);
+const lastQuestionsVisible = ref(false)
 
 function setVideoVisible() {
   isVideoVisible.value = true;
+}
+
+const getIndividualQuestions = (questions: string) => {
+  let presplittedQuestions = questions.replace(/\? ¿/g, "?|¿");
+  const splittedQuestions = presplittedQuestions.split("|")
+
+
+  return splittedQuestions;
+};
+
+const getFirstQuestionsFormatted = (questions: string) => {
+  const splittedQuestions = getIndividualQuestions(questions)
+  const firstQuestions = splittedQuestions.slice(0, 3).join(" ")
+
+  return firstQuestions
+}
+const getLastQuestionsFormatted = (questions: string) => {
+  const splittedQuestions = getIndividualQuestions(questions)
+  const lastQuestions = splittedQuestions.slice(4).join(" ")
+
+  return lastQuestions
+}
+
+const toggleLastQuestionsVisibility = () => {
+  lastQuestionsVisible.value = !lastQuestionsVisible.value
+  console.log(lastQuestionsVisible.value)
 }
 
 defineProps<VideoEntryProps>();
@@ -54,10 +81,23 @@ defineProps<VideoEntryProps>();
     </div>
     <div class="video-entry_description">
       <div class="video-entry_description_questions">
-        <p>{{ videoEntry.questions }}</p>
+        <span class="video-entry__questions__visible-questions">
+          {{ getFirstQuestionsFormatted(videoEntry.questions) }}
+          <button class="see-more-button" aria-label="See more" @click="toggleLastQuestionsVisibility"
+            v-if="!lastQuestionsVisible">
+            <span class="circle"></span>
+            <span class="circle"></span>
+            <span class="circle"></span>
+          </button>
+        </span>
+        <span class="video-entry__questions__hidden-questions" v-if="lastQuestionsVisible">
+          {{ getLastQuestionsFormatted(videoEntry.questions) }}
+        </span>
+
       </div>
       <div class="video-entry_description_tag-list">
-        <span v-for="videoType in videoEntry.videoTypes" class="tag" :key="videoType.name">{{ videoType.fullName }}</span>
+        <span v-for=" videoType  in  videoEntry.videoTypes " class="tag" :key="videoType.name">{{ videoType.fullName
+        }}</span>
       </div>
     </div>
   </li>
@@ -73,6 +113,26 @@ defineProps<VideoEntryProps>();
   margin-bottom: 16px;
   box-shadow: 3px 3px var(--orange);
 }
+
+.see-more-button {
+  display: inline-flex;
+  position: relative;
+  gap: 4px;
+  background: none;
+  border: none;
+  font-size: 12px;
+  color: var(--border-color);
+  cursor: pointer;
+}
+
+.see-more-button .circle {
+  border-radius: 100%;
+  height: 6px;
+  width: 6px;
+  background-color: var(--border-color);
+
+}
+
 
 a {
   color: var(--white);

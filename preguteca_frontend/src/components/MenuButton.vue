@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+// import { ref } from 'vue';
 
-type MenuButtonState = "IDLE" | "OPEN" | "HOVER"
+// type MenuButtonState = "IDLE" | "OPEN" | "HOVER"
 
-const state = ref<MenuButtonState>("IDLE")
+// const state = ref<MenuButtonState>("IDLE")
 </script>
 <template>
     <div class="bar-container">

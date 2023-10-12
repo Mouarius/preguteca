@@ -1,21 +1,11 @@
 <script setup lang="ts">
-import { reactive, watchEffect } from "vue";
 import CategoryDetail from "./components/CategoryDetail.vue";
-import { useCategories } from "./queries/useCategories.ts";
 import MainIllustration from "./components/MainIllustration.vue";
 import AppHeader from "./components/AppHeader.vue";
-import { store, updateActiveCategory } from "./store";
+import { store, } from "./store";
+import HomePanel from "./components/HomePanel.vue";
 
-const categoriesQ = reactive(useCategories());
 
-watchEffect(async () => {
-  if (categoriesQ.data && !categoriesQ.isError) {
-    const categoryToShow = await categoriesQ.data[
-      Math.floor(Math.random() * categoriesQ.data.length)
-    ];
-    await updateActiveCategory(categoryToShow);
-  }
-});
 </script>
 
 <template>
@@ -26,10 +16,8 @@ watchEffect(async () => {
         <MainIllustration />
       </div>
     </section>
-    <CategoryDetail
-      v-if="store.activeCategory"
-      :active-category="store.activeCategory"
-    />
+    <CategoryDetail v-if="store.activeCategory" :active-category="store.activeCategory" />
+    <HomePanel v-else />
   </div>
 </template>
 

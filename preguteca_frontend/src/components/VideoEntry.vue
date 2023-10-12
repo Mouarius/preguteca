@@ -55,7 +55,7 @@ defineProps<VideoEntryProps>();
         <a :href="`https://www.youtube.com/watch?v=${videoEntry.youtubeId}`">https://www.youtube.com/watch?v={{
           videoEntry.youtubeId }}</a>
       </div>
-      <div class="video-entry__header_duration">{{ videoEntry.duration }}</div>
+      <div class="video-entry__header__duration">{{ videoEntry.duration }}</div>
     </header>
     <div class="video-entry__viewport">
       <iframe v-if="isVideoVisible" class="video-entry__viewport__iframe" type="text/html" width="100%" height="100%"
@@ -162,12 +162,17 @@ a {
   border-left: solid 1px var(--white);
 }
 
-.video-entry__header__number {
-  font-weight: 600;
+.video-entry__header {
+  font-family: 'Times New Roman', Times, serif;
+  font-style: italic;
 }
+
 
 .video-entry__header__url {
   position: relative;
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-size: 14px;
   display: block;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -176,6 +181,7 @@ a {
 
 .video-entry__header__url a {
   width: 100%;
+  color: rgb(218, 217, 217);
   max-width: 100%;
   text-overflow: ellipsis;
   overflow: hidden;

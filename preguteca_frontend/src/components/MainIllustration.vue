@@ -63,10 +63,10 @@ const category = computed(() =>
 onMounted(() => {
   const clickables = document.querySelectorAll(
     "svg *[data-clickable='true']"
-  ) as NodeListOf<HTMLElement>;
+  );
   const tagTextList = document.querySelectorAll(
     "#etiquetes text"
-  ) as NodeListOf<SVGTextElement>;
+  );
 
   // Adjust the translateY for the text in the tags
   tagTextList.forEach((text) => {
@@ -113,7 +113,8 @@ svg {
   transition: all 0.3s ease;
 }
 
-[data-clickable="true"]:hover {
+[data-clickable="true"]:hover,
+[data-clickable="false"] {
   filter: grayscale(100%);
 }
 
@@ -743,7 +744,7 @@ svg {
     </g>
     <g id="isla7">
       <g class="cls-16">
-        <image loading="lazy" data-clickable="true" data-category-name="la_residencia_de_ancianos" width="146"
+        <image loading="lazy" data-clickable="false" data-category-name="la_residencia_de_ancianos" width="146"
           height="150" transform="translate(57.93 846.66) scale(2.23)" :href="image5" />
       </g>
       <g class="cls-17">
@@ -1049,7 +1050,7 @@ svg {
     </g>
     <g id="isla14">
       <g class="cls-26">
-        <image loading="lazy" data-clickable="true" data-category-name="la_inmobiliaria" width="108" height="118"
+        <image loading="lazy" data-clickable="false" data-category-name="la_inmobiliaria" width="108" height="118"
           transform="translate(171.56 1933.94) scale(2.23)" :href="image12" />
       </g>
       <g class="cls-27">
@@ -1903,7 +1904,7 @@ svg {
     </g>
     <g id="isla30">
       <g class="la_television__image">
-        <image loading="lazy" data-clickable="true" data-category-name="la_television" width="101" height="117"
+        <image loading="lazy" data-clickable="false" data-category-name="la_television" width="101" height="117"
           transform="translate(321.48 4247.3) scale(2.23)" :href="image49" />
       </g>
       <g class="cls-45">
@@ -2201,7 +2202,7 @@ svg {
     </g>
     <g id="isla36">
       <g class="cls-51">
-        <image loading="lazy" data-clickable="true" data-category-name="el_cuartel_militar" width="109" height="128"
+        <image loading="lazy" data-clickable="false" data-category-name="el_cuartel_militar" width="109" height="128"
           transform="translate(828.83 5001.95) scale(2.23)" :href="image36" />
       </g>
       <g class="cls-52">

@@ -20,20 +20,22 @@ class HomePageInformationCardAdmin(admin.ModelAdmin):
 @admin.register(HomePage)
 class HomePageAdmin(admin.ModelAdmin):
     list_display = ("month_category", "active", "created_at", "modified_at")
+    autocomplete_fields = ("highlighted_video",)
     filter_horizontal = ("information_cards",)
 
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ["name", "full_name"]
+    list_display = ["full_name", "name"]
+    search_fields = ["full_name"]
     fields = ("name", "full_name", "description", "keywords", "video_entries")
     filter_horizontal = ("video_entries",)
 
 
 @admin.register(VideoEntry)
 class VideoEntryAdmin(admin.ModelAdmin):
-    list_display = ["video_title", "visible", "video_url"]
-    search_fields = ["youtube_id", "author"]
+    list_display = ["id", "title", "visible", "video_url"]
+    search_fields = ["title", "youtube_id", "author"]
     empty_value_display = "???"
 
     @admin.display(empty_value="???")

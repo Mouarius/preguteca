@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useHomePage } from "../queries/useHomePage.ts"
+import { updateActiveCategory } from "../store";
 import HomePanelInfoCard from "./HomePanelInfoCard.vue";
 import HomePanelVideoCard from "./HomePanelVideoCard.vue";
 const homePage = useHomePage()
@@ -9,7 +10,9 @@ console.log(homePage.data.value?.informationCards)
     <div class="container">
         <div class="header">
             <div class="header__section hearder__part--building">
-                <div class="header__title">{{ homePage.data.value?.monthCategory.fullName }}</div>
+                <div class="header__title" @click="() => updateActiveCategory(homePage.data.value?.monthCategory)">
+                    {{
+                        homePage.data.value?.monthCategory.fullName }}</div>
                 <div class="separator separator--header"></div>
                 <div class="header__subtitle">Edificio del mes</div>
             </div>
@@ -80,6 +83,10 @@ console.log(homePage.data.value?.informationCards)
     gap: 8px;
     grid-template-columns: 1fr;
 
+}
+
+.header__title {
+    cursor: pointer;
 }
 
 

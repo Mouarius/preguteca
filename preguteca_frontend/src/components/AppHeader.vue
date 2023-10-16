@@ -1,10 +1,15 @@
 <script setup lang="ts">
+import { updateActiveCategory } from "../store";
 import SearchBar from "./SearchBar.vue";
+const displayHomePanel = (event: MouseEvent) => {
+  console.log(event)
+  updateActiveCategory(null)
+}
 </script>
 
 <template>
   <header>
-    <div class="logo-title__container">
+    <div class="logo-title__container" @click="displayHomePanel">
       <div class="logo-container">
         <img src="/src/assets/preguteca_logo_120.svg" alt="logo" id="logo" height="120" width="120" />
       </div>
@@ -70,6 +75,7 @@ header {
   height: 100%;
   align-items: center;
   overflow: visible;
+  cursor: pointer;
 }
 
 .search-bar__container {

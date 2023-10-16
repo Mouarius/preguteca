@@ -2,13 +2,11 @@
 import { ref } from "vue";
 import { TVideoEntry } from "../types";
 import PlayButton from "../assets/play-button--orange.svg";
-import { useHomePage } from "../queries/useHomePage";
 
 type Props = {
   videoEntry: TVideoEntry;
 };
 defineProps<Props>();
-const homePage = useHomePage();
 
 const isVideoVisible = ref(false);
 
@@ -28,28 +26,15 @@ const setVideoVisible = () => {
       <a :href="videoEntry.videoUrl">{{ videoEntry.videoUrl }}</a>
     </div>
     <div class="row video__viewport">
-      <iframe
-        v-if="isVideoVisible"
-        class="video__viewport__iframe"
-        type="text/html"
-        width="100%"
-        height="100%"
-        allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture"
-        frameborder="0"
-        :src="`${videoEntry.videoEmbedUrl}?autoplay=1`"
-      ></iframe>
+      <iframe v-if="isVideoVisible" class="video__viewport__iframe" type="text/html" width="100%" height="100%"
+        allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0"
+        :src="`${videoEntry.videoEmbedUrl}?autoplay=1`"></iframe>
       <template v-else>
         <button class="video__viewport__button" @click="setVideoVisible">
           <img :src="PlayButton" alt="" />
         </button>
-        <img
-          v-if="videoEntry.thumbnailUrl"
-          class="video__viewport__thumbnail"
-          :src="videoEntry.thumbnailUrl"
-          alt="Video Thumbnail"
-          height="360"
-          width="480"
-        />
+        <img v-if="videoEntry.thumbnailUrl" class="video__viewport__thumbnail" :src="videoEntry.thumbnailUrl"
+          alt="Video Thumbnail" height="360" width="480" />
       </template>
     </div>
     <div class="details">
@@ -57,9 +42,7 @@ const setVideoVisible = () => {
         <div class="details__header__element details__header__element--title">
           {{ videoEntry.title }}
         </div>
-        <div
-          class="details__header__element details__header__element--duration"
-        >
+        <div class="details__header__element details__header__element--duration">
           {{ videoEntry.duration }}
         </div>
       </div>
@@ -88,7 +71,7 @@ const setVideoVisible = () => {
   min-width: 100%;
 }
 
-.card-container > div:not(:last-child) {
+.card-container>div:not(:last-child) {
   border-bottom: solid 1px var(--border-color);
 }
 

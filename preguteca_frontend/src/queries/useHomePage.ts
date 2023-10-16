@@ -1,4 +1,4 @@
-import { useQuery, UseQueryReturnType } from "@tanstack/vue-query";
+import { useQuery } from "@tanstack/vue-query";
 import { axiosInstance as axios } from "../main.ts";
 import { HomePage } from "../types/index.ts";
 

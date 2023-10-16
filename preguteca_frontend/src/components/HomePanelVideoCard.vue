@@ -2,10 +2,15 @@
 import { ref } from 'vue';
 import { TVideoEntry } from '../types';
 import PlayButton from "../assets/play-button--orange.svg";
+import { useHomePage } from '../queries/useHomePage';
+
+type Props = {
+    videoEntry: TVideoEntry
+}
+defineProps<Props>()
+const homePage = useHomePage()
 
 const isVideoVisible = ref(false)
-
-const videoEntry: TVideoEntry = {}
 
 const setVideoVisible = () => {
     isVideoVisible.value = !isVideoVisible.value
@@ -14,10 +19,10 @@ const setVideoVisible = () => {
 <template>
     <div class="card-container">
         <div class="row header">
-            <div class="header__element header__element--title">Conferencia</div>
+            <div class="header__element header__element--title">{{ videoEntry.videoTypes[0].fullName }}</div>
             <div class="header__element header__element--type">Semanal</div>
         </div>
-        <div class="row url"><a href="https://www.youtube.com/">https://www.youtube.com/</a></div>
+        <div class="row url"><a :href="videoEntry.videoUrl">{{ videoEntry.videoUrl }}</a></div>
         <div class="row video__viewport">
             <iframe v-if="isVideoVisible" class="video__viewport__iframe" type="text/html" width="100%" height="100%"
                 allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0"
@@ -32,21 +37,20 @@ const setVideoVisible = () => {
         </div>
         <div class="details">
             <div class="row details__header">
-                <div class="details__header__element details__header__element--title">Debate la 1 sobre separacion de
-                    poderes</div>
-                <div class="details__header__element details__header__element--duration">47:41</div>
+                <div class="details__header__element details__header__element--title">{{ videoEntry.title }}</div>
+                <div class="details__header__element details__header__element--duration">{{ videoEntry.duration }}</div>
             </div>
             <div class="row details__content">
-                <p>content</p>
+                {{ videoEntry.questions }}
             </div>
             <div class="row details__footer">
                 <div class="details__footer__element">
                     <span class="footer__element__key">Conferiancianto</span>
-                    <span class="footer__element__value">Miguel Anxo Bastos</span>
+                    <span class="footer__element__value">{{ videoEntry.author }}</span>
                 </div>
                 <div class="details__footer__element">
                     <span class="footer__element__key">Canal de Youtube</span>
-                    <span class="footer__element__value">Value School</span>
+                    <span class="footer__element__value">{{ videoEntry.author }}</span>
                 </div>
             </div>
 
@@ -230,5 +234,14 @@ const setVideoVisible = () => {
     font-size: 16px;
     font-weight: 600;
     font-style: normal;
+}
+
+.details__content {
+    height: fit-content;
+    padding: 8px;
+    text-align: justify;
+    font-family: "Open Sans", Arial, Helvetica, sans-serif;
+    font-style: normal;
+
 }
 </style>

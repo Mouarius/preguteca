@@ -6,6 +6,7 @@ app_name = "question_library"
 
 urlpatterns = [
     path("api/", include([
+        path("home_page/", views.HomePageView.as_view()),
         path("categories/<str:name>", views.CategoryDetail.as_view()),
         path("categories/", views.CategoryList.as_view()),
         path("video_entries/<int:pk>", views.VideoEntryDetail.as_view()),

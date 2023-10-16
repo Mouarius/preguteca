@@ -1,14 +1,17 @@
 from django.contrib import admin
 
-from .models import Category, Comment, VideoEntry, VideoType
+from .models import Category, Comment, VideoEntry, VideoType, HomePage
 
 admin.site.register([Comment, VideoType])
 
+@admin.register(HomePage)
+class HomePageAdmin(admin.ModelAdmin):
+    pass
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ["name", "full_name"]
-    fields = ("name", "full_name", "description", "video_entries")
+    fields = ("name", "full_name", "description", "keywords", "video_entries")
     filter_horizontal = ("video_entries",)
 
 

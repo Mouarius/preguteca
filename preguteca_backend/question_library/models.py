@@ -8,6 +8,12 @@ from unidecode import unidecode
 
 from question_library.utils.youtube import extract_video_id_from_url
 
+def to_snake_case(string: str) -> str:
+    string = unidecode(string)
+    string = (
+        re.sub(r"(?<=[a-z])(?=[A-Z])|[^a-zA-Z]", " ", string).strip().replace(" ", "_")
+    )
+    return "".join(string.lower())
 
 class Category(models.Model):
     name = models.CharField("name", max_length=50, unique=True)
@@ -15,7 +21,8 @@ class Category(models.Model):
     video_entries = models.ManyToManyField(
         "question_library.VideoEntry", verbose_name="Video entries"
     )
-    description = models.TextField("description", max_length=500, blank=True, null=True)
+    description = models.TextField("Description", max_length=500, blank=True, null=True)
+    keywords = models.CharField("Keywords", max_length=255, blank=True, null=True)
 
     def __str__(self):
         return self.full_name
@@ -27,13 +34,15 @@ class Category(models.Model):
         verbose_name = "Category"
         verbose_name_plural = "Categories"
 
+class HomePage(models.Model):
+    active= models.BooleanField("Is active ?", default=False)
+    month_category = models.ForeignKey("question_library.Category", on_delete=models.CASCADE, verbose_name="Category of the month")
+    month_questions = models.TextField("Questions of the month", max_length=500, blank=True, null=True)
+    day_question = models.CharField("Question of the day", max_length=180, blank=True, null=True)
+    highlighted_video = models.ForeignKey("question_library.VideoEntry", on_delete=models.CASCADE, verbose_name="Highlighted video")
 
-def to_snake_case(string: str) -> str:
-    string = unidecode(string)
-    string = (
-        re.sub(r"(?<=[a-z])(?=[A-Z])|[^a-zA-Z]", " ", string).strip().replace(" ", "_")
-    )
-    return "".join(string.lower())
+    information_title = models.CharField("Title of the information panel", max_length=180, blank=True, null=True)
+    information_content = models.TextField("Content of the information panel", max_length=1000, blank=True, null=True)
 
 
 class VideoType(models.Model):

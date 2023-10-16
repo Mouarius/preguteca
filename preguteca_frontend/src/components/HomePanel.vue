@@ -1,35 +1,36 @@
 <script setup lang="ts">
-import HomePanelCard from './HomePanelCard.vue';
+import { useHomePage } from "../queries/useHomePage.ts"
+import HomePanelVideoCard from "./HomePanelVideoCard.vue";
+const homePage = useHomePage()
 </script>
 <template>
     <div class="container">
         <div class="header">
             <div class="header__section hearder__part--building">
-                <div class="header__title">El Parlamento</div>
+                <div class="header__title">{{ homePage.data.value?.monthCategory.fullName }}</div>
                 <div class="separator separator--header"></div>
                 <div class="header__subtitle">Edificio del mes</div>
             </div>
             <div class="header__section hearder__part--question">
-                <div class="header__keywords">Separacion de poderes, democracia, representacion, libertad politica
-                    colectiva...</div>
+                <div class="header__keywords">{{ homePage.data.value?.monthCategory.keywords }}</div>
                 <div class="separator separator--header"></div>
                 <div class="header__subtitle">Palabras clave</div>
             </div>
         </div>
         <div class="subheader">
-            <div class="subheader__section">
-                <p class="subheader__general-questions"> uhqsdfqsd qfsd qsdf e f sdfqsdf qsdfqsd e fef jlksdfgsdf qsdgqsdg
-                </p>
+            <div class="subheader__section subheader__section--left">
+                <p class="subheader__general-questions">{{ homePage.data.value?.monthQuestions }}</p>
             </div>
-            <div class="subheader__section">
-                <div class="question-of-the-day">¿Has separacion de poderes en Espana? </div>
+            <div class="subheader__section subheader__section--right">
+                <div class="question-of-the-day">{{ homePage.data.value?.dayQuestion }}</div>
                 <div class="separator separator--subheader"></div>
                 <div class="subheader__subtitle">Question del dia</div>
             </div>
 
         </div>
         <div class="content">
-            <HomePanelCard />
+            <HomePanelVideoCard v-if="homePage.data.value?.highlightedVideo"
+                :video-entry="homePage.data.value?.highlightedVideo" />
         </div>
 
     </div>
@@ -40,6 +41,7 @@ import HomePanelCard from './HomePanelCard.vue';
     grid-template-columns: 1fr;
     padding: 8px;
     gap: 8px;
+    overflow: scroll;
 }
 
 @media screen and (min-width: 1000px) {
@@ -112,9 +114,7 @@ import HomePanelCard from './HomePanelCard.vue';
 .subheader {
     color: var(--border-color);
     background-color: var(--black);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    min-height: 64px;
+    display: flex;
     align-items: start;
     border-bottom: solid 1px var(--border-color);
 }
@@ -123,17 +123,31 @@ import HomePanelCard from './HomePanelCard.vue';
     display: flex;
     padding: 8px;
     height: 100%;
-
 }
 
-.subheader__section:last-child {
-    border-left: solid 1px var(--border-color);
-}
+
 
 .question-of-the-day {
     font-family: "Open Sans", Arial, Helvetica, sans-serif;
     font-weight: 600;
     font-style: normal;
+}
+
+.subheader__section--left {
+    flex: 1;
+}
+
+.subheader__general-questions {
+    height: 100%;
+    overflow: hidden;
+}
+
+.subheader__section--right {
+    border-left: solid 1px var(--border-color);
+}
+
+.subheader__section--right .question-of-the-day {
+    flex-shrink: 0;
 }
 
 .header__keywords {

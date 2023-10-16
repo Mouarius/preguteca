@@ -20,9 +20,21 @@ export interface TVideoEntry {
   videoTypes: TVideoType[];
 }
 
+export interface HomePage {
+  id: number;
+  active: boolean;
+  monthQuestions: string;
+  dayQuestion: string;
+  informationTitle: string;
+  ingormationContent: string;
+  monthCategory: TCategory;
+  highlightedVideo: TVideoEntry;
+}
+
 export interface TCategory {
   id: number;
   name: string;
+  keywords: string;
   fullName: string;
   videoEntries: TVideoEntry[];
   description: string;

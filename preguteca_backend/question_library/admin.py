@@ -1,12 +1,27 @@
 from django.contrib import admin
 
-from .models import Category, Comment, VideoEntry, VideoType, HomePage
+from .models import (
+    Category,
+    Comment,
+    VideoEntry,
+    VideoType,
+    HomePage,
+    HomePageInformationCard,
+)
 
 admin.site.register([Comment, VideoType])
 
+
+@admin.register(HomePageInformationCard)
+class HomePageInformationCardAdmin(admin.ModelAdmin):
+    list_display = ["title", "created_at", "modified_at"]
+
+
 @admin.register(HomePage)
 class HomePageAdmin(admin.ModelAdmin):
-    pass
+    list_display = ("month_category", "active", "created_at", "modified_at")
+    filter_horizontal = ("information_cards",)
+
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):

@@ -1,6 +1,12 @@
 from rest_framework import serializers
 
-from question_library.models import Category, VideoEntry, VideoType, HomePage
+from question_library.models import (
+    Category,
+    VideoEntry,
+    VideoType,
+    HomePage,
+    HomePageInformationCard,
+)
 
 
 class VideoTypeSerializer(serializers.ModelSerializer):
@@ -41,9 +47,16 @@ class CategorySerializer(serializers.ModelSerializer):
         lookup_field = "name"
 
 
+class HomePageInformationCardSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HomePageInformationCard
+        fields = "__all__"
+
+
 class HomePageSerializer(serializers.ModelSerializer):
     month_category = CategorySerializer(read_only=True)
     highlighted_video = VideoEntrySerializer(read_only=True)
+    information_cards = HomePageInformationCardSerializer(many=True, read_only=True)
 
     class Meta:
         model = HomePage

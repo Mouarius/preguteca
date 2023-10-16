@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { useHomePage } from "../queries/useHomePage.ts"
+import HomePanelInfoCard from "./HomePanelInfoCard.vue";
 import HomePanelVideoCard from "./HomePanelVideoCard.vue";
 const homePage = useHomePage()
+console.log(homePage.data.value?.informationCards)
 </script>
 <template>
     <div class="container">
@@ -29,10 +31,12 @@ const homePage = useHomePage()
 
         </div>
         <div class="content">
-            <HomePanelVideoCard v-if="homePage.data.value?.highlightedVideo"
+            <HomePanelVideoCard v-if="homePage.data.value?.highlightedVideo && homePage.isSuccess"
                 :video-entry="homePage.data.value?.highlightedVideo" />
-        </div>
+            <HomePanelInfoCard v-for="informationCard in homePage.data.value?.informationCards"
+                v-bind:key="informationCard.id" :title="informationCard.title" :content="informationCard.content" />
 
+        </div>
     </div>
 </template>
 <style scoped>

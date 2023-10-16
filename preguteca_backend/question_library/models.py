@@ -8,12 +8,14 @@ from unidecode import unidecode
 
 from question_library.utils.youtube import extract_video_id_from_url
 
+
 def to_snake_case(string: str) -> str:
     string = unidecode(string)
     string = (
         re.sub(r"(?<=[a-z])(?=[A-Z])|[^a-zA-Z]", " ", string).strip().replace(" ", "_")
     )
     return "".join(string.lower())
+
 
 class Category(models.Model):
     name = models.CharField("name", max_length=50, unique=True)
@@ -34,15 +36,48 @@ class Category(models.Model):
         verbose_name = "Category"
         verbose_name_plural = "Categories"
 
-class HomePage(models.Model):
-    active= models.BooleanField("Is active ?", default=False)
-    month_category = models.ForeignKey("question_library.Category", on_delete=models.CASCADE, verbose_name="Category of the month")
-    month_questions = models.TextField("Questions of the month", max_length=500, blank=True, null=True)
-    day_question = models.CharField("Question of the day", max_length=180, blank=True, null=True)
-    highlighted_video = models.ForeignKey("question_library.VideoEntry", on_delete=models.CASCADE, verbose_name="Highlighted video")
 
-    information_title = models.CharField("Title of the information panel", max_length=180, blank=True, null=True)
-    information_content = models.TextField("Content of the information panel", max_length=1000, blank=True, null=True)
+class HomePage(models.Model):
+    active = models.BooleanField("Is active ?", default=False)
+    month_category = models.ForeignKey(
+        "question_library.Category",
+        on_delete=models.CASCADE,
+        verbose_name="Category of the month",
+    )
+    month_questions = models.TextField(
+        "Questions of the month", max_length=500, blank=True, null=True
+    )
+    day_question = models.CharField(
+        "Question of the day", max_length=180, blank=True, null=True
+    )
+    highlighted_video = models.ForeignKey(
+        "question_library.VideoEntry",
+        on_delete=models.CASCADE,
+        verbose_name="Highlighted video",
+    )
+    information_cards = models.ManyToManyField(
+        "question_library.HomePageInformationCard"
+    )
+    modified_at = models.DateTimeField("Modified at", auto_now=True)
+    created_at = models.DateTimeField("Created at", auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Home Page"
+        verbose_name_plural = "Home Pages"
+
+
+class HomePageInformationCard(models.Model):
+    title = models.CharField("Title", max_length=180, blank=True, null=True)
+    content = models.TextField("Content", max_length=1000, blank=True, null=True)
+    modified_at = models.DateTimeField("Modified at", auto_now=True)
+    created_at = models.DateTimeField("Created at", auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Information Card"
+        verbose_name_plural = "Information Cards"
+
+    def __str__(self) -> str:
+        return f"{ self.title } ({self.modified_at.strftime('%d/%m/%y %H:%M:%S')})"
 
 
 class VideoType(models.Model):
@@ -80,7 +115,6 @@ class VideoEntry(models.Model):
     )
     yt_publish_time = models.DateTimeField(
         verbose_name="Youtube - Video publication date",
-        default=dt.datetime.now(),
         blank=True,
     )
     duration = models.CharField(

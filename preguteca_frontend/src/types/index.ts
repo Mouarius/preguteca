@@ -25,10 +25,17 @@ export interface HomePage {
   active: boolean;
   monthQuestions: string;
   dayQuestion: string;
-  informationTitle: string;
-  ingormationContent: string;
   monthCategory: TCategory;
   highlightedVideo: TVideoEntry;
+  informationCards: HomePageInformationCard[];
+}
+
+export interface HomePageInformationCard {
+  id: number;
+  title: string;
+  content: string;
+  modifiedAt: string;
+  createdAt: string;
 }
 
 export interface TCategory {

@@ -7,11 +7,13 @@ from .serializers import CategorySerializer, VideoEntrySerializer, HomePageSeria
 
 
 class DefaultView(TemplateView):
-    template_name="question_library/index.html"
+    template_name = "question_library/index.html"
+
 
 class HomePageView(generics.ListAPIView):
-    queryset = HomePage.objects.all()
+    queryset = HomePage.objects.filter(active=True)
     serializer_class = HomePageSerializer
+
 
 class CategoryList(generics.ListAPIView):
     queryset = Category.objects.all().order_by("name").prefetch_related("video_entries")

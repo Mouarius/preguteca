@@ -11,21 +11,40 @@ function scrollTop(event: MouseEvent) {
 </script>
 
 <template>
-  <section v-if="store.activeCategory" :class="{
-    'category-container': true,
-    'category-container--hidden': !store.isCategoryContainerVisible,
-  }">
-    <header v-if="store.activeCategory.fullName" @click="scrollTop" class="category-container__header">
-      <img @click="toggleCategoryContainer" :src="ChevronLeft" alt="chevron-left" />
+  <section
+    v-if="store.activeCategory"
+    :class="{
+      'category-container': true,
+      'category-container--hidden': !store.isCategoryContainerVisible,
+    }"
+  >
+    <header
+      v-if="store.activeCategory.fullName"
+      @click="scrollTop"
+      class="category-container__header"
+    >
+      <img
+        @click="toggleCategoryContainer"
+        :src="ChevronLeft"
+        alt="chevron-left"
+      />
       <h2>{{ store.activeCategory.fullName }}</h2>
     </header>
     <!-- <div class="category-description">
       {{ store.activeCategory.description }}
     </div> -->
-    <ul v-if="store.activeCategory.fullName" id="video-entry-list" class="video-entry-list scrollable">
-      <VideoEntry v-for="(video_entry, index) in store.activeCategory.videoEntries" :key="video_entry.id"
-        :video-entry="video_entry" :videos-in-category="store.activeCategory.videoEntries.length"
-        :index-in-category="index" />
+    <ul
+      v-if="store.activeCategory.fullName"
+      id="video-entry-list"
+      class="video-entry-list scrollable"
+    >
+      <VideoEntry
+        v-for="(video_entry, index) in store.activeCategory.videoEntries"
+        :key="video_entry.id"
+        :video-entry="video_entry"
+        :videos-in-category="store.activeCategory.videoEntries.length"
+        :index-in-category="index"
+      />
     </ul>
     <div v-else class="category-placeholder">
       <div class="category-placeholder__welcome">
@@ -80,7 +99,7 @@ function scrollTop(event: MouseEvent) {
 }
 
 .category-container__header h2 {
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Times New Roman", Times, serif;
   font-style: italic;
 }
 

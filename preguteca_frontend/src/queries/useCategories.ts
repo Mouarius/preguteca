@@ -7,7 +7,7 @@ function fetchCategories(): Promise<TCategory[]> {
 }
 
 export function useCategories(): UseQueryReturnType<TCategory[], Error> {
- return useQuery({
+  return useQuery({
     queryKey: ["category-list"],
     queryFn: fetchCategories,
   });

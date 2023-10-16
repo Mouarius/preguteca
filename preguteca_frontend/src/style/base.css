@@ -20,8 +20,8 @@
   --darkgrey: rgb(37, 36, 39);
   --grey: rgb(78, 80, 70);
   --white: #ffffff;
-  --orange: #F86804;
-  --green: #42B63A;
+  --orange: #f86804;
+  --green: #42b63a;
 
   --text: var(--white);
   --border-color: white;

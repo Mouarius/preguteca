@@ -38,10 +38,13 @@ const homePage = useHomePage()
 <style scoped>
 .content {
     display: grid;
+    position: relative;
     grid-template-columns: 1fr;
     padding: 8px;
     gap: 8px;
-    overflow: scroll;
+    overflow-y: scroll;
+    width: 100%;
+    height: 100%;
 }
 
 @media screen and (min-width: 1000px) {
@@ -49,6 +52,7 @@ const homePage = useHomePage()
         grid-template-columns: 1fr 1fr;
     }
 }
+
 
 .container {
     width: 100%;
@@ -58,19 +62,22 @@ const homePage = useHomePage()
     font-family: 'Times New Roman', Times, serif;
     font-style: italic;
     border: solid 1px var(--border-color);
+    overflow: scroll;
 
 }
 
 .header {
     padding: 8px;
     padding-left: 10px;
-    min-height: 64px;
     padding-right: 12px;
     background: var(--white);
     color: var(--black);
     display: grid;
-    grid-template-columns: 2fr 3fr;
+    gap: 8px;
+    grid-template-columns: 1fr;
+
 }
+
 
 .header__section {
     display: flex;
@@ -115,6 +122,7 @@ const homePage = useHomePage()
     color: var(--border-color);
     background-color: var(--black);
     display: flex;
+    flex-direction: column;
     align-items: start;
     border-bottom: solid 1px var(--border-color);
 }
@@ -142,9 +150,6 @@ const homePage = useHomePage()
     overflow: hidden;
 }
 
-.subheader__section--right {
-    border-left: solid 1px var(--border-color);
-}
 
 .subheader__section--right .question-of-the-day {
     flex-shrink: 0;
@@ -154,5 +159,21 @@ const homePage = useHomePage()
     font-weight: 600;
     word-break: break-word;
     height: 100%;
+}
+
+@media screen and (min-width: 768px) {
+    .header {
+        gap: 0px;
+        grid-template-columns: 2fr 3fr;
+    }
+
+    .subheader {
+        gap: 0px;
+        flex-direction: row;
+    }
+
+    .subheader__section--right {
+        border-left: solid 1px var(--border-color);
+    }
 }
 </style>

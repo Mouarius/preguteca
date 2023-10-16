@@ -59,11 +59,11 @@ const setVideoVisible = () => {
 </template>
 <style scoped>
 .card-container {
-    box-shadow: 3px 3px var(--orange);
+    box-shadow: 4px 4px var(--orange);
     border: solid 1px var(--border-color);
     display: flex;
     flex-direction: column;
-    justify-content: stretch;
+    min-width: 100%;
 }
 
 .card-container>div:not(:last-child) {
@@ -107,10 +107,6 @@ const setVideoVisible = () => {
 .url {
     font-style: normal;
     font-family: "Open Sans", Arial, Helvetica, sans-serif;
-    display: block;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
     height: 32px;
     padding: 8px;
     font-size: 14px;
@@ -118,10 +114,10 @@ const setVideoVisible = () => {
 
 .url a {
     width: 100%;
-    color: rgb(218, 217, 217);
-    max-width: 100%;
-    text-overflow: ellipsis;
+    white-space: nowrap;
     overflow: hidden;
+    text-overflow: ellipsis;
+    color: rgb(218, 217, 217);
 }
 
 

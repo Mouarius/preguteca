@@ -1,12 +1,9 @@
 from __future__ import annotations
 
-import datetime as dt
 import re
 
 from django.db import models
 from unidecode import unidecode
-
-from question_library.utils.youtube import extract_video_id_from_url
 
 
 def to_snake_case(string: str) -> str:

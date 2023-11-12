@@ -1,8 +1,7 @@
 from rest_framework import generics
-from django.shortcuts import render
 from django.views.generic import TemplateView
 
-from .models import Category, VideoEntry, HomePage
+from .models import Category, TextPost, VideoEntry, HomePage, VideoPost
 from .serializers import CategorySerializer, VideoEntrySerializer, HomePageSerializer
 
 
@@ -35,3 +34,9 @@ class VideoEntryList(generics.ListAPIView):
 class VideoEntryDetail(generics.RetrieveAPIView):
     queryset = VideoEntry.objects.all()
     serializer_class = VideoEntrySerializer
+
+class VideoPostList(generics.ListAPIView):
+    queryset = VideoPost.objects.all()
+
+class TextPostList(generics.ListAPIView):
+    queryset = TextPost.objects.all()

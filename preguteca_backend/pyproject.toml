@@ -19,6 +19,7 @@ google-api-python-client = "^2.97.0"
 djangorestframework-camel-case = "^1.4.2"
 django-browser-reload = "^1.11.0"
 black = "^23.10.0"
+django-stubs = {extras = ["compatible-mypy"], version = "^4.2.6"}
 
 
 [build-system]

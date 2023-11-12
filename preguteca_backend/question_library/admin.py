@@ -1,27 +1,62 @@
 from django.contrib import admin
+from django.http.request import HttpRequest
 
 from .models import (
     Category,
     Comment,
+    TextPost,
     VideoEntry,
+    VideoPost,
     VideoType,
     HomePage,
-    HomePageInformationCard,
 )
 
-admin.site.register([Comment, VideoType])
-
-
-@admin.register(HomePageInformationCard)
-class HomePageInformationCardAdmin(admin.ModelAdmin):
-    list_display = ["title", "created_at", "modified_at"]
+admin.site.register(
+    [
+        Comment,
+        VideoType,
+    ]
+)
 
 
 @admin.register(HomePage)
 class HomePageAdmin(admin.ModelAdmin):
     list_display = ("month_category", "active", "created_at", "modified_at")
     autocomplete_fields = ("highlighted_video",)
-    filter_horizontal = ("information_cards",)
+    filter_horizontal = ("text_posts", "video_posts")
+
+
+class HomepageBasePostAdmin(admin.ModelAdmin):
+    header_fieldsets = (
+        ("Header", {"fields": ("header_title", "header_supplementary_information")}),
+    )
+    footer_fieldsets = (
+        (
+            "Footer",
+            {
+                "fields": (
+                    ("footer_left_name", "footer_left_value"),
+                    ("footer_right_name", "footer_right_value"),
+                )
+            },
+        ),
+    )
+
+    def get_fieldsets(self, request: HttpRequest, obj):
+        fieldsets = super().get_fieldsets(request, obj)
+        return [*self.header_fieldsets, *fieldsets, *self.footer_fieldsets]
+
+
+@admin.register(TextPost)
+class HomepageTextPostAdmin(HomepageBasePostAdmin):
+    fieldsets = [
+        ("Content", {"fields": ("content",)}),
+    ]
+
+
+@admin.register(VideoPost)
+class HomepageVideoPostAdmin(HomepageBasePostAdmin):
+    fieldsets = [("Content", {"fields": ("video",)})]
 
 
 @admin.register(Category)

@@ -52,9 +52,18 @@ class HomePage(models.Model):
         on_delete=models.CASCADE,
         verbose_name="Highlighted video",
     )
-    information_cards = models.ManyToManyField(
-        "question_library.HomePageInformationCard"
+
+    text_posts = models.ManyToManyField(
+        "question_library.TextPost", blank = True
     )
+    video_posts = models.ManyToManyField(
+        "question_library.VideoPost", blank = True
+    )
+
+    @property
+    def posts(self):
+        return list(self.text_posts.all()) + list(self.video_posts.all())
+
     modified_at = models.DateTimeField("Modified at", auto_now=True)
     created_at = models.DateTimeField("Created at", auto_now_add=True)
 
@@ -63,18 +72,6 @@ class HomePage(models.Model):
         verbose_name_plural = "Home Pages"
 
 
-class HomePageInformationCard(models.Model):
-    title = models.CharField("Title", max_length=180, blank=True, null=True)
-    content = models.TextField("Content", max_length=1000, blank=True, null=True)
-    modified_at = models.DateTimeField("Modified at", auto_now=True)
-    created_at = models.DateTimeField("Created at", auto_now_add=True)
-
-    class Meta:
-        verbose_name = "Information Card"
-        verbose_name_plural = "Information Cards"
-
-    def __str__(self) -> str:
-        return f"{ self.title } ({self.modified_at.strftime('%d/%m/%y %H:%M:%S')})"
 
 
 class VideoType(models.Model):
@@ -122,7 +119,7 @@ class VideoEntry(models.Model):
     )
 
     def __str__(self):
-        return f"{self.title} (id={self.id})"
+        return f"{self.title} (id={self.pk})"
 
     def save(self, **kwargs):
         # if not self.youtube_id:
@@ -137,6 +134,60 @@ class VideoEntry(models.Model):
 
     class Meta:
         verbose_name_plural = "Video entries"
+
+
+class BasePost(models.Model):
+    is_active = models.BooleanField("Is active ?", default=False)
+
+    header_title = models.CharField(
+        "Header - Title", max_length=100, blank=True, null=True
+    )
+    header_supplementary_information = models.CharField(
+        "Header - Supplementary information", max_length=50, blank=True, null=True
+    )
+
+    footer_left_name = models.CharField(
+        "Footer - Left name", max_length=50, blank=True, null=True
+    )
+    footer_left_value = models.CharField(
+        "Footer - Left value", max_length=50, blank=True, null=True
+    )
+
+    footer_right_name = models.CharField(
+        "Footer - Right name", max_length=50, blank=True, null=True
+    )
+    footer_right_value = models.CharField(
+        "Footer - Right value", max_length=50, blank=True, null=True
+    )
+
+    modified_at = models.DateTimeField("Modified at", auto_now=True)
+    created_at = models.DateTimeField("Created at", auto_now_add=True)
+
+    def __str__(self):
+        return (
+            f"{self.pk}: {self.header_title} ({self.created_at.strftime('%d/%m/%y %H:%M:%S')})"
+        )
+
+    class Meta:
+        abstract = True
+
+
+class TextPost(BasePost):
+    content = models.TextField(max_length=2000, blank=True)
+
+    class Meta:
+        verbose_name = "Homepage - Text Post"
+        verbose_name_plural = "Homepage - Text Posts"
+
+
+class VideoPost(BasePost):
+    video = models.ForeignKey(
+        to="question_library.VideoEntry", on_delete=models.CASCADE
+    )
+
+    class Meta:
+        verbose_name = "Homepage - Video Post"
+        verbose_name_plural = "Homepage - Video Posts"
 
 
 class Comment(models.Model):

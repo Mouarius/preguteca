@@ -1,7 +1,6 @@
 from rest_framework import serializers
 
 from question_library.models import (
-    BasePost,
     Category,
     TextPost,
     VideoEntry,
@@ -55,6 +54,7 @@ class HomepageTextPostSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class HomepageVideoPostSerializer(serializers.ModelSerializer):
+    video = VideoEntrySerializer(read_only = True)
     class Meta:
         model = VideoPost
         fields = "__all__"
@@ -70,6 +70,8 @@ class HomePageSerializer(serializers.ModelSerializer):
     month_category = CategorySerializer(read_only=True)
     highlighted_video = VideoEntrySerializer(read_only=True)
     posts = HomepagePostSerializer(many=True, read_only=True)
+    text_posts = HomepageTextPostSerializer(many=True, read_only=True)
+    video_posts = HomepageVideoPostSerializer(many=True, read_only=True)
 
     class Meta:
         model = HomePage

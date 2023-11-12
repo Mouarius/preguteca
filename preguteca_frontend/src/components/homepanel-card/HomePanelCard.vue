@@ -1,24 +1,28 @@
 <script setup lang="ts">
-type Props = {
-  title: string;
-  content: string;
-};
+import HomePanelCardHeader from "./HomePanelCardHeader.vue";
+import HomePanelCardFooter from "./HomePanelCardFooter.vue";
 
-defineProps<Props>();
+type Props = {
+  headerTitle: string;
+  headerSupplementaryInformation?: string | null;
+  footerLeftName?: string | null;
+  footerLeftValue?: string | null;
+  footerRightName?: string | null;
+  footerRightValue?: string | null;
+}
+
+defineProps<Props>()
+
 </script>
 <template>
   <div class="card-container">
-    <div class="row header">
-      <div class="header__element header__element--title">{{ title }}</div>
-    </div>
-    <div class="details">
-      <div class="row details__content">
-        {{ content }}
-      </div>
-    </div>
+    <HomePanelCardHeader :title="headerTitle" :supplementary-information="headerSupplementaryInformation" />
+    <slot />
+    <HomePanelCardFooter :left-name="footerLeftName" :left-value="footerLeftValue" :right-name="footerRightName"
+      :right-value="footerRightValue" />
   </div>
 </template>
-<style scoped>
+<style>
 .card-container {
   box-shadow: 4px 4px var(--orange);
   border: solid 1px var(--border-color);
@@ -27,7 +31,7 @@ defineProps<Props>();
   min-width: 100%;
 }
 
-.card-container > div:not(:last-child) {
+.card-container>div:not(:last-child) {
   border-bottom: solid 1px var(--border-color);
 }
 

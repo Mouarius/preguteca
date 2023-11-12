@@ -20,6 +20,28 @@ export interface TVideoEntry {
   videoTypes: TVideoType[];
 }
 
+export interface HomepagePost {
+  id: number;
+  isActive: boolean;
+  headerTitle: string;
+  headerSupplementaryInformation: string | null;
+  footerLeftName: string | null;
+  footerLeftValue: string | null;
+  footerRightName: string | null;
+  footerRightValue: string | null;
+  modifiedAt: string;
+  createdAt: string;
+}
+
+export interface HomepageTextPost extends HomepagePost {
+  content: string
+}
+
+export interface HomepageVideoPost extends HomepagePost {
+  video: TVideoEntry
+  content: string
+}
+
 export interface HomePage {
   id: number;
   active: boolean;
@@ -27,7 +49,10 @@ export interface HomePage {
   dayQuestion: string;
   monthCategory: TCategory;
   highlightedVideo: TVideoEntry;
-  informationCards: HomePageInformationCard[];
+  posts: HomepagePost[];
+  textPosts: HomepageTextPost[];
+  videoPosts: HomepageVideoPost[];
+
 }
 
 export interface HomePageInformationCard {

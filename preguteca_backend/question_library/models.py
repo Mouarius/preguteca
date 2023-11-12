@@ -184,6 +184,7 @@ class VideoPost(BasePost):
     video = models.ForeignKey(
         to="question_library.VideoEntry", on_delete=models.CASCADE
     )
+    content = models.TextField(max_length=2000, blank=True)
 
     class Meta:
         verbose_name = "Homepage - Video Post"

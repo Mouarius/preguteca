@@ -56,7 +56,7 @@ class HomepageTextPostAdmin(HomepageBasePostAdmin):
 
 @admin.register(VideoPost)
 class HomepageVideoPostAdmin(HomepageBasePostAdmin):
-    fieldsets = [("Content", {"fields": ("video",)})]
+    fieldsets = [("Content", {"fields": ("video","content")})]
 
 
 @admin.register(Category)

@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { TVideoEntry } from "../types";
+import { HomepageVideoPost, } from "../types";
 import PlayButton from "../assets/play-button--orange.svg";
+import HomePanelCard from "./homepanel-card/HomePanelCard.vue";
 
 type Props = {
-  videoEntry: TVideoEntry;
+  videoPost: HomepageVideoPost
 };
 defineProps<Props>();
 
@@ -15,100 +16,42 @@ const setVideoVisible = () => {
 };
 </script>
 <template>
-  <div class="card-container">
-    <div class="row header">
-      <div class="header__element header__element--title">
-        {{ videoEntry.videoTypes[0].fullName }}
-      </div>
-      <div class="header__element header__element--type">Semanal</div>
-    </div>
+  <HomePanelCard :header-title="videoPost.headerTitle"
+    :header-supplementary-information="videoPost.headerSupplementaryInformation"
+    :footer-left-name="videoPost.footerLeftName" :footer-left-value="videoPost.footerLeftValue"
+    :footer-right-name="videoPost.footerRightName" :footer-right-value="videoPost.footerRightValue">
+
     <div class="row url">
-      <a :href="videoEntry.videoUrl">{{ videoEntry.videoUrl }}</a>
+      <a :href="videoPost.video.videoUrl">{{ videoPost.video.videoUrl }}</a>
     </div>
     <div class="row video__viewport">
       <iframe v-if="isVideoVisible" class="video__viewport__iframe" type="text/html" width="100%" height="100%"
         allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0"
-        :src="`${videoEntry.videoEmbedUrl}?autoplay=1`"></iframe>
+        :src="`${videoPost.video.videoEmbedUrl}?autoplay=1`"></iframe>
       <template v-else>
         <button class="video__viewport__button" @click="setVideoVisible">
           <img :src="PlayButton" alt="" />
         </button>
-        <img v-if="videoEntry.thumbnailUrl" class="video__viewport__thumbnail" :src="videoEntry.thumbnailUrl"
+        <img v-if="videoPost.video.thumbnailUrl" class="video__viewport__thumbnail" :src="videoPost.video.thumbnailUrl"
           alt="Video Thumbnail" height="360" width="480" />
       </template>
     </div>
     <div class="details">
       <div class="row details__header">
         <div class="details__header__element details__header__element--title">
-          {{ videoEntry.title }}
+          {{ videoPost.video.title }}
         </div>
         <div class="details__header__element details__header__element--duration">
-          {{ videoEntry.duration }}
-        </div>
-      </div>
-      <div class="row details__content">
-        {{ videoEntry.questions }}
-      </div>
-      <div class="row details__footer">
-        <div class="details__footer__element">
-          <span class="footer__element__key">Conferiancianto</span>
-          <span class="footer__element__value">{{ videoEntry.author }}</span>
-        </div>
-        <div class="details__footer__element">
-          <span class="footer__element__key">Canal de Youtube</span>
-          <span class="footer__element__value">{{ videoEntry.author }}</span>
+          {{ videoPost.video.duration }}
         </div>
       </div>
     </div>
-  </div>
+    <div class="row content">
+      {{ videoPost.content }}
+    </div>
+  </HomePanelCard>
 </template>
 <style scoped>
-.card-container {
-  box-shadow: 4px 4px var(--orange);
-  border: solid 1px var(--border-color);
-  display: flex;
-  flex-direction: column;
-  min-width: 100%;
-}
-
-.card-container>div:not(:last-child) {
-  border-bottom: solid 1px var(--border-color);
-}
-
-.row {
-  padding: 0 8px;
-  display: flex;
-  align-items: center;
-  height: 32px;
-  min-height: 32px;
-}
-
-.header {
-  display: flex;
-  align-items: center;
-}
-
-.header__element {
-  height: 100%;
-  display: flex;
-  align-items: center;
-}
-
-.header__element--title {
-  flex: 1;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 600;
-}
-
-.header__element--type {
-  font-size: 14px;
-  display: flex;
-  justify-content: center;
-  border-left: solid 1px var(--border-color);
-  padding-left: 8px;
-}
-
 .url {
   font-style: normal;
   font-family: "Open Sans", Arial, Helvetica, sans-serif;
@@ -225,14 +168,9 @@ const setVideoVisible = () => {
   min-width: 30%;
 }
 
-.footer__element__key {
-  margin-right: 4px;
-}
-
-.footer__element__value {
-  font-size: 16px;
-  font-weight: 600;
-  font-style: normal;
+.content{
+  height: 100%;
+  flex: 1;
 }
 
 .details__content {

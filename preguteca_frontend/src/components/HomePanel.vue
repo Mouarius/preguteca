@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { useHomePage } from "../queries/useHomePage.ts";
 import { updateActiveCategory } from "../store";
-import HomePanelInfoCard from "./HomePanelInfoCard.vue";
+import HomePanelTextPostCard from "./HomePanelTextPostCard.vue";
 import HomePanelVideoCard from "./HomePanelVideoCard.vue";
 const homePage = useHomePage();
-console.log(homePage.data.value?.informationCards);
 </script>
 <template>
   <div class="container">
@@ -43,16 +42,17 @@ console.log(homePage.data.value?.informationCards);
         <div class="subheader__subtitle">Question del dia</div>
       </div>
     </div>
-    <div class="content">
+    <div class="content" v-if="homePage.isSuccess" >
       <HomePanelVideoCard
-        v-if="homePage.data.value?.highlightedVideo && homePage.isSuccess"
-        :video-entry="homePage.data.value?.highlightedVideo"
+        v-for="videoPost in homePage.data.value?.videoPosts"
+        v-bind:key="videoPost.id"
+        :video-post="videoPost"
       />
-      <HomePanelInfoCard
-        v-for="informationCard in homePage.data.value?.informationCards"
-        v-bind:key="informationCard.id"
-        :title="informationCard.title"
-        :content="informationCard.content"
+      <HomePanelTextPostCard
+        v-for="textPost in homePage.data.value?.textPosts"
+        v-bind:key="textPost.id"
+        :title="textPost.headerTitle"
+        :content="textPost.content"
       />
     </div>
   </div>

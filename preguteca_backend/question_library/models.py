@@ -104,6 +104,7 @@ class VideoEntry(models.Model):
     youtube_id = models.CharField(
         max_length=16, verbose_name="Youtube video id", default="", blank=True
     )
+    yt_channel_id = models.CharField(max_length=50, verbose_name="Youtube - Channel id", blank=True, null=True)
     yt_channel_title = models.CharField(
         max_length=100, verbose_name="Youtube - Channel title", blank=True
     )

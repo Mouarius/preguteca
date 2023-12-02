@@ -168,7 +168,7 @@ const setVideoVisible = () => {
   min-width: 30%;
 }
 
-.content{
+.content {
   height: 100%;
   flex: 1;
 }

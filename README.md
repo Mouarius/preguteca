@@ -17,3 +17,25 @@
    `python manage.py generate_youtube_data`
 6. Fill video channels and thumbnails:
    `python manage.py get_youtube_channel get_youtube_thumbnails`
+
+## TODO
+
+### Homepage
+[x] Homepage like a blog
+[] final visual fixes
+
+[] Building : add more information for each building
+[] menu : (administrable like CMS)
+    - Who are we section
+    - privacy policy
+    - fundings
+    - copyright notice
+
+[] channel creator link on click
+
+### Fixes :
+[] check the buildings that doesn't work
+[] illustration animation better
+
+Mobile landing :
+[] Illustration + little block with building of the month and questions of the month, if click go to the building. Disappear on scroll

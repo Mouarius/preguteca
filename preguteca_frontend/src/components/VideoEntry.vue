@@ -88,7 +88,7 @@ defineProps<VideoEntryProps>();
     </div>
     <div class="video-entry__detail video-entry__row">
       <div class="video-entry__detail__channel">
-        De : {{ videoEntry.author }}
+        De : <a :href="`https://www.youtube.com/${videoEntry.ytChannelTitle}`">{{ videoEntry.author }}</a>
       </div>
       <div class="video-entry__detail__pub-date">
         {{ new Date(videoEntry.ytPublishTime).toLocaleDateString() }}

@@ -11,13 +11,7 @@ const displayHomePanel = (event: MouseEvent) => {
   <header>
     <div class="logo-title__container" @click="displayHomePanel">
       <div class="logo-container">
-        <img
-          src="/src/assets/preguteca_logo_120.svg"
-          alt="logo"
-          id="logo"
-          height="120"
-          width="120"
-        />
+        <img src="/src/assets/preguteca_logo_120.svg" alt="logo" id="logo" height="120" width="120" />
       </div>
       <div class="title__container">
         <h1 id="page-title">PREGUTECA</h1>

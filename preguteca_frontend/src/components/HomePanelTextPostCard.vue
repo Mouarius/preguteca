@@ -9,7 +9,7 @@ type Props = {
 defineProps<Props>();
 </script>
 <template>
-  <HomePanelCard header-title="title">
+  <HomePanelCard :header-title="title">
       <div class="row details__content">
         {{ content }}
       </div>

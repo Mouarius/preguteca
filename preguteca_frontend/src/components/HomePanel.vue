@@ -104,6 +104,7 @@ const homePage = useHomePage();
 .header__section {
   display: flex;
   align-items: end;
+  height: 100%;
 }
 
 .separator {

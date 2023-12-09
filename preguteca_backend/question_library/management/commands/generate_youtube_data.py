@@ -41,6 +41,7 @@ class Command(BaseCommand):
             duration_iso = details["duration"]
             duration = iso8601_to_duration(duration_iso)
             video.yt_channel_title = yt_channel_title
+            video.yt_channel_id = snippet["channelId"]
             video.duration = duration
             video.title = title
             video.yt_publish_time = yt_publish_time

@@ -31,10 +31,14 @@
     - fundings
     - copyright notice
 
-[] channel creator link on click
+[x] channel creator link on click
 
 ### Fixes :
 [] check the buildings that doesn't work
+    - la_residencia_de_ancianos : wrong name in admin
+    - el_cuartel_militar : same
+    - la_inmobiliaria : same
+    - la_television : no match in admin -> which category ?
 [] illustration animation better
 
 Mobile landing :

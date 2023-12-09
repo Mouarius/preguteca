@@ -15,6 +15,7 @@ export interface TVideoEntry {
   youtubeId: string;
   ytChannelTitle: string;
   ytPublishTime: string;
+  ytChannelId: string;
   thumbnailUrl: string;
   duration: string;
   videoTypes: TVideoType[];

@@ -32,6 +32,7 @@ class VideoEntrySerializer(serializers.ModelSerializer):
             "language",
             "youtube_id",
             "yt_channel_title",
+            "yt_channel_id",
             "yt_publish_time",
             "duration",
             "video_types",

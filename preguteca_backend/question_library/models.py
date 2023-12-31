@@ -4,6 +4,7 @@ import re
 
 from django.db import models
 from unidecode import unidecode
+from tinymce import models as tinymce_models
 
 
 def to_snake_case(string: str) -> str:
@@ -202,3 +203,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"Comment {self.pk} by {self.author}"
+
+class MenuPage(models.Model):
+    is_active = models.BooleanField(verbose_name="Is active", default = False)
+    slug = models.SlugField(verbose_name="Slug", unique=True, db_index=True)
+    title = models.CharField(verbose_name="Full name", max_length=100)
+    content = tinymce_models.HTMLField(verbose_name="Content")

@@ -16,6 +16,7 @@ urlpatterns = [
                 path("video_entries/", views.VideoEntryList.as_view()),
                 path("video_posts/", views.VideoPostList.as_view()),
                 path("text_posts/", views.TextPostList.as_view()),
+                path("pages/", views.MenuPageList.as_view())
             ]
         ),
     ),

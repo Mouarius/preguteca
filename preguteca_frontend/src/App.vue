@@ -4,6 +4,7 @@ import MainIllustration from "./components/MainIllustration.vue";
 import AppHeader from "./components/AppHeader.vue";
 import { store } from "./store";
 import HomePanel from "./components/HomePanel.vue";
+
 </script>
 
 <template>
@@ -15,10 +16,11 @@ import HomePanel from "./components/HomePanel.vue";
       </div>
     </section>
     <CategoryDetail
-      v-if="store.activeCategory"
+      v-if="store.activePanel == 'category'"
       :active-category="store.activeCategory"
     />
-    <HomePanel v-else />
+    <HomePanel v-else-if="store.activePanel == 'home'" />
+    <!-- <MenuPanel v-else-if="store.activePanel == 'custom'" /> -->
   </div>
 </template>
 

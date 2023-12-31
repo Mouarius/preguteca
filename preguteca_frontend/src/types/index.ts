@@ -56,6 +56,14 @@ export interface HomePage {
 
 }
 
+export interface MenuPage {
+  id: number;
+  isActive: boolean;
+  slug: string;
+  title: string;
+  content: string;
+}
+
 export interface HomePageInformationCard {
   id: number;
   title: string;
@@ -72,3 +80,5 @@ export interface TCategory {
   videoEntries: TVideoEntry[];
   description: string;
 }
+
+export type ActivePanel = "home" | "category" | "custom"

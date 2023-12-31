@@ -1,13 +1,25 @@
 import { reactive } from "vue";
-import { TCategory } from "./types";
+import { ActivePanel, TCategory } from "./types";
 
-export const store = reactive({
+
+type Store = {
+  isCategoryContainerVisible: boolean,
+  activeCategory: TCategory | null,
+  activePanel: ActivePanel
+}
+
+export const store = reactive<Store>({
   isCategoryContainerVisible: false,
-  activeCategory: null as TCategory | null,
+  activeCategory: null,
+  activePanel: "home",
 });
 
 export function toggleCategoryContainer() {
   return (store.isCategoryContainerVisible = !store.isCategoryContainerVisible);
+}
+
+export function updateActivePanel(panel: ActivePanel) {
+  return store.activePanel = panel
 }
 
 export function updateActiveCategory(

@@ -4,6 +4,7 @@ from django.http.request import HttpRequest
 from .models import (
     Category,
     Comment,
+    MenuPage,
     TextPost,
     VideoEntry,
     VideoPost,
@@ -56,7 +57,7 @@ class HomepageTextPostAdmin(HomepageBasePostAdmin):
 
 @admin.register(VideoPost)
 class HomepageVideoPostAdmin(HomepageBasePostAdmin):
-    fieldsets = [("Content", {"fields": ("video","content")})]
+    fieldsets = [("Content", {"fields": ("video", "content")})]
 
 
 @admin.register(Category)
@@ -95,3 +96,11 @@ class VideoEntryAdmin(admin.ModelAdmin):
     )
     readonly_fields = ("youtube_id",)
     filter_horizontal = ("video_types",)
+
+
+@admin.register(MenuPage)
+class MenuPageAdmin(admin.ModelAdmin):
+    list_display = ("title", "slug")
+    fields = ("is_active", ("title", "slug"), "content")
+
+    prepopulated_fields = {"slug": ["title"]}

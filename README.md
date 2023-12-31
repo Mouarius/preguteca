@@ -34,7 +34,7 @@
 [x] channel creator link on click
 
 ### Fixes :
-[] check the buildings that doesn't work
+[x] check the buildings that doesn't work
     - la_residencia_de_ancianos : wrong name in admin
     - el_cuartel_militar : same
     - la_inmobiliaria : same

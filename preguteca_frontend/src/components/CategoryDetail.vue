@@ -15,7 +15,7 @@ function scrollTop(event: MouseEvent) {
     v-if="store.activeCategory"
     :class="{
       'category-container': true,
-      'category-container--hidden': !store.isCategoryContainerVisible,
+      'category-container--hidden': store.activePanel !== 'category',
     }"
   >
     <header

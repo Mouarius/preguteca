@@ -1,8 +1,8 @@
 from rest_framework import generics
 from django.views.generic import TemplateView
 
-from .models import Category, TextPost, VideoEntry, HomePage, VideoPost
-from .serializers import CategorySerializer, VideoEntrySerializer, HomePageSerializer
+from .models import Category, MenuPage, TextPost, VideoEntry, HomePage, VideoPost
+from .serializers import CategorySerializer, MenuPageSerializer, VideoEntrySerializer, HomePageSerializer
 
 
 class DefaultView(TemplateView):
@@ -40,3 +40,8 @@ class VideoPostList(generics.ListAPIView):
 
 class TextPostList(generics.ListAPIView):
     queryset = TextPost.objects.all()
+
+class MenuPageList(generics.ListAPIView):
+    queryset = MenuPage.objects.filter(is_active=True)
+    serializer_class = MenuPageSerializer
+    lookup_field = "slug"

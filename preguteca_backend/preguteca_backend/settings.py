@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "question_library.apps.QuestionLibraryConfig",
+    "tinymce",
     "rest_framework",
     "corsheaders",
 ]
@@ -150,7 +151,9 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATIC_ROOT = "/home/pregcfye/public_html/static"
 
-STATICFILES_DIRS = [FRONTEND_DIR / "dist",]
+STATICFILES_DIRS = [
+    FRONTEND_DIR / "dist",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -174,4 +177,3 @@ REST_FRAMEWORK = {
         "djangorestframework_camel_case.parser.CamelCaseJSONParser",
     ],
 }
-

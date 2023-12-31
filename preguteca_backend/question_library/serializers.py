@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from question_library.models import (
     Category,
+    MenuPage,
     TextPost,
     VideoEntry,
     VideoPost,
@@ -76,4 +77,9 @@ class HomePageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = HomePage
+        fields = "__all__"
+
+class MenuPageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MenuPage
         fields = "__all__"

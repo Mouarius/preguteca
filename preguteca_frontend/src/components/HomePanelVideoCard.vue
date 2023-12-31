@@ -171,6 +171,9 @@ const setVideoVisible = () => {
 .content {
   height: 100%;
   flex: 1;
+  display: flex;
+  align-items: start;
+  padding-top:8px;
 }
 
 .details__content {

@@ -51,7 +51,7 @@ import image49 from "../assets/main-illustration/img/main_illustration_v349.png"
 import image50 from "../assets/main-illustration/img/main_illustration_v350.png";
 
 import { computed, onMounted, reactive, ref } from "vue";
-import { updateActiveCategory, store } from "../store";
+import { updateActiveCategory, updateActivePanel, store } from "../store";
 import { useCategories } from "../queries/useCategories";
 
 const categoryName = ref("");
@@ -82,7 +82,7 @@ onMounted(() => {
         categoryName.value = elem.dataset.categoryName ?? "";
         if (category.value) {
           updateActiveCategory(category.value);
-          store.isCategoryContainerVisible = true;
+          updateActivePanel("category")
         }
       }
     });

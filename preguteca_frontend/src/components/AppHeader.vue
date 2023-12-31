@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { updateActiveCategory } from "../store";
 import SearchBar from "./SearchBar.vue";
-const displayHomePanel = (event: MouseEvent) => {
-  console.log(event);
+import MenuButton from "./MenuButton.vue";
+
+const displayHomePanel = () => {
   updateActiveCategory(null);
 };
 </script>
@@ -23,6 +24,9 @@ const displayHomePanel = (event: MouseEvent) => {
     </div>
     <div class="search-bar__container">
       <SearchBar />
+    </div>
+    <div class="menu-button__container">
+      <MenuButton />
     </div>
   </header>
 </template>
@@ -82,11 +86,12 @@ header {
   padding: 8px;
   height: 100%;
 }
+.menu-button__container{
+  margin-right: 8px;
+  margin-left: 8px;
+}
 
 @media (min-width: 768px) {
-  #preguteca-menu-button {
-    display: none;
-  }
 
   .title__container {
     display: flex;

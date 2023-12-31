@@ -2,15 +2,15 @@ import { useQuery } from "@tanstack/vue-query";
 import { axiosInstance as axios } from "../main.ts";
 import type { MenuPage } from "../types/index.ts";
 
-async function fetchMenuPage() {
+async function fetchMenuPages() {
   return axios
-    .get("/pages")
+    .get("/menu_pages")
     .then((response) => response.data as MenuPage[]);
 }
 
-export function useMenuPage() {
-  return useQuery<MenuPage[], Error>({
+export function useMenuPages() {
+  return useQuery({
     queryKey: ["menu-page"],
-    queryFn: fetchMenuPage,
+    queryFn: fetchMenuPages,
   });
 }

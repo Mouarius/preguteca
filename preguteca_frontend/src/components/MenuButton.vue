@@ -1,5 +1,10 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
+import { useMenuPages } from '../queries/useMenuPages';
+
+
+const menuPages = useMenuPages()
+
 
 const dropdownHidden = ref(true)
 type SVGLineCoords = {
@@ -51,20 +56,29 @@ const initialLineCoords: SVGLineCoords[] = [
 
 const lineCoords = reactive([...initialLineCoords])
 
-function toggleDropdownHidden() {
-  dropdownHidden.value = !dropdownHidden.value
-  if (dropdownHidden.value) {
-    for (let i = 0; i < lineCoords.length; i++) {
-      for (const key of Object.keys(lineCoords[i])) {
-        lineCoords[i][key as keyof SVGLineCoords] = defaultLineCoords[i][key as keyof SVGLineCoords]
-      }
+function menuButtonToBurger() {
+  for (let i = 0; i < lineCoords.length; i++) {
+    for (const key of Object.keys(lineCoords[i])) {
+      lineCoords[i][key as keyof SVGLineCoords] = defaultLineCoords[i][key as keyof SVGLineCoords]
     }
   }
+}
+
+function menuButtonToCross() {
+  lineCoords[0].y2 = 29
+  lineCoords[1].x1 = 16
+  lineCoords[1].x2 = 16
+  lineCoords[2].y2 = 1
+}
+
+function toggleDropdownHidden() {
+  dropdownHidden.value = !dropdownHidden.value
+
+  if (dropdownHidden.value) {
+    menuButtonToBurger()
+  }
   else {
-    lineCoords[0].y2 = 29
-    lineCoords[1].x1 = 16
-    lineCoords[1].x2 = 16
-    lineCoords[2].y2 = 1
+    menuButtonToCross()
   }
 }
 
@@ -76,12 +90,11 @@ function toggleDropdownHidden() {
         :x2="lineCoord.x2" :y2="lineCoord.y2" style="stroke:white;stroke-width:1" />
     </svg>
   </div>
-  <ul v-if="!dropdownHidden" class="dropdown">
-    <li class="">About</li>
-    <li class="">Contact</li>
-    <li class="">Credits</li>
+  <ul v-if="!dropdownHidden && menuPages.data" class="dropdown">
+    <li v-for="menuPage in menuPages.data.value" v-bind:key="menuPage.slug">{{ menuPage.title }}</li>
   </ul>
 </template>
+
 <style scoped>
 .bar-container {
   display: flex;
@@ -111,7 +124,7 @@ function toggleDropdownHidden() {
   padding: 8px;
 }
 
-.dropdown li:not(:last-child){
+.dropdown li:not(:last-child) {
   border-bottom: solid 1px rgba(255, 255, 255, 0.554);
 }
 
@@ -120,5 +133,6 @@ function toggleDropdownHidden() {
   color: var(--black);
   font-weight: 500;
   cursor: pointer;
+  border: solid 1px var(--black)
 }
 </style>

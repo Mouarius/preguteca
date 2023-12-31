@@ -54,12 +54,8 @@ class HomePage(models.Model):
         verbose_name="Highlighted video",
     )
 
-    text_posts = models.ManyToManyField(
-        "question_library.TextPost", blank = True
-    )
-    video_posts = models.ManyToManyField(
-        "question_library.VideoPost", blank = True
-    )
+    text_posts = models.ManyToManyField("question_library.TextPost", blank=True)
+    video_posts = models.ManyToManyField("question_library.VideoPost", blank=True)
 
     @property
     def posts(self):
@@ -71,8 +67,6 @@ class HomePage(models.Model):
     class Meta:
         verbose_name = "Home Page"
         verbose_name_plural = "Home Pages"
-
-
 
 
 class VideoType(models.Model):
@@ -105,7 +99,9 @@ class VideoEntry(models.Model):
     youtube_id = models.CharField(
         max_length=16, verbose_name="Youtube video id", default="", blank=True
     )
-    yt_channel_id = models.CharField(max_length=50, verbose_name="Youtube - Channel id", blank=True, null=True)
+    yt_channel_id = models.CharField(
+        max_length=50, verbose_name="Youtube - Channel id", blank=True, null=True
+    )
     yt_channel_title = models.CharField(
         max_length=100, verbose_name="Youtube - Channel title", blank=True
     )
@@ -166,16 +162,14 @@ class BasePost(models.Model):
     created_at = models.DateTimeField("Created at", auto_now_add=True)
 
     def __str__(self):
-        return (
-            f"{self.pk}: {self.header_title} ({self.created_at.strftime('%d/%m/%y %H:%M:%S')})"
-        )
+        return f"{self.pk}: {self.header_title} ({self.created_at.strftime('%d/%m/%y %H:%M:%S')})"
 
     class Meta:
         abstract = True
 
 
 class TextPost(BasePost):
-    content = models.TextField(max_length=2000, blank=True)
+    content = tinymce_models.HTMLField(verbose_name="Content")
 
     class Meta:
         verbose_name = "Homepage - Text Post"
@@ -186,7 +180,7 @@ class VideoPost(BasePost):
     video = models.ForeignKey(
         to="question_library.VideoEntry", on_delete=models.CASCADE
     )
-    content = models.TextField(max_length=2000, blank=True)
+    content = tinymce_models.HTMLField(verbose_name="Content")
 
     class Meta:
         verbose_name = "Homepage - Video Post"
@@ -204,8 +198,9 @@ class Comment(models.Model):
     def __str__(self):
         return f"Comment {self.pk} by {self.author}"
 
+
 class MenuPage(models.Model):
-    is_active = models.BooleanField(verbose_name="Is active", default = False)
+    is_active = models.BooleanField(verbose_name="Is active", default=False)
     slug = models.SlugField(verbose_name="Slug", unique=True, db_index=True)
     title = models.CharField(verbose_name="Full name", max_length=100)
     content = tinymce_models.HTMLField(verbose_name="Content")

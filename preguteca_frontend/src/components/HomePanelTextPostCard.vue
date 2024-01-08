@@ -10,8 +10,8 @@ defineProps<Props>();
 </script>
 <template>
   <HomePanelCard :header-title="title">
-      <div class="row details__content">
-        {{ content }}
-      </div>
+    <div class="row details__content">
+      <span v-html="content"></span>
+    </div>
   </HomePanelCard>
 </template>

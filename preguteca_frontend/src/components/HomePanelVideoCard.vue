@@ -47,7 +47,7 @@ const setVideoVisible = () => {
       </div>
     </div>
     <div class="row content">
-      {{ videoPost.content }}
+      <span v-html="videoPost.content"></span>
     </div>
   </HomePanelCard>
 </template>
@@ -173,7 +173,7 @@ const setVideoVisible = () => {
   flex: 1;
   display: flex;
   align-items: start;
-  padding-top:8px;
+  padding-top: 8px;
 }
 
 .details__content {

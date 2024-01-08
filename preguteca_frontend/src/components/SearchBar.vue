@@ -179,7 +179,6 @@ function handleKeyDown(event: KeyboardEvent) {
 }
 
 .search-bar__label {
-  font-family: "Space Grotesk";
   font-size: 18px;
 }
 

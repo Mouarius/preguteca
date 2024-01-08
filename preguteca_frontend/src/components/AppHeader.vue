@@ -12,7 +12,7 @@ import MenuButton from "./MenuButton.vue";
         <img src="/src/assets/preguteca_logo_120.svg" alt="logo" id="logo" height="120" width="120" />
       </div>
       <div class="title__container">
-        <h1 id="page-title">PREGUTECA</h1>
+        <h1 id="page-title">SONDEO</h1>
         <div class="subtitle">/ Explorando alternativas</div>
       </div>
     </div>
@@ -49,7 +49,11 @@ import MenuButton from "./MenuButton.vue";
 
 .subtitle {
   display: none;
-  font-family: "Times New Roman", Times, serif;
+  font-family: "Rethink Sans", Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  color: var(--dimmed-text);
+  position: relative;
+  bottom: 2px;
 }
 
 #logo {
@@ -103,9 +107,11 @@ header {
 }
 
 #page-title {
-  font-family: "Times New Roman", Times, serif;
-  font-size: 32px;
+  font-family: "Dela Gothic One", Times, serif;
+  font-size: 40px;
+  position: relative;
   font-weight: 500;
   margin: 0px 8px;
+  bottom: 2px;
 }
 </style>

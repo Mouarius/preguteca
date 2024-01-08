@@ -104,7 +104,6 @@ defineProps<VideoEntryProps>();
 
 <style scoped>
 .video-entry {
-  font-family: "Open Sans", "Arial Black", sans-serif;
   position: relative;
   width: 100%;
   display: flex;
@@ -160,13 +159,12 @@ a {
 }
 
 .video-entry__header {
-  font-family: "Times New Roman", Times, serif;
-  font-style: italic;
+  color: var(--text);
+  font-size: 14px;
 }
 
 .video-entry__header__url {
   position: relative;
-  font-family: "Open Sans", Arial, Helvetica, sans-serif;
   font-style: normal;
   font-size: 14px;
   display: block;
@@ -177,14 +175,14 @@ a {
 
 .video-entry__header__url a {
   width: 100%;
-  color: rgb(218, 217, 217);
+  color: var(--text);
   max-width: 100%;
   text-overflow: ellipsis;
   overflow: hidden;
 }
 
 .video-entry__detail {
-  font-family: "Times New Roman", Times, serif;
+  font-size: 14px;
 }
 
 .video-entry__header__url,
@@ -194,14 +192,14 @@ a {
 }
 
 .video-entry__detail__title {
-  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+  font-size: 18px;
   font-weight: bold;
 }
 
 .video-entry__detail__channel,
 .video-entry__detail__pub-date,
 .video-entry__detail__language {
-  font-style: italic;
+  color: var(--dimmed-text);
 }
 
 .video-entry__viewport {
@@ -249,10 +247,10 @@ a {
 
 .video-entry__description {
   padding: 16px 12px;
-  font-size: 16px;
-  font-family: "Public Sans", sans-serif;
-  font-weight: 300;
-  line-height: 1.3em;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.2rem;
+  color: var(--dimmed-text);
 }
 
 .tag {

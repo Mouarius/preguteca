@@ -80,7 +80,6 @@ const homePage = useHomePage();
   grid-area: aside;
   display: flex;
   flex-direction: column;
-  font-family: "Times New Roman", Times, serif;
   font-style: italic;
   border: solid 1px var(--border-color);
   overflow: scroll;
@@ -152,7 +151,6 @@ const homePage = useHomePage();
 }
 
 .question-of-the-day {
-  font-family: "Open Sans", Arial, Helvetica, sans-serif;
   font-weight: 600;
   font-style: normal;
 }

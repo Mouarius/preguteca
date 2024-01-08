@@ -27,7 +27,6 @@ defineProps<MenuPanelProps>()
   grid-area: aside;
   display: flex;
   flex-direction: column;
-  font-family: "Times New Roman", Times, serif;
   font-style: italic;
   border: solid 1px var(--border-color);
   overflow: scroll;
@@ -49,6 +48,7 @@ defineProps<MenuPanelProps>()
   cursor: pointer;
   font-weight: 600;
   height: 100%;
+  font-family: var(--font-title);
 }
 
 .aside-content {

@@ -84,13 +84,13 @@ import MenuPanel from "./components/MenuPanel.vue";
 }
 
 h1 {
-  font-family: "Space Grotesk", "Arial Black", sans-serif;
+  font-family: var(--font-title);
   font-size: 2.4rem;
   font-weight: 600;
 }
 
 h2 {
-  font-family: "Space Grotesk", "Arial Black", sans-serif;
+  font-family: var(--font-title);
   font-size: 24px;
   font-weight: 600;
 }

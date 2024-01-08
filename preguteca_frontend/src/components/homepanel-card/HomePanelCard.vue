@@ -59,6 +59,7 @@ defineProps<Props>()
   font-size: 18px;
   font-style: normal;
   font-weight: 600;
+  font-family: var(--font-title);
 }
 
 .header__element--type {
@@ -71,7 +72,6 @@ defineProps<Props>()
 
 .url {
   font-style: normal;
-  font-family: "Open Sans", Arial, Helvetica, sans-serif;
   height: 32px;
   padding: 8px;
   font-size: 14px;
@@ -143,7 +143,6 @@ defineProps<Props>()
 .details__header__element--title {
   flex: 1;
   font-style: normal;
-  font-family: "Open Sans", Arial, Helvetica, sans-serif;
   font-weight: bold;
   height: auto;
   padding: 8px;
@@ -199,7 +198,6 @@ defineProps<Props>()
   height: fit-content;
   padding: 8px;
   text-align: justify;
-  font-family: "Open Sans", Arial, Helvetica, sans-serif;
   font-style: normal;
 }
 </style>

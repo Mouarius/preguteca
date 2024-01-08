@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
 import { useMenuPages } from '../queries/useMenuPages';
+import { updateActiveMenuPage, updateActivePanel } from "../store"
+import { MenuPage } from '../types';
 
 
 const menuPages = useMenuPages()
@@ -71,8 +73,15 @@ function menuButtonToCross() {
   lineCoords[2].y2 = 1
 }
 
+function goToClickedMenu(_event: MouseEvent, slug: MenuPage) {
+  updateActivePanel("menu")
+  updateActiveMenuPage(slug)
+  toggleDropdownHidden()
+}
+
 function toggleDropdownHidden() {
   dropdownHidden.value = !dropdownHidden.value
+
 
   if (dropdownHidden.value) {
     menuButtonToBurger()
@@ -91,7 +100,9 @@ function toggleDropdownHidden() {
     </svg>
   </div>
   <ul v-if="!dropdownHidden && menuPages.data" class="dropdown">
-    <li v-for="menuPage in menuPages.data.value" v-bind:key="menuPage.slug">{{ menuPage.title }}</li>
+    <li v-for="menuPage in menuPages.data.value" v-bind:key="menuPage.slug"
+      @click="(event) => goToClickedMenu(event, menuPage)">{{ menuPage.title }}
+    </li>
   </ul>
 </template>
 

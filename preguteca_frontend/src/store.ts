@@ -1,16 +1,18 @@
 import { reactive } from "vue";
-import { ActivePanel, TCategory } from "./types";
+import { ActivePanel, MenuPage, TCategory } from "./types";
 
 
 type Store = {
   isCategoryContainerVisible: boolean,
   activeCategory: TCategory | null,
+  activeMenuPage: MenuPage | null,
   activePanel: ActivePanel
 }
 
 export const store = reactive<Store>({
   isCategoryContainerVisible: false,
   activeCategory: null,
+  activeMenuPage: null,
   activePanel: "home",
 });
 
@@ -20,6 +22,10 @@ export function toggleCategoryContainer() {
 
 export function updateActivePanel(panel: ActivePanel) {
   return store.activePanel = panel
+}
+
+export function updateActiveMenuPage(menuPage: MenuPage){
+  return store.activeMenuPage = menuPage
 }
 
 export function updateActiveCategory(

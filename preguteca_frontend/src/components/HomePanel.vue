@@ -96,11 +96,6 @@ const homePage = useHomePage();
   gap: 8px;
   grid-template-columns: 1fr;
 }
-
-.header__title {
-  cursor: pointer;
-}
-
 .header__section {
   display: flex;
   align-items: end;
@@ -126,6 +121,7 @@ const homePage = useHomePage();
 
 .header__title {
   font-size: 24px;
+  cursor: pointer;
   font-weight: 600;
   height: 100%;
 }

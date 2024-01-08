@@ -81,4 +81,4 @@ export interface TCategory {
   description: string;
 }
 
-export type ActivePanel = "home" | "category" | "custom"
+export type ActivePanel = "home" | "category" | "menu"

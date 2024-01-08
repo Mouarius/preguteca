@@ -1,16 +1,13 @@
 <script setup lang="ts">
-import { updateActiveCategory } from "../store";
+import { updateActiveCategory, updateActivePanel } from "../store";
 import SearchBar from "./SearchBar.vue";
 import MenuButton from "./MenuButton.vue";
 
-const displayHomePanel = () => {
-  updateActiveCategory(null);
-};
 </script>
 
 <template>
   <header>
-    <div class="logo-title__container" @click="displayHomePanel">
+    <div class="logo-title__container" @click="() => updateActivePanel('home')">
       <div class="logo-container">
         <img src="/src/assets/preguteca_logo_120.svg" alt="logo" id="logo" height="120" width="120" />
       </div>
@@ -86,7 +83,8 @@ header {
   padding: 8px;
   height: 100%;
 }
-.menu-button__container{
+
+.menu-button__container {
   margin-right: 8px;
   margin-left: 8px;
 }

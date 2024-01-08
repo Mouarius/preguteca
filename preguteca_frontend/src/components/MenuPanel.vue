@@ -1,32 +1,60 @@
 <script setup lang="ts">
-type CustomPanelProps = {
-  // title: string,
-  // content: string
+import { MenuPage } from '../types';
+
+type MenuPanelProps = {
+  menuPage: MenuPage | null
 }
 
-defineProps<CustomPanelProps>()
+defineProps<MenuPanelProps>()
 
 </script>
 <template>
-  <section class="container">
-    <div class="header">Title</div>
-    <div class="content">
-      <p>Some content</p>
+  <section class="aside-container">
+    <div class="aside-header">
+      <span class="header__title">
+        {{ menuPage?.title }}
+      </span>
+    </div>
+    <div class="aside-content">
+      <span v-html="menuPage?.content"></span>
     </div>
 
   </section>
 </template>
 <style scoped>
-.container {
+.aside-container {
   width: 100%;
+  grid-area: aside;
+  display: flex;
+  flex-direction: column;
+  font-family: "Times New Roman", Times, serif;
+  font-style: italic;
+  border: solid 1px var(--border-color);
+  overflow: scroll;
 }
 
-.header {
-  width: 100%;
-
+.aside-header {
+  padding: 8px;
+  padding-left: 10px;
+  padding-right: 12px;
+  background: var(--white);
+  color: var(--black);
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 1fr;
 }
 
-.content {
+.aside-header .header__title {
+  font-size: 24px;
+  cursor: pointer;
+  font-weight: 600;
+  height: 100%;
+}
+
+.aside-content {
   width: 100%;
+  padding: 8px;
+  gap: 8px;
+  overflow-y: scroll;
 }
 </style>

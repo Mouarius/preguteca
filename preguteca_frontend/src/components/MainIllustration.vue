@@ -88,6 +88,12 @@ onMounted(() => {
     });
   }
 });
+const noiseFrequency = ref(1.0)
+const numOctaves = ref(3)
+// setInterval(() => {
+//   noiseFrequency.value = Math.random()*0.2 +0.2
+// }, 100);
+
 </script>
 <style scoped>
 svg {
@@ -142,7 +148,17 @@ svg {
 }
 </style>
 <template>
+<!-- svg: first layer -->
+<svg viewBox='0 0 67 67' xmlns='http://www.w3.org/2000/svg'>
+</svg>
   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1125 7625">
+  <filter id='noiseFilter'>
+    <feTurbulence 
+      type='fractalNoise' 
+      :baseFrequency='noiseFrequency' 
+      :numOctaves='numOctaves' 
+      stitchTiles='stitch'/>
+  </filter>
     <defs>
       <clipPath id="clip-path">
         <polygon class="cls-1"
@@ -354,6 +370,7 @@ svg {
       <g class="cls-4">
         <image data-clickable="true" data-category-name="los_jardines" width="171" height="176" loading="lazy"
           transform="translate(25.28 394.77) scale(1.94)" :href="image1" />
+        <rect  filter="url(#noiseFilter)" width="100%" height="100%"></rect>
       </g>
       <g id="LINE-2" data-name="LINE">
         <polygon class="cls-1"
@@ -4165,6 +4182,7 @@ svg {
       <line class="cls-66" x1="146.15" y1="4364.72" x2="146.15" y2="4448.22" />
       <circle class="cls-67" cx="145.27" cy="4448.22" r="5.27" />
     </g>
+  <!-- <rect width='100%' height='100%' filter='url(#noiseFilter)'/> -->
   </svg>
 </template>
 <style scoped>

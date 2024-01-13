@@ -1,15 +1,41 @@
 <script setup lang="ts">
+import { onMounted, ref } from "vue";
 import { useHomePage } from "../queries/useHomePage.ts";
-import { updateActiveCategory } from "../store";
+import { updateActiveCategory, updateActivePanel } from "../store";
 import HomePanelTextPostCard from "./HomePanelTextPostCard.vue";
 import HomePanelVideoCard from "./HomePanelVideoCard.vue";
+import { TCategory } from "../types";
 const homePage = useHomePage();
+
+const emits = defineEmits<
+  { (e: "heightChanged", height: number): void }
+>();
+
+const oldHeight = ref(0)
+
+const panelContainer = ref<HTMLElement | null>(null)
+onMounted(() => {
+  window.addEventListener("resize", () => {
+    if (panelContainer.value?.offsetHeight) {
+      if (panelContainer.value.offsetHeight === oldHeight.value) return;
+      oldHeight.value = panelContainer.value.offsetHeight
+      emits("heightChanged", panelContainer.value.offsetHeight)
+    }
+  })
+})
+
+function navigateToCategory(category: TCategory | undefined) {
+  if (!category) return;
+  updateActivePanel("category")
+  updateActiveCategory(category)
+
+}
 </script>
 <template>
-  <div class="panel-container">
+  <div class="panel-container" ref="panelContainer">
     <div class="panel-header">
       <div class="panel-header__section hearder__part--building">
-        <div class="panel-header__title" @click="() => updateActiveCategory(homePage.data.value?.monthCategory)
+        <div class="panel-header__title" @click="() => navigateToCategory(homePage.data.value?.monthCategory)
           ">
           {{ homePage.data.value?.monthCategory.fullName }}
         </div>
@@ -48,29 +74,18 @@ const homePage = useHomePage();
 </template>
 <style scoped>
 .panel-content {
-  display: grid;
-  position: relative;
-  grid-template-columns: 1fr;
-  padding: 8px;
-  gap: 8px;
-  overflow-y: scroll;
-  width: 100%;
-  height: 100%;
+  display: none;
 }
 
-@media screen and (min-width: 1000px) {
-  .panel-content {
-    grid-template-columns: 1fr 1fr;
-  }
-}
 
-.hearder__part--question{
+.hearder__part--question {
   font-style: normal;
 }
 
 .panel-container {
   width: 100%;
   grid-area: aside;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   font-style: italic;
@@ -171,8 +186,13 @@ const homePage = useHomePage();
 }
 
 @media screen and (min-width: 812px) {
+  .panel-container {
+
+    height: 100%;
+  }
+
   .panel-header {
-    gap:8px;
+    gap: 8px;
     grid-template-columns: 2fr 3fr;
   }
 
@@ -183,6 +203,23 @@ const homePage = useHomePage();
 
   .subheader__section--right {
     border-left: solid 1px var(--border-color);
+  }
+
+  .panel-content {
+    display: grid;
+    position: relative;
+    grid-template-columns: 1fr;
+    padding: 8px;
+    gap: 8px;
+    overflow-y: scroll;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .panel-content {
+    grid-template-columns: 1fr 1fr;
   }
 }
 </style>

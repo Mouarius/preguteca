@@ -9,6 +9,14 @@ import { dimmElement, undimmElement } from "./utils";
 import { ref } from "vue";
 
 const sidePanelContainer = ref<HTMLElement | null>(null)
+const mainIllustrationContainer = ref<HTMLElement | null>(null)
+
+
+function translateScrollContent(amount: number) {
+  if (!mainIllustrationContainer.value || window.innerWidth > 812) return
+  mainIllustrationContainer.value.style.transform = `translateY(${amount}px)`
+
+}
 
 </script>
 
@@ -23,9 +31,9 @@ const sidePanelContainer = ref<HTMLElement | null>(null)
         <MainIllustration />
       </div>
     </section>
+    <HomePanel v-if="store.activePanel == 'home'" v-on:height-changed="(height) => translateScrollContent(height)" />
     <CategoryDetail v-if="store.activePanel == 'category'" :active-category="store.activeCategory" />
-    <HomePanel v-else-if="store.activePanel == 'home'" />
-    <MenuPanel v-else-if="store.activePanel == 'menu'" :menu-page="store.activeMenuPage" />
+    <MenuPanel v-if="store.activePanel == 'menu'" :menu-page="store.activeMenuPage" />
 
   </div>
 </template>
@@ -59,7 +67,7 @@ const sidePanelContainer = ref<HTMLElement | null>(null)
   grid-template-areas: "main-scroll";
 }
 
-@media (min-width: 768px) {
+@media (min-width: 812px) {
   #page-content {
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: minmax(0, 1fr);
@@ -74,9 +82,6 @@ const sidePanelContainer = ref<HTMLElement | null>(null)
   height: 100%;
 }
 
-#main-illustration {
-  transition: all 0.5s ease;
-}
 
 .sr-only {
   border: 0 !important;

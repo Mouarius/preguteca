@@ -24,7 +24,7 @@ const setVideoVisible = () => {
     <div class="row url">
       <a :href="videoPost.video.videoUrl">{{ videoPost.video.videoUrl }}</a>
     </div>
-    <div class="row video__viewport">
+    <div class="video__viewport">
       <iframe v-if="isVideoVisible" class="video__viewport__iframe" type="text/html" width="100%" height="100%"
         allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0"
         :src="`${videoPost.video.videoEmbedUrl}?autoplay=1`"></iframe>
@@ -45,9 +45,9 @@ const setVideoVisible = () => {
           {{ videoPost.video.duration }}
         </div>
       </div>
-    </div>
-    <div class="row content">
-      <span v-html="videoPost.content"></span>
+      <div class="row details__content text-content">
+        <span v-html="videoPost.content"></span>
+      </div>
     </div>
   </HomePanelCard>
 </template>
@@ -77,12 +77,9 @@ const setVideoVisible = () => {
 
 .video__viewport__button {
   position: absolute;
-  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
   top: 0;
   left: 0;
   right: 0;
@@ -108,6 +105,12 @@ const setVideoVisible = () => {
   aspect-ratio: 16/9;
   height: auto;
   width: 100%;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .details__header {
@@ -141,42 +144,11 @@ const setVideoVisible = () => {
   height: 100%;
 }
 
-.details__footer {
-  border-top: solid 1px var(--border-color);
-  display: flex;
-  justify-content: space-between;
-  min-height: 32px;
-  height: fit-content;
-}
-
-.details__footer__element {
-  font-size: 12px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  align-items: baseline;
-  padding: 8px 0;
-}
-
-.details__footer__element:last-child {
-  border-left: solid 1px var(--border-color);
-  padding-left: 8px;
-  justify-content: end;
-  min-width: 30%;
-}
-
-.content {
+.details__content {
   height: 100%;
   flex: 1;
   display: flex;
   align-items: start;
   padding-top: 8px;
-}
-
-.details__content {
-  height: fit-content;
-  text-align: justify;
-  font-style: normal;
 }
 </style>

@@ -5,6 +5,10 @@ import AppHeader from "./components/AppHeader.vue";
 import { store } from "./store";
 import HomePanel from "./components/HomePanel.vue";
 import MenuPanel from "./components/MenuPanel.vue";
+import { dimmElement, undimmElement } from "./utils";
+import { ref } from "vue";
+
+const sidePanelContainer = ref<HTMLElement | null>(null)
 
 </script>
 
@@ -12,13 +16,17 @@ import MenuPanel from "./components/MenuPanel.vue";
   <AppHeader />
   <div id="page-content" class="border-thin">
     <section id="main-scroll" class="scrollable">
-      <div id="scroll-illustration">
+      <div id="main-illustration" ref="mainIllustrationContainer" @mouseover="() => { dimmElement(sidePanelContainer) }"
+        @mouseleave="() => {
+          undimmElement(sidePanelContainer)
+        }">
         <MainIllustration />
       </div>
     </section>
     <CategoryDetail v-if="store.activePanel == 'category'" :active-category="store.activeCategory" />
     <HomePanel v-else-if="store.activePanel == 'home'" />
     <MenuPanel v-else-if="store.activePanel == 'menu'" :menu-page="store.activeMenuPage" />
+
   </div>
 </template>
 
@@ -64,6 +72,10 @@ import MenuPanel from "./components/MenuPanel.vue";
   overflow-y: scroll;
   position: relative;
   height: 100%;
+}
+
+#main-illustration {
+  transition: all 0.5s ease;
 }
 
 .sr-only {

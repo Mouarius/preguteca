@@ -15,14 +15,15 @@ defineProps<MenuPanelProps>()
         {{ menuPage?.title }}
       </span>
     </div>
-    <div class="aside-content">
+    <div class="aside-content text-content">
       <span v-html="menuPage?.content"></span>
     </div>
 
   </section>
 </template>
-<style scoped>
+<style>
 .aside-container {
+  /* TODO: Refactor this */
   width: 100%;
   grid-area: aside;
   display: flex;
@@ -30,6 +31,14 @@ defineProps<MenuPanelProps>()
   font-style: italic;
   border: solid 1px var(--border-color);
   overflow: scroll;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: var(--black);
+  transform: translateX(0);
+  transition: all 0.4s ease-in;
 }
 
 .aside-header {
@@ -53,8 +62,9 @@ defineProps<MenuPanelProps>()
 
 .aside-content {
   width: 100%;
-  padding: 8px;
+  padding: 24px 12px;
   gap: 8px;
   overflow-y: scroll;
+  font-style: normal;
 }
 </style>

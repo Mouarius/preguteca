@@ -5,8 +5,8 @@ import { ref } from "vue";
 
 interface VideoEntryProps {
   videoEntry: TVideoEntry;
-  videosInCategory: number;
-  indexInCategory: number;
+  videosInCategory?: number;
+  indexInCategory?: number;
 }
 
 const isVideoVisible = ref(false);
@@ -38,7 +38,6 @@ const getLastQuestionsFormatted = (questions: string) => {
 
 const toggleLastQuestionsVisibility = () => {
   lastQuestionsVisible.value = !lastQuestionsVisible.value;
-  console.log(lastQuestionsVisible.value);
 };
 
 defineProps<VideoEntryProps>();
@@ -48,7 +47,7 @@ defineProps<VideoEntryProps>();
   <li class="video-entry border-thin">
     <header class="video-entry__header video-entry__row">
       <div class="video-entry__header__number">
-        {{ indexInCategory + 1 }}/{{ videosInCategory }}
+        {{ (indexInCategory ?? 0) + 1 }}/{{ videosInCategory ?? 0 }}
       </div>
       <div class="video-entry__header__url">
         <a :href="`https://www.youtube.com/watch?v=${videoEntry.youtubeId}`">https://www.youtube.com/watch?v={{
@@ -74,7 +73,7 @@ defineProps<VideoEntryProps>();
     </div>
     <div class="video-entry__detail video-entry__row">
       <div class="video-entry__detail__channel">
-        De : <a :href="`https://www.youtube.com/channel/${videoEntry.ytChannelId}`">{{ videoEntry.author }}</a>
+        <a :href="`https://www.youtube.com/channel/${videoEntry.ytChannelId}`">{{ videoEntry.author }}</a>
       </div>
       <div class="video-entry__detail__pub-date">
         {{ new Date(videoEntry.ytPublishTime).toLocaleDateString() }}
@@ -212,12 +211,9 @@ a {
 
 .video-entry__viewport__button {
   position: absolute;
-  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
   top: 0;
   left: 0;
   right: 0;

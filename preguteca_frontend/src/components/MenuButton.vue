@@ -114,7 +114,6 @@ function toggleDropdownHidden() {
   justify-content: space-between;
   height: 30px;
   width: 32px;
-  margin-right: 8px;
   cursor: pointer;
 }
 

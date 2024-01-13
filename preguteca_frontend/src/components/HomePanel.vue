@@ -6,21 +6,17 @@ import HomePanelVideoCard from "./HomePanelVideoCard.vue";
 const homePage = useHomePage();
 </script>
 <template>
-  <div class="container">
-    <div class="header">
-      <div class="header__section hearder__part--building">
-        <div
-          class="header__title"
-          @click="
-            () => updateActiveCategory(homePage.data.value?.monthCategory)
-          "
-        >
+  <div class="panel-container">
+    <div class="panel-header">
+      <div class="panel-header__section hearder__part--building">
+        <div class="panel-header__title" @click="() => updateActiveCategory(homePage.data.value?.monthCategory)
+          ">
           {{ homePage.data.value?.monthCategory.fullName }}
         </div>
         <div class="separator separator--header"></div>
         <div class="header__subtitle">Edificio del mes</div>
       </div>
-      <div class="header__section hearder__part--question">
+      <div class="panel-header__section hearder__part--question">
         <div class="header__keywords">
           {{ homePage.data.value?.monthCategory.keywords }}
         </div>
@@ -28,37 +24,30 @@ const homePage = useHomePage();
         <div class="header__subtitle">Palabras clave</div>
       </div>
     </div>
-    <div class="subheader">
-      <div class="subheader__section subheader__section--left">
-        <p class="subheader__general-questions">
+    <div class="panel-subheader">
+      <div class="panel-subheader__section subheader__section--left">
+        <p class="panel-subheader__general-questions">
           {{ homePage.data.value?.monthQuestions }}
         </p>
       </div>
-      <div class="subheader__section subheader__section--right">
+      <div class="panel-subheader__section subheader__section--right">
         <div class="question-of-the-day">
           {{ homePage.data.value?.dayQuestion }}
         </div>
         <div class="separator separator--subheader"></div>
-        <div class="subheader__subtitle">Question del dia</div>
+        <div class="panel-subheader__subtitle">Question del dia</div>
       </div>
     </div>
-    <div class="content" v-if="homePage.isSuccess" >
-      <HomePanelVideoCard
-        v-for="videoPost in homePage.data.value?.videoPosts"
-        v-bind:key="videoPost.id"
-        :video-post="videoPost"
-      />
-      <HomePanelTextPostCard
-        v-for="textPost in homePage.data.value?.textPosts"
-        v-bind:key="textPost.id"
-        :title="textPost.headerTitle"
-        :content="textPost.content"
-      />
+    <div class="panel-content" v-if="homePage.isSuccess">
+      <HomePanelVideoCard v-for="videoPost in homePage.data.value?.videoPosts" v-bind:key="videoPost.id"
+        :video-post="videoPost" />
+      <HomePanelTextPostCard v-for="textPost in homePage.data.value?.textPosts" v-bind:key="textPost.id"
+        :title="textPost.headerTitle" :content="textPost.content" />
     </div>
   </div>
 </template>
 <style scoped>
-.content {
+.panel-content {
   display: grid;
   position: relative;
   grid-template-columns: 1fr;
@@ -70,12 +59,16 @@ const homePage = useHomePage();
 }
 
 @media screen and (min-width: 1000px) {
-  .content {
+  .panel-content {
     grid-template-columns: 1fr 1fr;
   }
 }
 
-.container {
+.hearder__part--question{
+  font-style: normal;
+}
+
+.panel-container {
   width: 100%;
   grid-area: aside;
   display: flex;
@@ -85,17 +78,19 @@ const homePage = useHomePage();
   overflow: scroll;
 }
 
-.header {
+.panel-header {
   padding: 8px;
   padding-left: 10px;
   padding-right: 12px;
   background: var(--white);
   color: var(--black);
   display: grid;
-  gap: 8px;
+  height: min-content;
+  gap: 16px;
   grid-template-columns: 1fr;
 }
-.header__section {
+
+.panel-header__section {
   display: flex;
   align-items: end;
   height: 100%;
@@ -118,7 +113,7 @@ const homePage = useHomePage();
   border: solid 1px var(--border-color);
 }
 
-.header__title {
+.panel-header__title {
   font-size: 24px;
   cursor: pointer;
   font-weight: 600;
@@ -126,16 +121,16 @@ const homePage = useHomePage();
 }
 
 .header__subtitle,
-.subheader__subtitle {
+.panel-subheader__subtitle {
   font-size: 14px;
 }
 
-.subheader__subtitle {
+.panel-subheader__subtitle {
   color: var(--border-color);
   place-self: end;
 }
 
-.subheader {
+.panel-subheader {
   color: var(--border-color);
   background-color: var(--black);
   display: flex;
@@ -144,7 +139,7 @@ const homePage = useHomePage();
   border-bottom: solid 1px var(--border-color);
 }
 
-.subheader__section {
+.panel-subheader__section {
   display: flex;
   padding: 8px;
   height: 100%;
@@ -159,9 +154,10 @@ const homePage = useHomePage();
   flex: 1;
 }
 
-.subheader__general-questions {
+.panel-subheader__general-questions {
   height: 100%;
   overflow: hidden;
+  font-style: normal;
 }
 
 .subheader__section--right .question-of-the-day {
@@ -174,14 +170,14 @@ const homePage = useHomePage();
   height: 100%;
 }
 
-@media screen and (min-width: 768px) {
-  .header {
-    gap: 0px;
+@media screen and (min-width: 812px) {
+  .panel-header {
+    gap:8px;
     grid-template-columns: 2fr 3fr;
   }
 
-  .subheader {
-    gap: 0px;
+  .panel-subheader {
+    gap: 8px;
     flex-direction: row;
   }
 

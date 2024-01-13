@@ -81,3 +81,23 @@ h3 {
 li {
   list-style-type: none;
 }
+
+.text-content h2 {
+  font-family: var(--font-text);
+  font-size: 22px;
+  font-weight: 800;
+  font-style: normal;
+  margin-bottom: 16px;
+}
+
+.text-content p {
+  margin-bottom: 8px;
+}
+
+.text-content ul {
+  padding-left: 16px;
+}
+
+.text-content ul li {
+  list-style-type: disc;
+}

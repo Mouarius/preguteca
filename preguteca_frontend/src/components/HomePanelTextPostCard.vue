@@ -10,8 +10,19 @@ defineProps<Props>();
 </script>
 <template>
   <HomePanelCard :header-title="title">
-    <div class="row details__content">
-      <span v-html="content"></span>
+    <div class="details">
+      <div class="text-content">
+        <span v-html="content"></span>
+      </div>
     </div>
   </HomePanelCard>
 </template>
+<style scoped>
+.details {
+  padding: 8px;
+}
+
+.text-content {
+  font-style: normal;
+}
+</style>

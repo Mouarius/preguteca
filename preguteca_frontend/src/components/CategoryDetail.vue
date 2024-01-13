@@ -1,121 +1,46 @@
 <script setup lang="ts">
 import VideoEntry from "./VideoEntry.vue";
-import ChevronLeft from "../assets/chevron-left.svg";
-import { store, toggleCategoryContainer } from "../store";
+import { store } from "../store";
+import MainPanel from "./MainPanel.vue";
+import { onMounted, ref, watch } from "vue";
 
-function scrollTop(event: MouseEvent) {
-  event.preventDefault();
-  const videoEntryListEl = document.querySelector(".video-entry-list");
-  videoEntryListEl?.scrollTo(0, 0);
+const videoEntryListRef = ref<HTMLElement | null>(null)
+
+function resetVideoListScroll() {
+  if (videoEntryListRef.value) {
+    videoEntryListRef.value.scroll(0, 0)
+  }
 }
+
+watch(() => store.activeCategory, () => resetVideoListScroll())
+
+onMounted(() => {
+  resetVideoListScroll()
+})
+
 </script>
 
 <template>
-  <section v-if="store.activeCategory" :class="{
-    'category-container': true,
-    'category-container--hidden': store.activePanel !== 'category',
-  }">
-    <header @click="scrollTop" class="category-container__header">
-      <img @click="toggleCategoryContainer" :src="ChevronLeft" alt="chevron-left" />
-      <h2>{{ store.activeCategory.fullName }}</h2>
-    </header>
-    <!-- <div class="category-description">
-      {{ store.activeCategory.description }}
-    </div> -->
-    <ul id="video-entry-list" class="video-entry-list scrollable">
-      <VideoEntry v-for="(video_entry, index) in store.activeCategory.videoEntries" :key="video_entry.id"
-        :video-entry="video_entry" :videos-in-category="store.activeCategory.videoEntries.length"
-        :index-in-category="index" />
+  <MainPanel :title="store.activeCategory?.fullName">
+    <ul id="video-entry-list" class="video-entry-list scrollable" ref="videoEntryListRef">
+      <VideoEntry v-for="(video_entry, index) in store.activeCategory?.videoEntries" :key="video_entry.id"
+        :video-entry="video_entry" :videos-in-category="store.activeCategory?.videoEntries.length"
+        :index-in-category="index" class="video-entry" />
     </ul>
-  </section>
+  </MainPanel>
 </template>
 
 <style scoped>
-.category-description {
+.video-entry {
+  scroll-snap-align: start;
+}
+
+.video-entry-list {
+  scroll-padding-top: 8px;
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  max-height: 100%;
   padding: 8px;
-  border-bottom: solid 1px var(--border-color);
-  line-height: normal;
-}
-
-.category-placeholder {
-  display: flex;
-  height: 100%;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-}
-
-.category-placeholder__welcome {
-  width: 80%;
-  max-width: 480px;
-}
-
-.category-placeholder__welcome h3 {
-  margin-bottom: 16px;
-}
-
-.category-container__header {
-  padding-left: 10px;
-  padding-right: 12px;
-  background: var(--white);
-  height: 42px;
-  width: 100%;
-  color: var(--black);
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.category-container__header h2 {
-  font-family: "Dela Gothic One", Times, serif;
-  font-style: italic;
-}
-
-.category-container__header img {
-  cursor: pointer;
-}
-
-.category-container {
-  background-color: var(--black);
-  grid-area: aside;
-  border-left: solid 1px var(--border-color);
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  transform: translateX(0);
-  transition: all 0.4s ease-in;
-}
-
-.category-container--hidden {
-  transform: translateX(100vw);
-}
-
-@media (min-width: 768px) {
-  .category-container {
-    transform: translateX(0);
-    display: flex;
-    position: relative;
-    flex-direction: column;
-  }
-
-  .category-container__header {
-    padding-left: 12px;
-    justify-content: flex-start;
-  }
-
-  .category-container__header img {
-    display: none;
-  }
-}
-
-#video-entry-list {
-  padding: 8px;
-  scroll-behavior: smooth;
   display: flex;
   flex-direction: column;
   align-self: stretch;
@@ -124,6 +49,5 @@ function scrollTop(event: MouseEvent) {
   width: 100%;
   height: 100%;
   position: relative;
-  overflow: scroll;
 }
 </style>

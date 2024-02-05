@@ -16,7 +16,7 @@ defineProps<MenuPanelProps>()
       </span>
     </div>
     <div class="aside-content text-content">
-      <span v-html="menuPage?.content"></span>
+      <span v-dompurify-html="menuPage?.content"></span>
     </div>
 
   </section>

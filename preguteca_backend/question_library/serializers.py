@@ -43,6 +43,7 @@ class VideoEntrySerializer(serializers.ModelSerializer):
 
 class CategorySerializer(serializers.ModelSerializer):
     video_entries = VideoEntrySerializer(many=True, read_only=True)
+    test = ""
 
     class Meta:
         model = Category

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { HomepageVideoPost, } from "../types";
-import PlayButton from "../assets/play-button--orange.svg";
-import HomePanelCard from "./homepanel-card/HomePanelCard.vue";
+import { HomepageVideoPost, } from "../../types";
+import PlayButton from "../../assets/play-button--orange.svg";
+import HomePanelCard from "../homepanel-card/HomePanelCard.vue";
 
 type Props = {
   videoPost: HomepageVideoPost
@@ -46,7 +46,7 @@ const setVideoVisible = () => {
         </div>
       </div>
       <div class="row details__content text-content">
-        <span v-html="videoPost.content"></span>
+        <span v-dompurify-html="videoPost.content"></span>
       </div>
     </div>
   </HomePanelCard>

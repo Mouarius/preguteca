@@ -22,7 +22,7 @@
 
 ### Homepage
 [x] Homepage like a blog
-[] final visual fixes
+[x] final visual fixes
 
 [] Building : add more information for each building
 [] menu : (administrable like CMS)

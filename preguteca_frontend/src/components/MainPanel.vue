@@ -19,7 +19,7 @@ function scrollTop(event: MouseEvent) {
   <div class="panel-container" @mouseover="() => { dimmElement(mainIllustrationContainer) }"
     @mouseleave="(_event: MouseEvent) => { undimmElement(mainIllustrationContainer) }">
     <div class="panel-header" @click="scrollTop">
-      <img @click="() => updateActivePanel('home')" :src="ChevronLeft" alt="chevron-left" />
+      <img alt="chevron-left" :src="ChevronLeft" @click="() => updateActivePanel('home')" />
       <span class="panel-header__title">{{ title }}</span>
     </div>
     <div class="panel-content">
@@ -27,7 +27,7 @@ function scrollTop(event: MouseEvent) {
     </div>
   </div>
 </template>
-<style>
+<style scoped>
 .panel-container {
   background-color: var(--black);
   grid-area: aside;

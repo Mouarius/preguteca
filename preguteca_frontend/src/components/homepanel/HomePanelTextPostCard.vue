@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import HomePanelCard from './homepanel-card/HomePanelCard.vue';
+import HomePanelCard from '../homepanel-card/HomePanelCard.vue';
+
 
 type Props = {
   title: string;
@@ -12,7 +13,7 @@ defineProps<Props>();
   <HomePanelCard :header-title="title">
     <div class="details">
       <div class="text-content">
-        <span v-html="content"></span>
+        <span v-dompurify-html="content"></span>
       </div>
     </div>
   </HomePanelCard>

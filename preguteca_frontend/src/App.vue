@@ -1,22 +1,19 @@
 <script setup lang="ts">
-import CategoryDetail from "./components/CategoryDetail.vue";
-import MainIllustration from "./components/MainIllustration.vue";
-import AppHeader from "./components/AppHeader.vue";
-import { store } from "./store";
-import HomePanel from "./components/HomePanel.vue";
-import MenuPanel from "./components/MenuPanel.vue";
 import { dimmElement, undimmElement } from "./utils";
 import { ref } from "vue";
+import { store } from "./store";
+
+import AppHeader from "./components/AppHeader.vue";
+import CategoryDetail from "./components/CategoryDetail.vue";
+import MainIllustration from "./components/MainIllustration.vue";
+import MenuPanel from "./components/MenuPanel.vue";
+import HomePanel from "./components/homepanel/HomePanel.vue";
+import HomePanelHeader from "./components/homepanel/HomePanelHeader.vue";
+import { useHomePage } from "./queries/useHomePage";
 
 const sidePanelContainer = ref<HTMLElement | null>(null)
-const mainIllustrationContainer = ref<HTMLElement | null>(null)
 
-
-function translateScrollContent(amount: number) {
-  if (!mainIllustrationContainer.value || window.innerWidth > 812) return
-  mainIllustrationContainer.value.style.transform = `translateY(${amount}px)`
-
-}
+const homePage = useHomePage()
 
 </script>
 
@@ -24,16 +21,18 @@ function translateScrollContent(amount: number) {
   <AppHeader />
   <div id="page-content" class="border-thin">
     <section id="main-scroll" class="scrollable">
-      <div id="main-illustration" ref="mainIllustrationContainer" @mouseover="() => { dimmElement(sidePanelContainer) }"
-        @mouseleave="() => {
-          undimmElement(sidePanelContainer)
-        }">
+      <div v-if="store.activePanel === 'home'" class="home-panel-mobile-header">
+        <HomePanelHeader v-if="homePage.isSuccess && homePage.data.value" :home-page="homePage.data.value" />
+      </div>
+      <div id="main-illustration" @mouseover="() => { dimmElement(sidePanelContainer) }" @mouseleave="() => {
+        undimmElement(sidePanelContainer)
+      }">
         <MainIllustration />
       </div>
     </section>
-    <HomePanel v-if="store.activePanel == 'home'" v-on:height-changed="(height) => translateScrollContent(height)" />
-    <CategoryDetail v-if="store.activePanel == 'category'" :active-category="store.activeCategory" />
-    <MenuPanel v-if="store.activePanel == 'menu'" :menu-page="store.activeMenuPage" />
+    <HomePanel v-if="store.activePanel === 'home'" />
+    <CategoryDetail v-if="store.activePanel === 'category'" :active-category="store.activeCategory" />
+    <MenuPanel v-if="store.activePanel === 'menu'" :menu-page="store.activeMenuPage" />
 
   </div>
 </template>
@@ -80,6 +79,22 @@ function translateScrollContent(amount: number) {
   overflow-y: scroll;
   position: relative;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#main-illustration {
+  position: relative
+}
+
+.home-panel-mobile-header {
+  z-index: 5;
+}
+
+@media screen and (min-width: 812px) {
+  .home-panel-mobile-header {
+    display: none;
+  }
 }
 
 

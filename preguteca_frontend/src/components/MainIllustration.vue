@@ -51,7 +51,7 @@ import image49 from "../assets/main-illustration/img/main_illustration_v349.png"
 import image50 from "../assets/main-illustration/img/main_illustration_v350.png";
 
 import { computed, onMounted, reactive, ref } from "vue";
-import { updateActiveCategory, updateActivePanel, store } from "../store";
+import { updateActiveCategory, updateActivePanel } from "../store";
 import { useCategories } from "../queries/useCategories";
 
 const categoryName = ref("");
@@ -61,7 +61,7 @@ const category = computed(() =>
 );
 
 onMounted(() => {
-  const clickables = document.querySelectorAll("svg *[data-clickable='true']");
+  const clickables = document.querySelectorAll("*[data-clickable='true']");
   // eslint-disable-next-line no-undef
   const tagTextList = document.querySelectorAll("#etiquetes text") as NodeListOf<HTMLElement>;
 
@@ -74,6 +74,7 @@ onMounted(() => {
 
   for (const clickable of clickables) {
     (clickable as HTMLElement).addEventListener("click", (event: MouseEvent) => {
+      console.log(event.target)
       if (!event.target) return;
       const elem = event.target as HTMLElement;
       event.preventDefault();
@@ -90,75 +91,16 @@ onMounted(() => {
 });
 const noiseFrequency = ref(1.0)
 const numOctaves = ref(3)
-// setInterval(() => {
-//   noiseFrequency.value = Math.random()*0.2 +0.2
-// }, 100);
+setInterval(() => {
+  noiseFrequency.value = Math.random() * 0.1 + 0.2
+}, 200);
 
 </script>
-<style scoped>
-svg {
-  top: -100px;
-  position: absolute;
-  fill: var(--black);
-}
-
-@keyframes shake {
-  from {
-    transform: translateX(-10);
-  }
-
-  to {
-    transform: translateX(10);
-  }
-}
-
-[data-clickable="true"] {
-  cursor: pointer;
-  border: solid 1px red;
-  transition: all 0.3s ease;
-}
-
-[data-clickable="true"]:hover,
-[data-clickable="false"] {
-  filter: grayscale(100%);
-}
-
-.el_prostibulo__image {
-  clip-path: url("#clip-path__el_prostibulo");
-}
-
-.el_tribunal__image {
-  clip-path: url("#clip-path__el_tribunal");
-}
-
-.la_television__image {
-  clip-path: url("#clip-path__la_television");
-}
-
-.la_estacion__image {
-  clip-path: url("#clip-path__la_estacion");
-}
-
-.illustration-container {
-  position: relative;
-}
-
-#etiquetes text {
-  font-family: "Schibsted Grotesk", serif !important;
-}
-</style>
 <template>
-<!-- svg: first layer -->
-<svg viewBox='0 0 67 67' xmlns='http://www.w3.org/2000/svg'>
-</svg>
   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1125 7625">
-  <filter id='noiseFilter'>
-    <feTurbulence 
-      type='fractalNoise' 
-      :baseFrequency='noiseFrequency' 
-      :numOctaves='numOctaves' 
-      stitchTiles='stitch'/>
-  </filter>
+    <filter id='noiseFilter'>
+      <feTurbulence type='fractalNoise' :baseFrequency='noiseFrequency' :numOctaves='numOctaves' stitchTiles='stitch' />
+    </filter>
     <defs>
       <clipPath id="clip-path">
         <polygon class="cls-1"
@@ -367,10 +309,10 @@ svg {
       <g id="LINE" class="cls-3">
         <polygon points="738.46 388.38 198.68 700.02 0 585.31 0 143.65 314.58 143.65 738.46 388.38" />
       </g>
-      <g class="cls-4">
-        <image data-clickable="true" data-category-name="los_jardines" width="171" height="176" loading="lazy"
+      <g class="cls-4" data-clickable="true" data-category-name="los_jardines">
+        <image width="171" height="176" loading="lazy"
           transform="translate(25.28 394.77) scale(1.94)" :href="image1" />
-        <rect  filter="url(#noiseFilter)" width="100%" height="100%"></rect>
+        <rect filter="url(#noiseFilter)" width="100%" height="100%"></rect>
       </g>
       <g id="LINE-2" data-name="LINE">
         <polygon class="cls-1"
@@ -629,9 +571,10 @@ svg {
       </g>
     </g>
     <g id="isla3">
-      <g class="cls-9">
-        <image loading="lazy" data-clickable="true" data-category-name="el_mercado" width="137" height="152"
+      <g class="cls-9" data-clickable="true" data-category-name="el_mercado">
+        <image loading="lazy"  width="137" height="152"
           transform="translate(698.14 427.83) scale(1.94)" :href="image2" />
+        <rect filter="url(#noiseFilter)" width="100%" height="100%"></rect>
       </g>
       <g id="LINE-28" data-name="LINE">
         <polygon class="cls-1"
@@ -4182,9 +4125,60 @@ svg {
       <line class="cls-66" x1="146.15" y1="4364.72" x2="146.15" y2="4448.22" />
       <circle class="cls-67" cx="145.27" cy="4448.22" r="5.27" />
     </g>
-  <!-- <rect width='100%' height='100%' filter='url(#noiseFilter)'/> -->
   </svg>
 </template>
+<style scoped>
+svg {
+  top: -100px;
+  position: absolute;
+  fill: var(--black);
+}
+
+@keyframes shake {
+  from {
+    transform: translateX(-10);
+  }
+
+  to {
+    transform: translateX(10);
+  }
+}
+
+[data-clickable="true"] {
+  cursor: pointer;
+  border: solid 1px red;
+  transition: all 0.3s ease;
+}
+
+[data-clickable="true"]:hover,
+[data-clickable="false"] {
+  filter: grayscale(100%);
+}
+
+.el_prostibulo__image {
+  clip-path: url("#clip-path__el_prostibulo");
+}
+
+.el_tribunal__image {
+  clip-path: url("#clip-path__el_tribunal");
+}
+
+.la_television__image {
+  clip-path: url("#clip-path__la_television");
+}
+
+.la_estacion__image {
+  clip-path: url("#clip-path__la_estacion");
+}
+
+.illustration-container {
+  position: relative;
+}
+
+#etiquetes text {
+  font-family: "Schibsted Grotesk", serif !important;
+}
+</style>
 <style scoped>
 .cls-1,
 .cls-11,

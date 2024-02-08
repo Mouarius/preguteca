@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { updateActiveCategory, updateActivePanel } from "../store";
+import { updateActivePanel } from "../store";
 import SearchBar from "./SearchBar.vue";
 import MenuButton from "./MenuButton.vue";
 

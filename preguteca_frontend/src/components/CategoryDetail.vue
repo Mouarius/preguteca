@@ -2,8 +2,7 @@
 import VideoEntry from "./VideoEntry.vue";
 import { store } from "../store";
 import MainPanel from "./MainPanel.vue";
-import ChevronLeft from "../assets/chevron-left.svg"
-import { StyleValue, onMounted, reactive, ref, watch } from "vue";
+import { onMounted, ref, watch } from "vue";
 
 const videoEntryListRef = ref<HTMLElement | null>(null)
 const descriptionRef = ref<HTMLElement | null>(null)

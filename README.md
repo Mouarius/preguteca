@@ -24,8 +24,8 @@
 [x] Homepage like a blog
 [x] final visual fixes
 
-[] Building : add more information for each building
-[] menu : (administrable like CMS)
+[x] Building : add more information for each building
+[x] menu : (administrable like CMS)
     - Who are we section
     - privacy policy
     - fundings
@@ -42,4 +42,4 @@
 [] illustration animation better
 
 Mobile landing :
-[] Illustration + little block with building of the month and questions of the month, if click go to the building. Disappear on scroll
+[x] Illustration + little block with building of the month and questions of the month, if click go to the building. Disappear on scroll

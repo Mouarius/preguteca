@@ -6,7 +6,7 @@ authors = ["Marius Menault <mouarius@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.9"
 Django = "4.2"
 pymysql = "^1.1.0"
 environ = "^1.0"

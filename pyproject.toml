@@ -19,7 +19,8 @@ django-browser-reload = "^1.12.1"
 google-api-python-client = "^2.109.0"
 django-tinymce = "^3.6.1"
 python-lsp-server = "^1.10.0"
-django-types = "^0.19.1"
+mypy = "^1.8.0"
+django-stubs = "^4.2.7"
 
 
 [build-system]

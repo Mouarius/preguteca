@@ -62,26 +62,27 @@ const category = computed(() =>
 
 onMounted(() => {
   const clickables = document.querySelectorAll("*[data-clickable='true']");
-  // eslint-disable-next-line no-undef
-  const tagTextList = document.querySelectorAll("#etiquetes text") as NodeListOf<HTMLElement>;
+  const tagTextList = document.querySelectorAll("#etiquetes text");
 
   // Adjust the translateY for the text in the tags
   tagTextList.forEach((text) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-ignore
-    text.transform.baseVal[0].matrix.f += 4;
+    (text as HTMLElement).transform.baseVal[0].matrix.f += 4;
   });
 
   for (const clickable of clickables) {
     (clickable as HTMLElement).addEventListener("click", (event: MouseEvent) => {
-      console.log(event.target)
       if (!event.target) return;
-      const elem = event.target as HTMLElement;
+      const elem = event.currentTarget as HTMLElement;
       event.preventDefault();
       event.stopPropagation();
       if (elem.dataset) {
+        console.log(elem)
         categoryName.value = elem.dataset.categoryName ?? "";
+        console.log(categoryName.value)
         if (category.value) {
+          console.log("ok")
           updateActiveCategory(category.value);
           updateActivePanel("category")
         }
@@ -304,15 +305,14 @@ setInterval(() => {
     </defs>
     <g id="fondo_negro" data-name="fondo negro">
       <rect class="cls-2" width="1125" height="7625" />
+        <rect filter="url(#noiseFilter)" width="100%" height="100%" style="opacity:0.6"></rect>
     </g>
     <g id="isla1">
       <g id="LINE" class="cls-3">
         <polygon points="738.46 388.38 198.68 700.02 0 585.31 0 143.65 314.58 143.65 738.46 388.38" />
       </g>
       <g class="cls-4" data-clickable="true" data-category-name="los_jardines">
-        <image width="171" height="176" loading="lazy"
-          transform="translate(25.28 394.77) scale(1.94)" :href="image1" />
-        <rect filter="url(#noiseFilter)" width="100%" height="100%"></rect>
+        <image width="171" height="176" loading="lazy" transform="translate(25.28 394.77) scale(1.94)" :href="image1" />
       </g>
       <g id="LINE-2" data-name="LINE">
         <polygon class="cls-1"
@@ -572,9 +572,7 @@ setInterval(() => {
     </g>
     <g id="isla3">
       <g class="cls-9" data-clickable="true" data-category-name="el_mercado">
-        <image loading="lazy"  width="137" height="152"
-          transform="translate(698.14 427.83) scale(1.94)" :href="image2" />
-        <rect filter="url(#noiseFilter)" width="100%" height="100%"></rect>
+        <image loading="lazy" width="137" height="152" transform="translate(698.14 427.83) scale(1.94)" :href="image2" />
       </g>
       <g id="LINE-28" data-name="LINE">
         <polygon class="cls-1"
@@ -706,8 +704,8 @@ setInterval(() => {
         <image loading="lazy" data-clickable="true" data-category-name="la_residencia_de_ancianos" width="146"
           height="150" transform="translate(57.93 846.66) scale(2.23)" :href="image5" />
       </g>
-      <g class="cls-17">
-        <image loading="lazy" data-clickable="true" data-category-name="el_ayuntamiento" width="152" height="145"
+      <g class="cls-17"  data-clickable="true" data-category-name="el_ayuntamiento">
+        <image loading="lazy" width="152" height="145"
           transform="translate(461.2 971.43) scale(2.23)" :href="image6" />
       </g>
       <g id="LINE-56" data-name="LINE">

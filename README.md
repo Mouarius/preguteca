@@ -39,7 +39,18 @@
     - el_cuartel_militar : same
     - la_inmobiliaria : same
     - la_television : no match in admin -> which category ?
-[] illustration animation better
 
 Mobile landing :
 [x] Illustration + little block with building of the month and questions of the month, if click go to the building. Disappear on scroll
+
+### FINAL FIXES :
+[x] fix the addition of new videos
+[x] + automation of video metadata when pasting youtube url
+[] fix search bar
+[] fix iframe
+[] fix html input text posts style
+
+### In the future :
+- comments
+- illustration animation
+- ...

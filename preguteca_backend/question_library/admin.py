@@ -1,5 +1,8 @@
 from django.contrib import admin
+from django.db import models
 from django.http.request import HttpRequest
+from django.utils.html import format_html
+from django.forms import TextInput
 
 from .models import (
     Category,
@@ -22,7 +25,7 @@ admin.site.register(
 
 @admin.register(HomePage)
 class HomePageAdmin(admin.ModelAdmin):
-    list_display = ("month_category", "active", "created_at", "modified_at")
+    list_display = ("identifier", "active", "created_at", "modified_at")
     autocomplete_fields = ("highlighted_video",)
     filter_horizontal = ("text_posts", "video_posts")
 
@@ -70,21 +73,29 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(VideoEntry)
 class VideoEntryAdmin(admin.ModelAdmin):
-    list_display = ["id", "title", "visible", "video_url"]
+    list_display = ["id", "trimmed_title", "categories", "visible"]
     search_fields = ["title", "youtube_id", "author"]
     empty_value_display = "???"
 
-    @admin.display(empty_value="???")
-    def video_title(self, obj):
-        if not obj.title:
-            return "???"
-        return obj.title
+    list_filter = (
+        "visible",
+        "category",
+    )
+
+    @admin.display
+    def trimmed_title(self, obj):
+        return format_html(
+            f"<span style='width: 100%; display:flex; justify-content:space-between'>{obj.title[:40]}... <a href='{obj.video_url}'>(link)</a></span>"
+        )
+
+
+    @admin.display
+    def categories(self, obj):
+        return list(obj.category_set.values_list("full_name", flat=True))
 
     fields = (
-        (
-            "title",
-            "visible",
-        ),
+        "title",
+        "visible",
         "author",
         "questions",
         ("video_url", "video_embed_url"),
@@ -94,6 +105,8 @@ class VideoEntryAdmin(admin.ModelAdmin):
         "video_types",
         "youtube_id",
     )
+
+    formfield_overrides = {models.CharField: {"widget": TextInput(attrs={"size": 80})}}
     readonly_fields = ("youtube_id",)
     filter_horizontal = ("video_types",)
 

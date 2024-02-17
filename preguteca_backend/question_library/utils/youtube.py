@@ -1,12 +1,18 @@
 from __future__ import annotations
 
 import re
+from typing import cast
 
 import requests
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 from preguteca_backend import settings
+from question_library.types import (
+    YoutubeApiResponse,
+    YoutubeApiResponseItem,
+    YoutubeApiSnippet,
+)
 
 
 def extract_video_id_from_url(youtube_url: str) -> str | None:
@@ -24,7 +30,8 @@ def extract_video_id_from_url(youtube_url: str) -> str | None:
     return video_id_match_list[0]
 
 
-def get_youtube_videos_snippet_list(id_list: list[str]):
+# DEPRECATED
+def get_youtube_videos_snippet_list(id_list: list[str]) -> list[YoutubeApiSnippet]:
     batch_list = [id_list[i : i + 50] for i in range(0, len(id_list), 50)]
     items = []
     for batch in batch_list:
@@ -32,23 +39,24 @@ def get_youtube_videos_snippet_list(id_list: list[str]):
         print(f"Fetching the data for {id_string}")
         query_url = f"https://youtube.googleapis.com/youtube/v3/videos?part=snippet&id={id_string}&key={settings.YOUTUBE_API_KEY}"
         response = requests.get(query_url)
-        print(f"Got ", response.status_code)
-        data = response.json()
+        print("Got ", response.status_code)
+        data: YoutubeApiResponse = response.json()
         if data["items"]:
             items = items + data["items"]
-
     return items
 
 
-def get_youtube_videos_information_list(id_list: list[str]):
+def get_youtube_videos_information_list(
+    id_list: list[str],
+) -> list[YoutubeApiResponseItem]:
     youtube = build("youtube", "v3", developerKey=settings.YOUTUBE_API_KEY)
     batch_list = [id_list[i : i + 50] for i in range(0, len(id_list), 50)]
-    items = []
+    items: list[YoutubeApiResponseItem] = []
     for batch in batch_list:
         id_string = ",".join(batch)
         request = youtube.videos().list(part="snippet,contentDetails", id=id_string)
         try:
-            response = request.execute()
+            response = cast(YoutubeApiResponse, request.execute())
             if response["items"]:
                 items = items + response["items"]
         except HttpError as e:
@@ -101,3 +109,7 @@ def get_youtube_channel_information_list(channel_id_list: list[str]):
                 f"Error response status code : {e.status_code}, reason : {e.error_details}"
             )
     return items
+
+
+def create_embed_url(youtube_id: str):
+    return f"https://www.youtube.com/embed/{youtube_id}"

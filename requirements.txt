@@ -45,9 +45,6 @@ pexpect==4.9.0
 pkginfo==1.9.6
 platformdirs==3.11.0
 pluggy==1.4.0
-poetry==1.7.1
-poetry-core==1.8.1
-poetry-plugin-export==1.6.0
 protobuf==4.25.3
 ptyprocess==0.7.0
 pyasn1==0.5.1

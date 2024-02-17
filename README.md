@@ -44,8 +44,8 @@ Mobile landing :
 [x] Illustration + little block with building of the month and questions of the month, if click go to the building. Disappear on scroll
 
 ### FINAL FIXES :
-[] fix the addition of new videos
-[] + automation of video metadata when pasting youtube url
+[x] fix the addition of new videos
+[x] + automation of video metadata when pasting youtube url
 [] fix search bar
 [] fix iframe
 [] fix html input text posts style

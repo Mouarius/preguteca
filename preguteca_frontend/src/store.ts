@@ -1,13 +1,12 @@
 import { reactive } from "vue";
 import { ActivePanel, MenuPage, TCategory } from "./types";
 
-
 type Store = {
-  isCategoryContainerVisible: boolean,
-  activeCategory: TCategory | null,
-  activeMenuPage: MenuPage | null,
-  activePanel: ActivePanel
-}
+  isCategoryContainerVisible: boolean;
+  activeCategory: TCategory | null;
+  activeMenuPage: MenuPage | null;
+  activePanel: ActivePanel;
+};
 
 export const store = reactive<Store>({
   isCategoryContainerVisible: false,
@@ -21,11 +20,14 @@ export function toggleCategoryContainer() {
 }
 
 export function updateActivePanel(panel: ActivePanel) {
-  return store.activePanel = panel
+  if (store.activePanel === "category" && panel !== "category") {
+    window.location.hash = "";
+  }
+  return (store.activePanel = panel);
 }
 
-export function updateActiveMenuPage(menuPage: MenuPage){
-  return store.activeMenuPage = menuPage
+export function updateActiveMenuPage(menuPage: MenuPage) {
+  return (store.activeMenuPage = menuPage);
 }
 
 export function updateActiveCategory(
@@ -33,5 +35,6 @@ export function updateActiveCategory(
 ): TCategory | null {
   if (!category) return (store.activeCategory = null);
   store.activeCategory = category;
+  window.location.hash = category.name;
   return store.activeCategory;
 }

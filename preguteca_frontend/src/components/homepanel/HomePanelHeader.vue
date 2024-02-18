@@ -1,21 +1,23 @@
 <script setup lang="ts">
-import { updateActiveCategory, updateActivePanel } from '../../store';
-import { HomePage, TCategory } from '../../types';
+import { updateActiveCategory, updateActivePanel } from "../../store";
+import { HomePage, TCategory } from "../../types";
 
 defineProps<{
-  homePage: HomePage
-}>()
+  homePage: HomePage;
+}>();
 function navigateToCategory(category: TCategory | undefined) {
   if (!category) return;
-  updateActivePanel("category")
-  updateActiveCategory(category)
-
+  updateActivePanel("category");
+  updateActiveCategory(category);
 }
 </script>
 <template>
   <div class="panel-header">
     <div class="panel-header__section hearder__part--building">
-      <div class="panel-header__title" @click="() => navigateToCategory(homePage.monthCategory)">
+      <div
+        class="panel-header__title"
+        @click="() => navigateToCategory(homePage.monthCategory)"
+      >
         {{ homePage.monthCategory.fullName }}
       </div>
       <div class="separator separator--header"></div>
@@ -80,7 +82,6 @@ function navigateToCategory(category: TCategory | undefined) {
   border: solid 1px var(--border-color);
   height: auto;
 }
-
 
 .panel-header__title {
   font-size: 24px;

@@ -35,12 +35,12 @@ export interface HomepagePost {
 }
 
 export interface HomepageTextPost extends HomepagePost {
-  content: string
+  content: string;
 }
 
 export interface HomepageVideoPost extends HomepagePost {
-  video: TVideoEntry
-  content: string
+  video: TVideoEntry;
+  content: string;
 }
 
 export interface HomePage {
@@ -53,7 +53,6 @@ export interface HomePage {
   posts: HomepagePost[];
   textPosts: HomepageTextPost[];
   videoPosts: HomepageVideoPost[];
-
 }
 
 export interface MenuPage {
@@ -81,4 +80,4 @@ export interface TCategory {
   description: string;
 }
 
-export type ActivePanel = "home" | "category" | "menu"
+export type ActivePanel = "home" | "category" | "menu";

@@ -4,55 +4,91 @@ import { store } from "../store";
 import MainPanel from "./MainPanel.vue";
 import { onMounted, ref, watch } from "vue";
 
-const videoEntryListRef = ref<HTMLElement | null>(null)
-const descriptionRef = ref<HTMLElement | null>(null)
-const descriptionHidden = ref(false)
+const videoEntryListRef = ref<HTMLElement | null>(null);
+const descriptionRef = ref<HTMLElement | null>(null);
+const descriptionHidden = ref(false);
 
 function resetVideoListScroll() {
   if (videoEntryListRef.value) {
-    videoEntryListRef.value.scroll(0, 0)
+    videoEntryListRef.value.scroll(0, 0);
   }
 }
 
-watch(() => store.activeCategory, () => resetVideoListScroll())
+watch(
+  () => store.activeCategory,
+  () => resetVideoListScroll()
+);
 
 onMounted(() => {
-  resetVideoListScroll()
-})
+  resetVideoListScroll();
+});
 
 const toggleDescription = () => {
-  descriptionHidden.value = !descriptionHidden.value
-}
-
+  descriptionHidden.value = !descriptionHidden.value;
+};
 </script>
 
 <template>
   <MainPanel :title="store.activeCategory?.fullName">
-    <div class="content"
-      :style="{ 'transform': descriptionHidden && descriptionRef ? `translateY(-${descriptionRef?.offsetHeight + 12}px)` : 'translate(0)' }">
+    <div
+      class="content"
+      :style="{
+        transform:
+          descriptionHidden && descriptionRef
+            ? `translateY(-${descriptionRef?.offsetHeight + 12}px)`
+            : 'translate(0)',
+      }"
+    >
       <div class="description">
         <p ref="descriptionRef">
           {{ store.activeCategory?.description }}
         </p>
         <button type="button" @click="toggleDescription">
           <span>
-            {{ descriptionHidden ? "Ver la descripción" : "Ocultar la descripción" }}
+            {{
+              descriptionHidden
+                ? "Ver la descripción"
+                : "Ocultar la descripción"
+            }}
           </span>
-          <svg class="toggle-icon" :class="{ 'toggle-icon--close': descriptionHidden }" height="12" width="12">
-            <line x1="6" y1="0" x2="6" y2="12" style="stroke: white; stroke-width: 1px;"
-              :opacity="descriptionHidden ? 1 : 0"></line>
-            <line x1="0" y1="6" x2="12" y2="6" style="stroke: white; stroke-width: 1px;"></line>
+          <svg
+            class="toggle-icon"
+            :class="{ 'toggle-icon--close': descriptionHidden }"
+            height="12"
+            width="12"
+          >
+            <line
+              x1="6"
+              y1="0"
+              x2="6"
+              y2="12"
+              style="stroke: white; stroke-width: 1px"
+              :opacity="descriptionHidden ? 1 : 0"
+            ></line>
+            <line
+              x1="0"
+              y1="6"
+              x2="12"
+              y2="6"
+              style="stroke: white; stroke-width: 1px"
+            ></line>
           </svg>
-
         </button>
-
       </div>
-      <ul id="video-entry-list" ref="videoEntryListRef" class="video-entry-list scrollable">
-        <VideoEntry v-for="( video_entry, index ) in  store.activeCategory?.videoEntries " :key="video_entry.id"
-          :video-entry="video_entry" :videos-in-category="store.activeCategory?.videoEntries.length"
-          :index-in-category="index" class="video-entry" />
+      <ul
+        id="video-entry-list"
+        ref="videoEntryListRef"
+        class="video-entry-list scrollable"
+      >
+        <VideoEntry
+          v-for="(video_entry, index) in store.activeCategory?.videoEntries"
+          :key="video_entry.id"
+          :video-entry="video_entry"
+          :videos-in-category="store.activeCategory?.videoEntries.length"
+          :index-in-category="index"
+          class="video-entry"
+        />
       </ul>
-
     </div>
   </MainPanel>
 </template>
@@ -70,9 +106,8 @@ const toggleDescription = () => {
 
 .content {
   transition: transform 0.5s ease-in;
-  height: 100%
+  height: 100%;
 }
-
 
 button {
   cursor: pointer;
@@ -98,7 +133,6 @@ button {
 .toggle-icon--close {
   transform: rotate(-90deg);
 }
-
 
 .video-entry {
   scroll-snap-align: start;

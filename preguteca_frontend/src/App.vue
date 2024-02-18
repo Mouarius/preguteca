@@ -1,39 +1,89 @@
 <script setup lang="ts">
 import { dimmElement, undimmElement } from "./utils";
-import { ref } from "vue";
-import { store } from "./store";
+import { computed, onMounted, reactive, ref, watch } from "vue";
+import { store, updateActiveCategory, updateActivePanel } from "./store";
 
 import AppHeader from "./components/AppHeader.vue";
 import CategoryDetail from "./components/CategoryDetail.vue";
 import MainIllustration from "./components/MainIllustration.vue";
 import MenuPanel from "./components/MenuPanel.vue";
 import HomePanel from "./components/homepanel/HomePanel.vue";
-import HomePanelHeader from "./components/homepanel/HomePanelHeader.vue";
+import { useCategories } from "./queries/useCategories";
 import { useHomePage } from "./queries/useHomePage";
+import HomePanelHeader from "./components/homepanel/HomePanelHeader.vue";
 
-const sidePanelContainer = ref<HTMLElement | null>(null)
+const sidePanelContainer = ref<HTMLElement | null>(null);
 
-const homePage = useHomePage()
+const screenWidth = ref(window.innerWidth);
 
+const isMobile = computed(() => screenWidth.value <= 812);
+const homePanelDetailsVisible = ref(false);
+
+const categories = reactive(useCategories());
+const homePage = useHomePage();
+
+onMounted(() => {
+  window.addEventListener(
+    "resize",
+    () => {
+      screenWidth.value = window.innerWidth;
+    },
+    { passive: true }
+  );
+});
+
+const toggleHomePanelDetails = () => {
+  return (homePanelDetailsVisible.value = !homePanelDetailsVisible.value);
+};
+
+watch(
+  () => categories.status,
+  () => {
+    if (!categories.isSuccess || !categories.data) return;
+    const hashValue = window.location.hash.slice(1);
+    const categoryFromHash = categories.data.find(
+      (category) => category.name === hashValue
+    );
+    if (categoryFromHash) {
+      updateActivePanel("category");
+      updateActiveCategory(categoryFromHash);
+    }
+  }
+);
 </script>
 
 <template>
   <AppHeader />
   <div id="page-content" class="border-thin">
     <section id="main-scroll" class="scrollable">
-      <div v-if="store.activePanel === 'home'" class="home-panel-mobile-header">
-        <HomePanelHeader v-if="homePage.isSuccess && homePage.data.value" :home-page="homePage.data.value" />
+      <div
+        v-if="store.activePanel === 'home' && isMobile"
+        class="home-panel--mobile"
+      >
+        <HomePanelHeader
+          v-if="homePage.isSuccess && homePage.data.value"
+          :home-page="homePage.data.value"
+        />
       </div>
-      <div id="main-illustration" @mouseover="() => { dimmElement(sidePanelContainer) }" @mouseleave="() => {
-        undimmElement(sidePanelContainer)
-      }">
+      <div id="main-illustration">
         <MainIllustration />
       </div>
     </section>
-    <HomePanel v-if="store.activePanel === 'home'" />
-    <CategoryDetail v-if="store.activePanel === 'category'" :active-category="store.activeCategory" />
-    <MenuPanel v-if="store.activePanel === 'menu'" :menu-page="store.activeMenuPage" />
-
+    <div id="side-panel-container" ref="sidePanelContainer">
+      <HomePanel
+        v-if="store.activePanel === 'home'"
+        class="home-panel--desktop"
+        :show-content="true"
+      />
+      <CategoryDetail
+        v-if="store.activePanel === 'category'"
+        :active-category="store.activeCategory"
+      />
+      <MenuPanel
+        v-if="store.activePanel === 'menu'"
+        :menu-page="store.activeMenuPage"
+      />
+    </div>
   </div>
 </template>
 
@@ -84,19 +134,24 @@ const homePage = useHomePage()
 }
 
 #main-illustration {
-  position: relative
+  position: relative;
 }
 
-.home-panel-mobile-header {
+#side-panel-container {
+  grid-area: aside;
+  height: 100%;
+  overflow-y: hidden;
+}
+
+.home-panel--mobile {
   z-index: 5;
 }
 
 @media screen and (min-width: 812px) {
-  .home-panel-mobile-header {
+  .home-panel--mobile {
     display: none;
   }
 }
-
 
 .sr-only {
   border: 0 !important;

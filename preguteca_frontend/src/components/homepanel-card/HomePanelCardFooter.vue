@@ -1,11 +1,11 @@
 <script setup lang="ts">
 type HomePanelCardFooterProps = {
-  leftName?: string | null
-  leftValue?: string | null
-  rightName?: string | null
-  rightValue?: string | null
-}
-defineProps<HomePanelCardFooterProps>()
+  leftName?: string | null;
+  leftValue?: string | null;
+  rightName?: string | null;
+  rightValue?: string | null;
+};
+defineProps<HomePanelCardFooterProps>();
 </script>
 <template>
   <div v-if="leftName && rightName" class="footer">
@@ -55,5 +55,4 @@ defineProps<HomePanelCardFooterProps>()
   font-weight: 600;
   font-style: normal;
 }
-
 </style>

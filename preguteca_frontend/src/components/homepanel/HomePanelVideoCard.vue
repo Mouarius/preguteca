@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { HomepageVideoPost, } from "../../types";
+import { HomepageVideoPost } from "../../types";
 import PlayButton from "../../assets/play-button--orange.svg";
 import HomePanelCard from "../homepanel-card/HomePanelCard.vue";
 
 type Props = {
-  videoPost: HomepageVideoPost
+  videoPost: HomepageVideoPost;
 };
 defineProps<Props>();
 
@@ -16,24 +16,40 @@ const setVideoVisible = () => {
 };
 </script>
 <template>
-  <HomePanelCard :header-title="videoPost.headerTitle"
+  <HomePanelCard
+    :header-title="videoPost.headerTitle"
     :header-supplementary-information="videoPost.headerSupplementaryInformation"
-    :footer-left-name="videoPost.footerLeftName" :footer-left-value="videoPost.footerLeftValue"
-    :footer-right-name="videoPost.footerRightName" :footer-right-value="videoPost.footerRightValue">
-
+    :footer-left-name="videoPost.footerLeftName"
+    :footer-left-value="videoPost.footerLeftValue"
+    :footer-right-name="videoPost.footerRightName"
+    :footer-right-value="videoPost.footerRightValue"
+  >
     <div class="row url">
       <a :href="videoPost.video.videoUrl">{{ videoPost.video.videoUrl }}</a>
     </div>
     <div class="video__viewport">
-      <iframe v-if="isVideoVisible" class="video__viewport__iframe" type="text/html" width="100%" height="100%"
-        allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0"
-        :src="`${videoPost.video.videoEmbedUrl}?autoplay=1`"></iframe>
+      <iframe
+        v-if="isVideoVisible"
+        class="video__viewport__iframe"
+        type="text/html"
+        width="100%"
+        height="100%"
+        allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture"
+        frameborder="0"
+        :src="`${videoPost.video.videoEmbedUrl}?autoplay=1`"
+      ></iframe>
       <template v-else>
         <button class="video__viewport__button" @click="setVideoVisible">
           <img :src="PlayButton" alt="" />
         </button>
-        <img v-if="videoPost.video.thumbnailUrl" class="video__viewport__thumbnail" :src="videoPost.video.thumbnailUrl"
-          alt="Video Thumbnail" height="360" width="480" />
+        <img
+          v-if="videoPost.video.thumbnailUrl"
+          class="video__viewport__thumbnail"
+          :src="videoPost.video.thumbnailUrl"
+          alt="Video Thumbnail"
+          height="360"
+          width="480"
+        />
       </template>
     </div>
     <div class="details">
@@ -41,7 +57,9 @@ const setVideoVisible = () => {
         <div class="details__header__element details__header__element--title">
           {{ videoPost.video.title }}
         </div>
-        <div class="details__header__element details__header__element--duration">
+        <div
+          class="details__header__element details__header__element--duration"
+        >
           {{ videoPost.video.duration }}
         </div>
       </div>

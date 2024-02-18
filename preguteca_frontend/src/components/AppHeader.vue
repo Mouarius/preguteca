@@ -2,14 +2,19 @@
 import { updateActivePanel } from "../store";
 import SearchBar from "./SearchBar.vue";
 import MenuButton from "./MenuButton.vue";
-
 </script>
 
 <template>
   <header>
     <div class="logo-title__container" @click="() => updateActivePanel('home')">
       <div class="logo-container">
-        <img src="/src/assets/preguteca_logo_120.svg" alt="logo" id="logo" height="120" width="120" />
+        <img
+          src="/src/assets/preguteca_logo_120.svg"
+          alt="logo"
+          id="logo"
+          height="120"
+          width="120"
+        />
       </div>
       <div class="title__container">
         <h1 id="page-title">SONDEO</h1>
@@ -94,7 +99,6 @@ header {
 }
 
 @media (min-width: 768px) {
-
   .title__container {
     display: flex;
     align-items: baseline;

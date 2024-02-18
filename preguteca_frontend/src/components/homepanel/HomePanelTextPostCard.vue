@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import HomePanelCard from '../homepanel-card/HomePanelCard.vue';
-
+import HomePanelCard from "../homepanel-card/HomePanelCard.vue";
 
 type Props = {
   title: string;

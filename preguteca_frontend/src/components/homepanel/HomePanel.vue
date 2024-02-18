@@ -4,17 +4,31 @@ import HomePanelHeader from "./HomePanelHeader.vue";
 import HomePanelTextPostCard from "./HomePanelTextPostCard.vue";
 import HomePanelVideoCard from "./HomePanelVideoCard.vue";
 
-const homePage = useHomePage();
+defineProps<{ showContent: boolean; onClick?: (evt: MouseEvent) => void }>();
 
+const homePage = useHomePage();
 </script>
 <template>
   <div class="panel-container">
-    <HomePanelHeader v-if="homePage.isSuccess && homePage.data.value" :home-page="homePage.data.value" />
-    <div v-if="homePage.isSuccess && homePage.data.value" class="panel-content">
-      <HomePanelVideoCard v-for="videoPost in homePage.data.value?.videoPosts" :key="videoPost.id"
-        :video-post="videoPost" />
-      <HomePanelTextPostCard v-for="textPost in homePage.data.value?.textPosts" :key="textPost.id"
-        :title="textPost.headerTitle" :content="textPost.content" />
+    <HomePanelHeader
+      v-if="homePage.isSuccess && homePage.data.value"
+      :home-page="homePage.data.value"
+    />
+    <div
+      v-if="homePage.isSuccess && homePage.data.value && showContent"
+      class="panel-content"
+    >
+      <HomePanelVideoCard
+        v-for="videoPost in homePage.data.value?.videoPosts"
+        :key="videoPost.id"
+        :video-post="videoPost"
+      />
+      <HomePanelTextPostCard
+        v-for="textPost in homePage.data.value?.textPosts"
+        :key="textPost.id"
+        :title="textPost.headerTitle"
+        :content="textPost.content"
+      />
     </div>
   </div>
 </template>
@@ -35,15 +49,10 @@ const homePage = useHomePage();
   width: 100%;
   height: 100%;
   grid-area: aside;
-  display: none;
+  display: flex;
+  overflow-y: scroll;
   flex-direction: column;
   border: solid 1px var(--border-color);
-}
-
-@media screen and (min-width: 812px) {
-  .panel-container {
-    display:flex;
-  }
 }
 
 @media screen and (min-width: 1200px) {

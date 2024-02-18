@@ -9,17 +9,23 @@ type Props = {
   footerLeftValue?: string | null;
   footerRightName?: string | null;
   footerRightValue?: string | null;
-}
+};
 
-defineProps<Props>()
-
+defineProps<Props>();
 </script>
 <template>
   <div class="card-container">
-    <HomePanelCardHeader :title="headerTitle" :supplementary-information="headerSupplementaryInformation" />
+    <HomePanelCardHeader
+      :title="headerTitle"
+      :supplementary-information="headerSupplementaryInformation"
+    />
     <slot />
-    <HomePanelCardFooter :left-name="footerLeftName" :left-value="footerLeftValue" :right-name="footerRightName"
-      :right-value="footerRightValue" />
+    <HomePanelCardFooter
+      :left-name="footerLeftName"
+      :left-value="footerLeftValue"
+      :right-name="footerRightName"
+      :right-value="footerRightValue"
+    />
   </div>
 </template>
 <style>
@@ -31,7 +37,7 @@ defineProps<Props>()
   min-width: 100%;
 }
 
-.card-container>div:not(:last-child) {
+.card-container > div:not(:last-child) {
   border-bottom: solid 1px var(--border-color);
 }
 

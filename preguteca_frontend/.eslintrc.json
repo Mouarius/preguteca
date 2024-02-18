@@ -17,6 +17,6 @@
   },
   "plugins": ["@typescript-eslint", "vue"],
   "rules": {
-    "vue/first-attribute-linebreak":0
+    "vue/first-attribute-linebreak": 0
   }
 }

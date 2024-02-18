@@ -30,7 +30,6 @@
   --font-text: "Rethink Sans", Arial, Helvetica, sans-serif;
   --font-title: "Dela Gothic One", Arial, Helvetica, sans-serif;
 
-
   --border-large: 16px;
 
   --screen-md: 768px;
@@ -111,7 +110,7 @@ li {
 }
 
 .text-content em {
-  font-style: italic
+  font-style: italic;
 }
 
 .text-content p {

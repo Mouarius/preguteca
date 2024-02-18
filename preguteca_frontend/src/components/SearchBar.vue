@@ -4,7 +4,7 @@ import SearchIcon from "../assets/search-icon.svg";
 import { useCategories } from "../queries/useCategories";
 import { TCategory } from "../types";
 import { updateActiveCategory, updateActivePanel } from "../store";
-import Fuse from "fuse.js"
+import Fuse from "fuse.js";
 
 const MIN_CHARACTERS_TO_START = 3;
 
@@ -23,18 +23,18 @@ const matchedCategories: Ref<TCategory[]> = computed(() => {
 });
 
 const setActiveChoice = (key: number, category: TCategory) => {
-  activeChoice.key = key
-  activeChoice.category = category
-}
+  activeChoice.key = key;
+  activeChoice.category = category;
+};
 
 function getMatchedCategories(
   searchText: string,
   categoriesList: TCategory[]
 ): TCategory[] {
-  const fuse = new Fuse(categoriesList, { keys: ["fullName", "name"] })
-  const result = fuse.search(searchText)
-  console.log(result)
-  return result.map(res => res.item)
+  const fuse = new Fuse(categoriesList, { keys: ["fullName", "name"] });
+  const result = fuse.search(searchText);
+  console.log(result);
+  return result.map((res) => res.item);
 }
 
 function handleFormSubmit(event: Event) {
@@ -49,7 +49,7 @@ function handleFormSubmit(event: Event) {
     if (!activeChoice.category) {
       activeChoice.category = matchedCategories[0];
     }
-    updateActivePanel("category")
+    updateActivePanel("category");
     updateActiveCategory(activeChoice.category);
     clearSearchBar();
   }
@@ -61,10 +61,10 @@ function clearSearchBar() {
 }
 
 function handleSuggestionClick(index: number, category: TCategory) {
-  activeChoice.key = index
+  activeChoice.key = index;
   activeChoice.category = category;
   if (!activeChoice.category || !activeChoice.key) return;
-  updateActivePanel("category")
+  updateActivePanel("category");
   updateActiveCategory(activeChoice.category);
   clearSearchBar();
 }
@@ -74,13 +74,13 @@ function handleKeyDown(event: KeyboardEvent) {
     case "ArrowDown":
       if (activeChoice.key <= 8) {
         activeChoice.key += 1;
-        activeChoice.category = matchedCategories.value[activeChoice.key]
+        activeChoice.category = matchedCategories.value[activeChoice.key];
       }
       break;
     case "ArrowUp":
       if (activeChoice.key >= 1) {
         activeChoice.key -= 1;
-        activeChoice.category = matchedCategories.value[activeChoice.key]
+        activeChoice.category = matchedCategories.value[activeChoice.key];
       }
       break;
 
@@ -92,17 +92,38 @@ function handleKeyDown(event: KeyboardEvent) {
 <template>
   <div class="search-bar">
     <form action="get" @submit="handleFormSubmit">
-      <input id="search-bar__autocomplete" v-model="searchText" autocomplete="off" dir="ltr" spellcheck="false"
-        autocorrect="off" autocapitalize="off" tabindex="1" type="text" :onkeydown="handleKeyDown" />
+      <input
+        id="search-bar__autocomplete"
+        v-model="searchText"
+        autocomplete="off"
+        dir="ltr"
+        spellcheck="false"
+        autocorrect="off"
+        autocapitalize="off"
+        tabindex="1"
+        type="text"
+        :onkeydown="handleKeyDown"
+      />
       <button type="submit"><img :src="SearchIcon" /></button>
     </form>
-    <div v-if="matchedCategories.length > 0 &&
-      searchText.length >= MIN_CHARACTERS_TO_START
-      " class="suggestions">
+    <div
+      v-if="
+        matchedCategories.length > 0 &&
+        searchText.length >= MIN_CHARACTERS_TO_START
+      "
+      class="suggestions"
+    >
       <ul>
-        <li v-for="(category, index) in matchedCategories" :key="category.id"
-          :class="{ suggestion__element: true, active: index === activeChoice.key }"
-          @mouseover="() => setActiveChoice(index, category)" @click="() => handleSuggestionClick(index, category)">
+        <li
+          v-for="(category, index) in matchedCategories"
+          :key="category.id"
+          :class="{
+            suggestion__element: true,
+            active: index === activeChoice.key,
+          }"
+          @mouseover="() => setActiveChoice(index, category)"
+          @click="() => handleSuggestionClick(index, category)"
+        >
           {{ category.fullName.toLowerCase() }}
         </li>
       </ul>

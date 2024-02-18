@@ -20,7 +20,7 @@
   --darkgrey: rgb(37, 36, 39);
   --grey: rgb(78, 80, 70);
   --white: #ffffff;
-  --dimmed-text: #dddddd;
+  --dimmed-text: #cccccc;
   --orange: #f86804;
   --green: #42b63a;
 
@@ -58,24 +58,6 @@ body {
 
 .border-thin {
   border: solid 1px var(--border-color);
-}
-
-
-h1 {
-  font-family: "Dela Gothic One", serif;
-  font-size: 2.4rem;
-  font-weight: 600;
-}
-
-h2 {
-  font-family: "Rethink Sans", serif;
-  font-size: 24px;
-  font-weight: 600;
-}
-
-h3 {
-  font-size: 1.4rem;
-  font-weight: 600;
 }
 
 li {

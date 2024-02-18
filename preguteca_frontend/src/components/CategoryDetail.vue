@@ -35,10 +35,13 @@ const toggleDescription = () => {
           {{ store.activeCategory?.description }}
         </p>
         <button type="button" @click="toggleDescription">
+          <span>
+            {{ descriptionHidden ? "Ver la descripción" : "Ocultar la descripción" }}
+          </span>
           <svg class="toggle-icon" :class="{ 'toggle-icon--close': descriptionHidden }" height="12" width="12">
-            <line x1="0" y1="0" x2="12" y2="12" style="stroke: white; stroke-width: 1px;"
+            <line x1="6" y1="0" x2="6" y2="12" style="stroke: white; stroke-width: 1px;"
               :opacity="descriptionHidden ? 1 : 0"></line>
-            <line x1="0" y1="12" x2="12" y2="0" style="stroke: white; stroke-width: 1px;"></line>
+            <line x1="0" y1="6" x2="12" y2="6" style="stroke: white; stroke-width: 1px;"></line>
           </svg>
 
         </button>
@@ -77,21 +80,23 @@ button {
   border: none;
   display: flex;
   width: 100%;
+  font-size: 12px;
+  color: var(--dimmed-text);
   justify-content: space-between;
   padding: 0;
   margin-top: 8px;
-  padding-left:2px;
+  padding-left: 2px;
+  padding-right: 2px;
   margin-left: auto;
-  color: white;
 }
 
 .toggle-icon {
   transition: all 0.2s ease;
-  transform: rotate(45deg);
+  transform: rotate(0);
 }
 
 .toggle-icon--close {
-  transform: rotate(-45deg);
+  transform: rotate(-90deg);
 }
 
 

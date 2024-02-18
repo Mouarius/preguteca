@@ -4171,7 +4171,7 @@ svg {
 }
 
 #etiquetes text {
-  font-family: "Schibsted Grotesk", serif !important;
+  font-family: "Rethink Sans", serif !important;
 }
 </style>
 <style scoped>

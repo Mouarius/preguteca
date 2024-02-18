@@ -47,8 +47,10 @@
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .scrollable {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 body {
@@ -64,20 +66,65 @@ li {
   list-style-type: none;
 }
 
-.text-content h2 {
+.text-content h3,
+.text-content h4,
+.text-content h5,
+.text-content h6 {
   font-family: var(--font-text);
-  font-size: 22px;
-  font-weight: 800;
   font-style: normal;
+}
+
+.text-content h1 {
+  font-weight: 800;
+  margin-top: 0;
+  margin-bottom: 32px;
+}
+
+.text-content h2 {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+.text-content h3 {
+  font-size: 20px;
+  font-weight: 600;
   margin-bottom: 16px;
+}
+
+.text-content h4 {
+  font-size: 16px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.text-content h5 {
+  font-size: 14px;
+  font-weight: 200;
+  margin-bottom: 8px;
+}
+
+.text-content h6 {
+  font-size: 12px;
+  font-weight: 200;
+  margin-bottom: 8px;
+}
+
+.text-content em {
+  font-style: italic
 }
 
 .text-content p {
   margin-bottom: 8px;
 }
 
-.text-content ul {
+.text-content ul,
+ol {
   padding-left: 16px;
+}
+
+.text-content ol li {
+  list-style-type: decimal;
 }
 
 .text-content ul li {

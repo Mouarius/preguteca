@@ -46,8 +46,8 @@ Mobile landing :
 ### FINAL FIXES :
 [x] fix the addition of new videos
 [x] + automation of video metadata when pasting youtube url
-[] fix search bar
-[] fix iframe
+[x] fix search bar
+[x] fix iframe
 [] fix html input text posts style
 
 ### In the future :

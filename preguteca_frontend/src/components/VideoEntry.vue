@@ -56,7 +56,7 @@ defineProps<VideoEntryProps>();
       <div class="video-entry__header__duration">{{ videoEntry.duration }}</div>
     </header>
     <div class="video-entry__viewport">
-      <iframe v-if="isVideoVisible" class="video-entry__viewport__iframe" type="text/html" width="100%" height="100%"
+      <iframe v-if="isVideoVisible && videoEntry.videoEmbedUrl" class="video-entry__viewport__iframe" type="text/html" width="100%" height="100%"
         allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0"
         :src="`${videoEntry.videoEmbedUrl}?autoplay=1`"></iframe>
       <template v-else>

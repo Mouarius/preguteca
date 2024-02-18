@@ -78,11 +78,8 @@ onMounted(() => {
       event.preventDefault();
       event.stopPropagation();
       if (elem.dataset) {
-        console.log(elem)
         categoryName.value = elem.dataset.categoryName ?? "";
-        console.log(categoryName.value)
         if (category.value) {
-          console.log("ok")
           updateActiveCategory(category.value);
           updateActivePanel("category")
         }

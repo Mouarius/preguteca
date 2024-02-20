@@ -2622,7 +2622,6 @@ setInterval(() => {
       </g>
     </g>
     <g id="isla25">
-      <g id="el_tribunal">
         <g class="el_tribunal__image">
           <image
             loading="lazy"
@@ -2634,7 +2633,6 @@ setInterval(() => {
             :href="image48"
           />
         </g>
-      </g>
       <g class="cls-39">
         <image
           loading="lazy"

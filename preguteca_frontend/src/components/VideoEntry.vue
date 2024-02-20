@@ -101,10 +101,10 @@ defineProps<VideoEntryProps>();
         <span class="video-entry__questions__visible-questions">
           {{ getFirstQuestionsFormatted(videoEntry.questions) }}
           <button
+            v-if="!lastQuestionsVisible"
             class="see-more-button"
             aria-label="See more"
             @click="toggleLastQuestionsVisibility"
-            v-if="!lastQuestionsVisible"
           >
             <span class="circle"></span>
             <span class="circle"></span>
@@ -112,8 +112,8 @@ defineProps<VideoEntryProps>();
           </button>
         </span>
         <span
-          class="video-entry__questions__hidden-questions"
           v-if="lastQuestionsVisible"
+          class="video-entry__questions__hidden-questions"
         >
           {{ getLastQuestionsFormatted(videoEntry.questions) }}
         </span>
@@ -121,8 +121,8 @@ defineProps<VideoEntryProps>();
       <div class="video-entry__description__tag-list">
         <span
           v-for="videoType in videoEntry.videoTypes"
-          class="tag"
           :key="videoType.name"
+          class="tag"
           >{{ videoType.fullName }}</span
         >
       </div>

@@ -96,7 +96,7 @@ function toggleDropdownHidden() {
     </svg>
   </div>
   <ul v-if="!dropdownHidden && menuPages.data" class="dropdown">
-    <li v-for="menuPage in menuPages.data.value" v-bind:key="menuPage.slug"
+    <li v-for="menuPage in menuPages.data.value" :key="menuPage.slug"
       @click="(event) => goToClickedMenu(event, menuPage)">
       {{ menuPage.title }}
     </li>

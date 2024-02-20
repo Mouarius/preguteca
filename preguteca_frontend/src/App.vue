@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { computed, onMounted, reactive, ref, watch } from "vue";
-import { store, updateActiveCategory, updateActiveMenuPage, updateActivePanel } from "./store";
+import {
+  store,
+  updateActiveCategory,
+  updateActiveMenuPage,
+  updateActivePanel,
+} from "./store";
 
 import AppHeader from "./components/AppHeader.vue";
 import CategoryDetail from "./components/CategoryDetail.vue";
@@ -13,12 +18,12 @@ import HomePanelHeader from "./components/homepanel/HomePanelHeader.vue";
 import { MenuPage, TCategory } from "./types";
 
 const sidePanelContainerRef = ref<HTMLElement | null>(null);
-const pageContentRef = ref<HTMLElement | null>(null)
+const pageContentRef = ref<HTMLElement | null>(null);
 
 const screenWidth = ref(window.innerWidth);
 
-const isMobile = computed(() => screenWidth.value <= 812)
-const sidePanelVisible = ref(!isMobile.value)
+const isMobile = computed(() => screenWidth.value <= 812);
+const sidePanelVisible = ref(!isMobile.value);
 
 const categories = reactive(useCategories());
 const homePage = useHomePage();
@@ -31,42 +36,42 @@ onMounted(() => {
     },
     { passive: true }
   );
-})
+});
 
-const smoothScrollActive = ref(false)
+const smoothScrollActive = ref(false);
 
 const setActiveCategory = (category: TCategory) => {
-  if (store.activePanel !== "category") updateActivePanel("category")
-  updateActiveCategory(category)
+  if (store.activePanel !== "category") updateActivePanel("category");
+  updateActiveCategory(category);
 
   setTimeout(() => {
-    sidePanelContainerRef.value?.scrollIntoView()
+    sidePanelContainerRef.value?.scrollIntoView();
   }, 0);
-}
+};
 
 const setActiveMenu = (menu: MenuPage) => {
-  updateActivePanel("menu")
-  updateActiveMenuPage(menu)
+  updateActivePanel("menu");
+  updateActiveMenuPage(menu);
   setTimeout(() => {
-    sidePanelContainerRef.value?.scrollIntoView()
+    sidePanelContainerRef.value?.scrollIntoView();
   }, 0);
-}
+};
 
 const handleSidePanelBackButtonClick = (_evt: MouseEvent) => {
-  pageContentRef.value?.scrollTo(0, 0)
-}
+  pageContentRef.value?.scrollTo(0, 0);
+};
 
 const handleHeaderClick = (evt: MouseEvent) => {
-  evt?.preventDefault()
-  updateActivePanel("home")
-  sidePanelContainerRef.value?.scrollIntoView()
-}
+  evt?.preventDefault();
+  updateActivePanel("home");
+  sidePanelContainerRef.value?.scrollIntoView();
+};
 
 watch(isMobile, () => {
   if (!isMobile.value) {
-    sidePanelVisible.value = true
+    sidePanelVisible.value = true;
   }
-})
+});
 
 const updateCategoryFromHash = () => {
   if (!categories.isSuccess || !categories.data) return;
@@ -75,48 +80,71 @@ const updateCategoryFromHash = () => {
     (category) => category.name === hashValue
   );
   if (categoryFromHash) {
-    setActiveCategory(categoryFromHash)
+    setActiveCategory(categoryFromHash);
   }
-}
+};
 
 watch(
   () => categories.status,
   () => updateCategoryFromHash()
-
 );
 onMounted(() => {
-  if (store.activePanel === "category" || window.location.hash) sidePanelContainerRef.value?.scrollIntoView()
-  updateCategoryFromHash()
+  if (store.activePanel === "category" || window.location.hash)
+    sidePanelContainerRef.value?.scrollIntoView();
+  updateCategoryFromHash();
   setTimeout(() => {
-    smoothScrollActive.value = true
-  }, 500)
-})
+    smoothScrollActive.value = true;
+  }, 500);
+});
 </script>
 
-
 <template>
-  <AppHeader :set-active-menu="setActiveMenu" :set-active-category="setActiveCategory" />
-  <div id="page-content" ref="pageContentRef" :class="{ 'border-thin': true, 'smooth-scroll': smoothScrollActive }">
+  <AppHeader
+    :set-active-menu="setActiveMenu"
+    :set-active-category="setActiveCategory"
+  />
+  <div
+    id="page-content"
+    ref="pageContentRef"
+    :class="{ 'border-thin': true, 'smooth-scroll': smoothScrollActive }"
+  >
     <div id="main-scroll" class="scrollable">
       <div v-if="isMobile" class="home-panel--mobile">
-        <HomePanelHeader v-if="homePage.isSuccess && homePage.data.value" :home-page="homePage.data.value"
-          :on-back-button-click="handleSidePanelBackButtonClick" :set-active-category="setActiveCategory"
-          :on-header-click="handleHeaderClick" />
+        <HomePanelHeader
+          v-if="homePage.isSuccess && homePage.data.value"
+          :home-page="homePage.data.value"
+          :on-back-button-click="handleSidePanelBackButtonClick"
+          :set-active-category="setActiveCategory"
+          :on-header-click="handleHeaderClick"
+        />
       </div>
       <div id="main-illustration">
         <MainIllustration :set-active-category="setActiveCategory" />
       </div>
     </div>
-    <div id="side-panel-container" ref="sidePanelContainerRef" :class="{
-      'side-panel-container--hidden': isMobile && store.activePanel === null
-    }
-      ">
-      <HomePanel v-if="store.activePanel === 'home'" class="home-panel--desktop" :set-active-category="setActiveCategory"
-        :on-back-button-click="handleSidePanelBackButtonClick" />
-      <CategoryDetail v-if="store.activePanel === 'category'" :active-category="store.activeCategory"
-        :on-back-button-click="handleSidePanelBackButtonClick" />
-      <MenuPanel v-if="store.activePanel === 'menu'" :menu-page="store.activeMenuPage"
-        :on-back-button-click="handleSidePanelBackButtonClick" />
+    <div
+      id="side-panel-container"
+      ref="sidePanelContainerRef"
+      :class="{
+        'side-panel-container--hidden': isMobile && store.activePanel === null,
+      }"
+    >
+      <HomePanel
+        v-if="store.activePanel === 'home'"
+        class="home-panel--desktop"
+        :set-active-category="setActiveCategory"
+        :on-back-button-click="handleSidePanelBackButtonClick"
+      />
+      <CategoryDetail
+        v-if="store.activePanel === 'category'"
+        :active-category="store.activeCategory"
+        :on-back-button-click="handleSidePanelBackButtonClick"
+      />
+      <MenuPanel
+        v-if="store.activePanel === 'menu'"
+        :menu-page="store.activeMenuPage"
+        :on-back-button-click="handleSidePanelBackButtonClick"
+      />
     </div>
   </div>
 </template>
@@ -197,7 +225,6 @@ onMounted(() => {
   .home-panel--mobile {
     display: none;
   }
-
 
   #side-panel-container {
     grid-area: aside;

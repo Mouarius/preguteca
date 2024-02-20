@@ -3,7 +3,7 @@ import type { MenuPage } from "../types/index.ts";
 import { fetchApi } from "../utils.ts";
 
 async function fetchMenuPages() {
-  return fetchApi<MenuPage[]>("/menu_pages")
+  return fetchApi<MenuPage[]>("/menu_pages");
 }
 
 export function useMenuPages() {

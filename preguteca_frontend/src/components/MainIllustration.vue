@@ -52,9 +52,11 @@ import image50 from "../assets/main-illustration/img/main_illustration_v350.png"
 
 import { computed, onMounted, reactive, ref } from "vue";
 import { useCategories } from "../queries/useCategories";
-import type {TCategory} from "../types/index.ts"
+import type { TCategory } from "../types/index.ts";
 
-const props = defineProps<{setActiveCategory: (category: TCategory) => void}>()
+const props = defineProps<{
+  setActiveCategory: (category: TCategory) => void;
+}>();
 
 const categoryName = ref("");
 const categories = reactive(useCategories());
@@ -84,8 +86,8 @@ onMounted(() => {
         if (elem.dataset) {
           categoryName.value = elem.dataset.categoryName ?? "";
           if (category.value) {
-            console.log(props)
-            props.setActiveCategory(category.value)
+            console.log(props);
+            props.setActiveCategory(category.value);
           }
         }
       }

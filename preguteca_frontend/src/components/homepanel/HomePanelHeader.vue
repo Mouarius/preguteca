@@ -3,15 +3,18 @@ import { HomePage, TCategory } from "../../types";
 
 defineProps<{
   homePage: HomePage;
-  setActiveCategory: (category: TCategory) => void
-  onBackButtonClick: (evt: MouseEvent) => void
-  onHeaderClick?: (evt: MouseEvent) => void
+  setActiveCategory: (category: TCategory) => void;
+  onBackButtonClick: (evt: MouseEvent) => void;
+  onHeaderClick?: (evt: MouseEvent) => void;
 }>();
 </script>
 <template>
   <div class="panel-header" @click="onHeaderClick">
     <div class="panel-header__section hearder__part--building">
-      <div class="panel-header__title" @click="() => setActiveCategory(homePage.monthCategory)">
+      <div
+        class="panel-header__title"
+        @click="() => setActiveCategory(homePage.monthCategory)"
+      >
         {{ homePage.monthCategory.fullName }}
       </div>
       <div class="separator separator--header"></div>

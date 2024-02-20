@@ -8,12 +8,14 @@ const props = defineProps<{
 }>();
 
 const handleBackButtonClick = (evt: MouseEvent) => {
-  props.onBackButtonClick?.call(null, evt)
-}
-
+  props.onBackButtonClick?.call(null, evt);
+};
 </script>
 <template>
-  <MainPanel :title="menuPage?.title" :on-back-button-click="handleBackButtonClick">
+  <MainPanel
+    :title="menuPage?.title"
+    :on-back-button-click="handleBackButtonClick"
+  >
     <div class="text-content">
       <span v-dompurify-html="menuPage?.content"></span>
     </div>

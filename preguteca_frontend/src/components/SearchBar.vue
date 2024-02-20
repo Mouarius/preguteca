@@ -2,11 +2,13 @@
 import { Ref, computed, reactive, ref } from "vue";
 import SearchIcon from "../assets/search-icon.svg";
 import { useCategories } from "../queries/useCategories";
-import {  TCategory } from "../types";
+import { TCategory } from "../types";
 import { updateActiveCategory, updateActivePanel } from "../store";
 import Fuse from "fuse.js";
 
-const props = defineProps<{ setActiveCategory: (category: TCategory) => void }>()
+const props = defineProps<{
+  setActiveCategory: (category: TCategory) => void;
+}>();
 
 const MIN_CHARACTERS_TO_START = 3;
 
@@ -65,7 +67,7 @@ function handleSuggestionClick(index: number, category: TCategory) {
   activeChoice.key = index;
   activeChoice.category = category;
   if (!activeChoice.category || !activeChoice.key) return;
-  props.setActiveCategory(activeChoice.category)
+  props.setActiveCategory(activeChoice.category);
   clearSearchBar();
 }
 
@@ -92,18 +94,38 @@ function handleKeyDown(event: KeyboardEvent) {
 <template>
   <div class="search-bar">
     <form action="get" @submit="handleFormSubmit">
-      <input id="search-bar__autocomplete" v-model="searchText" autocomplete="off" dir="ltr" spellcheck="false"
-        autocorrect="off" autocapitalize="off" tabindex="1" type="text" :onkeydown="handleKeyDown" />
+      <input
+        id="search-bar__autocomplete"
+        v-model="searchText"
+        autocomplete="off"
+        dir="ltr"
+        spellcheck="false"
+        autocorrect="off"
+        autocapitalize="off"
+        tabindex="1"
+        type="text"
+        :onkeydown="handleKeyDown"
+      />
       <button type="submit"><img :src="SearchIcon" /></button>
     </form>
-    <div v-if="matchedCategories.length > 0 &&
-      searchText.length >= MIN_CHARACTERS_TO_START
-      " class="suggestions">
+    <div
+      v-if="
+        matchedCategories.length > 0 &&
+        searchText.length >= MIN_CHARACTERS_TO_START
+      "
+      class="suggestions"
+    >
       <ul>
-        <li v-for="(category, index) in matchedCategories" :key="category.id" :class="{
-          suggestion__element: true,
-          active: index === activeChoice.key,
-        }" @mouseover="() => setActiveChoice(index, category)" @click="() => handleSuggestionClick(index, category)">
+        <li
+          v-for="(category, index) in matchedCategories"
+          :key="category.id"
+          :class="{
+            suggestion__element: true,
+            active: index === activeChoice.key,
+          }"
+          @mouseover="() => setActiveChoice(index, category)"
+          @click="() => handleSuggestionClick(index, category)"
+        >
           {{ category.fullName.toLowerCase() }}
         </li>
       </ul>

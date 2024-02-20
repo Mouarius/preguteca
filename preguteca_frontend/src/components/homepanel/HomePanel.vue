@@ -5,20 +5,33 @@ import HomePanelHeader from "./HomePanelHeader.vue";
 import HomePanelTextPostCard from "./HomePanelTextPostCard.vue";
 import HomePanelVideoCard from "./HomePanelVideoCard.vue";
 
-
-defineProps<{ onBackButtonClick: (e: MouseEvent) => void, setActiveCategory: (category: TCategory) => void }>();
+defineProps<{
+  onBackButtonClick: (e: MouseEvent) => void;
+  setActiveCategory: (category: TCategory) => void;
+}>();
 
 const homePage = useHomePage();
 </script>
 <template>
   <div class="panel-container">
-    <HomePanelHeader v-if="homePage.isSuccess && homePage.data.value" :home-page="homePage.data.value"
-      :set-active-category="setActiveCategory" :on-back-button-click="onBackButtonClick" />
+    <HomePanelHeader
+      v-if="homePage.isSuccess && homePage.data.value"
+      :home-page="homePage.data.value"
+      :set-active-category="setActiveCategory"
+      :on-back-button-click="onBackButtonClick"
+    />
     <div v-if="homePage.isSuccess && homePage.data.value" class="panel-content">
-      <HomePanelVideoCard v-for="videoPost in homePage.data.value?.videoPosts" :key="videoPost.id"
-        :video-post="videoPost" />
-      <HomePanelTextPostCard v-for="textPost in homePage.data.value?.textPosts" :key="textPost.id"
-        :title="textPost.headerTitle" :content="textPost.content" />
+      <HomePanelVideoCard
+        v-for="videoPost in homePage.data.value?.videoPosts"
+        :key="videoPost.id"
+        :video-post="videoPost"
+      />
+      <HomePanelTextPostCard
+        v-for="textPost in homePage.data.value?.textPosts"
+        :key="textPost.id"
+        :title="textPost.headerTitle"
+        :content="textPost.content"
+      />
     </div>
   </div>
 </template>

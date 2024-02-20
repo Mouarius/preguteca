@@ -3,14 +3,23 @@ import { updateActivePanel } from "../store";
 import SearchBar from "./SearchBar.vue";
 import MenuButton from "./MenuButton.vue";
 import { MenuPage, TCategory } from "../types";
-defineProps<{ setActiveMenu: (menu: MenuPage) => void, setActiveCategory: (category: TCategory) => void }>();
+defineProps<{
+  setActiveMenu: (menu: MenuPage) => void;
+  setActiveCategory: (category: TCategory) => void;
+}>();
 </script>
 
 <template>
   <header>
     <div class="logo-title__container" @click="() => updateActivePanel('home')">
       <div class="logo-container">
-        <img id="logo" src="/src/assets/preguteca_logo_120.svg" alt="logo" height="120" width="120" />
+        <img
+          id="logo"
+          src="/src/assets/preguteca_logo_120.svg"
+          alt="logo"
+          height="120"
+          width="120"
+        />
       </div>
       <div class="title__container">
         <h1 id="page-title">SONDEO</h1>

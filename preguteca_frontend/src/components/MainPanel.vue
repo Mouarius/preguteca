@@ -14,14 +14,17 @@ function scrollTop(event: MouseEvent) {
 }
 
 const handleBackButtonClick = (evt: MouseEvent) => {
-  props.onBackButtonClick?.call(null, evt)
-}
-
+  props.onBackButtonClick?.call(null, evt);
+};
 </script>
 <template>
   <div class="panel-container">
     <div class="panel-header" @click="scrollTop">
-      <img alt="chevron-left" :src="ChevronLeft" @click="handleBackButtonClick" />
+      <img
+        alt="chevron-left"
+        :src="ChevronLeft"
+        @click="handleBackButtonClick"
+      />
       <span class="panel-header__title">{{ title }}</span>
     </div>
     <div class="panel-content">

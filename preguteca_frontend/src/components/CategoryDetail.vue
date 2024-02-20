@@ -44,7 +44,7 @@ const toggleDescription = () => {
             : 'translate(0)',
       }"
     >
-      <div class="description">
+      <div v-if="store.activeCategory?.description" class="description">
         <p ref="descriptionRef">
           {{ store.activeCategory?.description }}
         </p>

@@ -35,7 +35,6 @@ function getMatchedCategories(
 ): TCategory[] {
   const fuse = new Fuse(categoriesList, { keys: ["fullName", "name"] });
   const result = fuse.search(searchText);
-  console.log(result);
   return result.map((res) => res.item);
 }
 

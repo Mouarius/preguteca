@@ -57,7 +57,7 @@ const setActiveMenu = (menu: MenuPage) => {
   }, 0);
 };
 
-const handleSidePanelBackButtonClick = (_evt: MouseEvent) => {
+const handleSidePanelBackButtonClick = () => {
   pageContentRef.value?.scrollTo(0, 0);
 };
 

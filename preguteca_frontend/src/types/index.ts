@@ -15,7 +15,7 @@ export interface TVideoEntry {
   youtubeId: string;
   ytChannelTitle: string;
   ytPublishTime: string;
-  ytChannelId: string;
+  ytChannelId: string | null;
   thumbnailUrl: string;
   duration: string;
   videoTypes: TVideoType[];
@@ -74,10 +74,10 @@ export interface HomePageInformationCard {
 export interface TCategory {
   id: number;
   name: string;
-  keywords: string;
+  keywords: string | null;
   fullName: string;
-  videoEntries: TVideoEntry[];
   description: string;
+  videoEntries: TVideoEntry[];
 }
 
 export type ActivePanel = "home" | "category" | "menu";

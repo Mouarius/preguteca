@@ -1,4 +1,4 @@
-import type { TCategory } from "../types/index.ts";
+import type { TCategory } from "../types";
 export const initialCategories: TCategory[] = [
   {
     id: 84,

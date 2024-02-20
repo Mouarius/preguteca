@@ -45,9 +45,12 @@ export interface HomepageVideoPost extends HomepagePost {
 
 export interface HomePage {
   id: number;
+  identifier: string;
   active: boolean;
   monthQuestions: string;
   dayQuestion: string;
+  modifiedAt: string;
+  createdAt: string;
   monthCategory: TCategory;
   highlightedVideo: TVideoEntry;
   posts: HomepagePost[];

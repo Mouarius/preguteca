@@ -5,7 +5,7 @@ type Store = {
   isCategoryContainerVisible: boolean;
   activeCategory: TCategory | null;
   activeMenuPage: MenuPage | null;
-  activePanel: ActivePanel;
+  activePanel: ActivePanel | null;
 };
 
 export const store = reactive<Store>({
@@ -19,7 +19,7 @@ export function toggleCategoryContainer() {
   return (store.isCategoryContainerVisible = !store.isCategoryContainerVisible);
 }
 
-export function updateActivePanel(panel: ActivePanel) {
+export function updateActivePanel(panel: ActivePanel | null) {
   if (store.activePanel === "category" && panel !== "category") {
     window.location.hash = "";
   }

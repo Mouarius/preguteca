@@ -2,14 +2,18 @@
 import { MenuPage } from "../types";
 import MainPanel from "./MainPanel.vue";
 
-type MenuPanelProps = {
+const props = defineProps<{
   menuPage: MenuPage | null;
-};
+  onBackButtonClick?: (e: MouseEvent) => void;
+}>();
 
-defineProps<MenuPanelProps>();
+const handleBackButtonClick = (evt: MouseEvent) => {
+  props.onBackButtonClick?.call(null, evt)
+}
+
 </script>
 <template>
-  <MainPanel :title="menuPage?.title">
+  <MainPanel :title="menuPage?.title" :on-back-button-click="handleBackButtonClick">
     <div class="text-content">
       <span v-dompurify-html="menuPage?.content"></span>
     </div>

@@ -1,11 +1,10 @@
 import { useQuery } from "@tanstack/vue-query";
-import { axiosInstance as axios } from "../main.ts";
 import { HomePage } from "../types/index.ts";
+import { fetchApi } from "../utils.ts";
 
-function fetchHomePage() {
-  return axios
-    .get("/home_page")
-    .then((response) => response.data[0] as HomePage);
+async function fetchHomePage() {
+  const result = await fetchApi<HomePage[]>("/home_page");
+  return result[0];
 }
 
 export function useHomePage() {

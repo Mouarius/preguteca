@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { reactive, ref } from "vue";
 import { useMenuPages } from "../queries/useMenuPages";
-import { updateActiveMenuPage, updateActivePanel } from "../store";
 import { MenuPage } from "../types";
+
+const props = defineProps<{ setActiveMenu: (menu: MenuPage) => void }>();
 
 const menuPages = useMenuPages();
 
@@ -73,8 +74,7 @@ function menuButtonToCross() {
 }
 
 function goToClickedMenu(_event: MouseEvent, slug: MenuPage) {
-  updateActivePanel("menu");
-  updateActiveMenuPage(slug);
+  props.setActiveMenu(slug)
   toggleDropdownHidden();
 }
 
@@ -91,23 +91,13 @@ function toggleDropdownHidden() {
 <template>
   <div class="bar-container" @click="toggleDropdownHidden">
     <svg height="30" width="32">
-      <line
-        v-for="(lineCoord, key) in lineCoords"
-        :key="`line${key}`"
-        :x1="lineCoord.x1"
-        :y1="lineCoord.y1"
-        :x2="lineCoord.x2"
-        :y2="lineCoord.y2"
-        style="stroke: white; stroke-width: 1"
-      />
+      <line v-for="(lineCoord, key) in lineCoords" :key="`line${key}`" :x1="lineCoord.x1" :y1="lineCoord.y1"
+        :x2="lineCoord.x2" :y2="lineCoord.y2" style="stroke: white; stroke-width: 1" />
     </svg>
   </div>
   <ul v-if="!dropdownHidden && menuPages.data" class="dropdown">
-    <li
-      v-for="menuPage in menuPages.data.value"
-      v-bind:key="menuPage.slug"
-      @click="(event) => goToClickedMenu(event, menuPage)"
-    >
+    <li v-for="menuPage in menuPages.data.value" v-bind:key="menuPage.slug"
+      @click="(event) => goToClickedMenu(event, menuPage)">
       {{ menuPage.title }}
     </li>
   </ul>

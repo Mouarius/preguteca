@@ -1,8 +1,8 @@
-import { axiosInstance } from "../main.ts";
 import { useQuery } from "@tanstack/vue-query";
+import { fetchApi } from "../utils.ts";
+import { initialCategories } from "../data/initialCategories.ts";
 
 export const useCategory = (name: string) => {
-  const axios = axiosInstance;
   const {
     isLoading,
     isError,
@@ -10,8 +10,8 @@ export const useCategory = (name: string) => {
     error,
   } = useQuery({
     queryKey: ["category-list", name],
-    queryFn: () => axios.get(`/categories/${name}`),
-    select: (response) => response.data,
+    queryFn: () => fetchApi(`/categories/${name}`),
+    initialData: initialCategories,
   });
   return {
     isLoading,

@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { dimmElement, undimmElement } from "./utils";
 import { computed, onMounted, reactive, ref, watch } from "vue";
-import { store, updateActiveCategory, updateActivePanel } from "./store";
+import { store, updateActiveCategory, updateActiveMenuPage, updateActivePanel } from "./store";
 
 import AppHeader from "./components/AppHeader.vue";
 import CategoryDetail from "./components/CategoryDetail.vue";
@@ -11,13 +10,15 @@ import HomePanel from "./components/homepanel/HomePanel.vue";
 import { useCategories } from "./queries/useCategories";
 import { useHomePage } from "./queries/useHomePage";
 import HomePanelHeader from "./components/homepanel/HomePanelHeader.vue";
+import { MenuPage, TCategory } from "./types";
 
-const sidePanelContainer = ref<HTMLElement | null>(null);
+const sidePanelContainerRef = ref<HTMLElement | null>(null);
+const pageContentRef = ref<HTMLElement | null>(null)
 
 const screenWidth = ref(window.innerWidth);
 
-const isMobile = computed(() => screenWidth.value <= 812);
-const homePanelDetailsVisible = ref(false);
+const isMobile = computed(() => screenWidth.value <= 812)
+const sidePanelVisible = ref(!isMobile.value)
 
 const categories = reactive(useCategories());
 const homePage = useHomePage();
@@ -30,59 +31,92 @@ onMounted(() => {
     },
     { passive: true }
   );
-});
+})
 
-const toggleHomePanelDetails = () => {
-  return (homePanelDetailsVisible.value = !homePanelDetailsVisible.value);
-};
+const smoothScrollActive = ref(false)
+
+const setActiveCategory = (category: TCategory) => {
+  if (store.activePanel !== "category") updateActivePanel("category")
+  updateActiveCategory(category)
+
+  setTimeout(() => {
+    sidePanelContainerRef.value?.scrollIntoView()
+  }, 0);
+}
+
+const setActiveMenu = (menu: MenuPage) => {
+  updateActivePanel("menu")
+  updateActiveMenuPage(menu)
+  setTimeout(() => {
+    sidePanelContainerRef.value?.scrollIntoView()
+  }, 0);
+}
+
+const handleSidePanelBackButtonClick = (_evt: MouseEvent) => {
+  pageContentRef.value?.scrollTo(0, 0)
+}
+
+const handleHeaderClick = (evt: MouseEvent) => {
+  evt?.preventDefault()
+  updateActivePanel("home")
+  sidePanelContainerRef.value?.scrollIntoView()
+}
+
+watch(isMobile, () => {
+  if (!isMobile.value) {
+    sidePanelVisible.value = true
+  }
+})
+
+const updateCategoryFromHash = () => {
+  if (!categories.isSuccess || !categories.data) return;
+  const hashValue = window.location.hash.slice(1);
+  const categoryFromHash = categories.data.find(
+    (category) => category.name === hashValue
+  );
+  if (categoryFromHash) {
+    setActiveCategory(categoryFromHash)
+  }
+}
 
 watch(
   () => categories.status,
-  () => {
-    if (!categories.isSuccess || !categories.data) return;
-    const hashValue = window.location.hash.slice(1);
-    const categoryFromHash = categories.data.find(
-      (category) => category.name === hashValue
-    );
-    if (categoryFromHash) {
-      updateActivePanel("category");
-      updateActiveCategory(categoryFromHash);
-    }
-  }
+  () => updateCategoryFromHash()
+
 );
+onMounted(() => {
+  if (store.activePanel === "category" || window.location.hash) sidePanelContainerRef.value?.scrollIntoView()
+  updateCategoryFromHash()
+  setTimeout(() => {
+    smoothScrollActive.value = true
+  }, 500)
+})
 </script>
 
+
 <template>
-  <AppHeader />
-  <div id="page-content" class="border-thin">
-    <section id="main-scroll" class="scrollable">
-      <div
-        v-if="store.activePanel === 'home' && isMobile"
-        class="home-panel--mobile"
-      >
-        <HomePanelHeader
-          v-if="homePage.isSuccess && homePage.data.value"
-          :home-page="homePage.data.value"
-        />
+  <AppHeader :set-active-menu="setActiveMenu" :set-active-category="setActiveCategory" />
+  <div id="page-content" ref="pageContentRef" :class="{ 'border-thin': true, 'smooth-scroll': smoothScrollActive }">
+    <div id="main-scroll" class="scrollable">
+      <div v-if="isMobile" class="home-panel--mobile">
+        <HomePanelHeader v-if="homePage.isSuccess && homePage.data.value" :home-page="homePage.data.value"
+          :on-back-button-click="handleSidePanelBackButtonClick" :set-active-category="setActiveCategory"
+          :on-header-click="handleHeaderClick" />
       </div>
       <div id="main-illustration">
-        <MainIllustration />
+        <MainIllustration :set-active-category="setActiveCategory" />
       </div>
-    </section>
-    <div id="side-panel-container" ref="sidePanelContainer">
-      <HomePanel
-        v-if="store.activePanel === 'home'"
-        class="home-panel--desktop"
-        :show-content="true"
-      />
-      <CategoryDetail
-        v-if="store.activePanel === 'category'"
-        :active-category="store.activeCategory"
-      />
-      <MenuPanel
-        v-if="store.activePanel === 'menu'"
-        :menu-page="store.activeMenuPage"
-      />
+    </div>
+    <div id="side-panel-container" ref="sidePanelContainerRef" :class="{
+      'side-panel-container--hidden': isMobile && store.activePanel === null
+    }
+      ">
+      <HomePanel v-if="store.activePanel === 'home'" class="home-panel--desktop" :set-active-category="setActiveCategory"
+        :on-back-button-click="handleSidePanelBackButtonClick" />
+      <CategoryDetail v-if="store.activePanel === 'category'" :active-category="store.activeCategory"
+        :on-back-button-click="handleSidePanelBackButtonClick" />
+      <MenuPanel v-if="store.activePanel === 'menu'" :menu-page="store.activeMenuPage"
+        :on-back-button-click="handleSidePanelBackButtonClick" />
     </div>
   </div>
 </template>
@@ -111,9 +145,15 @@ watch(
   grid-area: content;
   display: grid;
   bottom: 0;
-  grid-template-columns: 1fr;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  grid-template-columns: 100% 100%;
   grid-template-rows: minmax(0, 1fr);
   grid-template-areas: "main-scroll";
+}
+
+#page-content * {
+  scroll-snap-align: start;
 }
 
 @media (min-width: 812px) {
@@ -138,9 +178,15 @@ watch(
 }
 
 #side-panel-container {
-  grid-area: aside;
+  position: relative;
   height: 100%;
+  width: 100%;
   overflow-y: hidden;
+  transition: transform 0.2s ease-in-out;
+}
+
+.smooth-scroll {
+  scroll-behavior: smooth;
 }
 
 .home-panel--mobile {
@@ -150,6 +196,13 @@ watch(
 @media screen and (min-width: 812px) {
   .home-panel--mobile {
     display: none;
+  }
+
+
+  #side-panel-container {
+    grid-area: aside;
+    height: 100%;
+    overflow-y: hidden;
   }
 }
 

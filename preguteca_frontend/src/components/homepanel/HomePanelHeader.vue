@@ -1,23 +1,17 @@
 <script setup lang="ts">
-import { updateActiveCategory, updateActivePanel } from "../../store";
 import { HomePage, TCategory } from "../../types";
 
 defineProps<{
   homePage: HomePage;
+  setActiveCategory: (category: TCategory) => void
+  onBackButtonClick: (evt: MouseEvent) => void
+  onHeaderClick?: (evt: MouseEvent) => void
 }>();
-function navigateToCategory(category: TCategory | undefined) {
-  if (!category) return;
-  updateActivePanel("category");
-  updateActiveCategory(category);
-}
 </script>
 <template>
-  <div class="panel-header">
+  <div class="panel-header" @click="onHeaderClick">
     <div class="panel-header__section hearder__part--building">
-      <div
-        class="panel-header__title"
-        @click="() => navigateToCategory(homePage.monthCategory)"
-      >
+      <div class="panel-header__title" @click="() => setActiveCategory(homePage.monthCategory)">
         {{ homePage.monthCategory.fullName }}
       </div>
       <div class="separator separator--header"></div>
@@ -30,6 +24,9 @@ function navigateToCategory(category: TCategory | undefined) {
       <div class="separator separator--header"></div>
       <div class="header__subtitle">Palabras clave</div>
     </div>
+    <!-- <div class="arrow-right__container"> -->
+    <!--   <img src="../../assets/arrow-right.svg" /> -->
+    <!-- </div> -->
   </div>
   <div class="panel-subheader">
     <div class="panel-subheader__section subheader__section--left">
@@ -47,12 +44,18 @@ function navigateToCategory(category: TCategory | undefined) {
   </div>
 </template>
 <style scoped>
+.arrow-right__container {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .panel-header {
   padding: 8px;
   padding-left: 10px;
   padding-right: 12px;
   background: var(--white);
   color: var(--black);
+  cursor: pointer;
   display: grid;
   height: min-content;
   gap: 16px;

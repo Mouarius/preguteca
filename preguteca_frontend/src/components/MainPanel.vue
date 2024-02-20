@@ -1,25 +1,27 @@
 <script setup lang="ts">
 import ChevronLeft from "../assets/chevron-left.svg";
-import { updateActivePanel } from "../store";
-defineProps<{
+const props = defineProps<{
   title?: string;
   subtitle?: string;
-  titleClickHandler?: (e: Event) => void;
+  onTitleClick?: (e: Event) => void;
+  onBackButtonClick?: (e: MouseEvent) => void;
 }>();
+
 function scrollTop(event: MouseEvent) {
   event.preventDefault();
   const panelContent = document.querySelector(".panel-content");
   panelContent?.scrollTo(0, 0);
 }
+
+const handleBackButtonClick = (evt: MouseEvent) => {
+  props.onBackButtonClick?.call(null, evt)
+}
+
 </script>
 <template>
   <div class="panel-container">
     <div class="panel-header" @click="scrollTop">
-      <img
-        alt="chevron-left"
-        :src="ChevronLeft"
-        @click="() => updateActivePanel('home')"
-      />
+      <img alt="chevron-left" :src="ChevronLeft" @click="handleBackButtonClick" />
       <span class="panel-header__title">{{ title }}</span>
     </div>
     <div class="panel-content">

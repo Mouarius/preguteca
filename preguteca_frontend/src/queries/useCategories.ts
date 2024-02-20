@@ -1,14 +1,16 @@
-import { useQuery, UseQueryReturnType } from "@tanstack/vue-query";
-import { axiosInstance as axios } from "../main.ts";
+import { useQuery } from "@tanstack/vue-query";
 import { TCategory } from "../types";
+import { fetchApi } from "../utils";
+import { initialCategories } from "../data/initialCategories";
 
 async function fetchCategories(): Promise<TCategory[]> {
-  return axios.get("/categories").then((response) => response.data);
+  return fetchApi("/categories");
 }
 
-export function useCategories(): UseQueryReturnType<TCategory[], Error> {
+export function useCategories() {
   return useQuery({
     queryKey: ["category-list"],
     queryFn: fetchCategories,
+    initialData: initialCategories,
   });
 }

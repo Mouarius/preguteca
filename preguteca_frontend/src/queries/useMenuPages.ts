@@ -1,11 +1,9 @@
 import { useQuery } from "@tanstack/vue-query";
-import { axiosInstance as axios } from "../main.ts";
 import type { MenuPage } from "../types/index.ts";
+import { fetchApi } from "../utils.ts";
 
 async function fetchMenuPages() {
-  return axios
-    .get("/menu_pages")
-    .then((response) => response.data as MenuPage[]);
+  return fetchApi<MenuPage[]>("/menu_pages")
 }
 
 export function useMenuPages() {

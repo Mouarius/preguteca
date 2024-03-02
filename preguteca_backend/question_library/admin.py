@@ -67,7 +67,8 @@ class HomepageVideoPostAdmin(HomepageBasePostAdmin):
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ["full_name", "name"]
     search_fields = ["full_name"]
-    fields = ("name", "full_name", "description", "keywords", "video_entries")
+    readonly_fields = ["name"]
+    fields = (("full_name", "name"), "description", "keywords", "video_entries")
     filter_horizontal = ("video_entries",)
 
 

@@ -1,30 +1,19 @@
 from __future__ import annotations
 
-import re
 
 from django.db import models
-from unidecode import unidecode
-from question_library.utils.common import iso8601_to_duration
+from question_library.utils.common import iso8601_to_duration, to_snake_case
 from question_library.utils.youtube import (
     create_embed_url,
     extract_video_id_from_url,
     get_youtube_videos_information_list,
-    get_youtube_videos_snippet_list,
 )
 from tinymce import models as tinymce_models
 import datetime as dt
 
 
-def to_snake_case(string: str) -> str:
-    string = unidecode(string)
-    string = (
-        re.sub(r"(?<=[a-z])(?=[A-Z])|[^a-zA-Z]", " ", string).strip().replace(" ", "_")
-    )
-    return "".join(string.lower())
-
-
 class Category(models.Model):
-    name = models.CharField(
+    name = models.SlugField(
         verbose_name="Name",
         max_length=50,
         unique=True,

@@ -1,17 +1,17 @@
+import re
+from unidecode import unidecode
+
+
 def iso8601_to_duration(duration_str):
     # Remove the 'P' prefix from the duration string
     duration_str = duration_str.replace("PT", "")
 
     # Initialize the duration components
-    days = 0
     hours = 0
     minutes = 0
     seconds = 0
 
     # Parse the duration components
-    if "D" in duration_str:
-        days_str, duration_str = duration_str.split("D")
-        days = int(days_str)
     if "H" in duration_str:
         hours_str, duration_str = duration_str.split("H")
         hours = int(hours_str)
@@ -26,3 +26,11 @@ def iso8601_to_duration(duration_str):
     duration = "{:02d}:{:02d}:{:02d}".format(hours, minutes, seconds)
 
     return duration
+
+
+def to_snake_case(string: str) -> str:
+    string = unidecode(string)
+    string = (
+        re.sub(r"(?<=[a-z])(?=[A-Z])|[^a-zA-Z]", " ", string).strip().replace(" ", "_")
+    )
+    return "".join(string.lower())

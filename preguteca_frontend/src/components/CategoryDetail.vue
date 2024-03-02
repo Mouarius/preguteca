@@ -31,13 +31,19 @@ const toggleDescription = () => {
 </script>
 
 <template>
-  <MainPanel :title="store.activeCategory?.fullName" :on-back-button-click="onBackButtonClick">
-    <div class="content" :style="{
-      transform:
-        descriptionHidden && descriptionRef
-          ? `translateY(-${descriptionRef?.offsetHeight + 12}px)`
-          : 'translate(0)',
-    }">
+  <MainPanel
+    :title="store.activeCategory?.fullName"
+    :on-back-button-click="onBackButtonClick"
+  >
+    <div
+      class="content"
+      :style="{
+        transform:
+          descriptionHidden && descriptionRef
+            ? `translateY(-${descriptionRef?.offsetHeight + 12}px)`
+            : 'translate(0)',
+      }"
+    >
       <div v-if="store.activeCategory?.description" class="description">
         <p ref="descriptionRef">
           {{ store.activeCategory?.description }}
@@ -46,21 +52,47 @@ const toggleDescription = () => {
           <span>
             {{
               descriptionHidden
-              ? "Ver la descripción"
-              : "Ocultar la descripción"
+                ? "Ver la descripción"
+                : "Ocultar la descripción"
             }}
           </span>
-          <svg class="toggle-icon" :class="{ 'toggle-icon--close': descriptionHidden }" height="12" width="12">
-            <line x1="6" y1="0" x2="6" y2="12" style="stroke: white; stroke-width: 1px"
-              :opacity="descriptionHidden ? 1 : 0"></line>
-            <line x1="0" y1="6" x2="12" y2="6" style="stroke: white; stroke-width: 1px"></line>
+          <svg
+            class="toggle-icon"
+            :class="{ 'toggle-icon--close': descriptionHidden }"
+            height="12"
+            width="12"
+          >
+            <line
+              x1="6"
+              y1="0"
+              x2="6"
+              y2="12"
+              style="stroke: white; stroke-width: 1px"
+              :opacity="descriptionHidden ? 1 : 0"
+            ></line>
+            <line
+              x1="0"
+              y1="6"
+              x2="12"
+              y2="6"
+              style="stroke: white; stroke-width: 1px"
+            ></line>
           </svg>
         </button>
       </div>
-      <ul id="video-entry-list" ref="videoEntryListRef" class="video-entry-list scrollable">
-        <VideoEntry v-for="(video_entry, index) in store.activeCategory?.videoEntries" :key="video_entry.id"
-          :video-entry="video_entry" :videos-in-category="store.activeCategory?.videoEntries.length"
-          :index-in-category="index" class="video-entry" />
+      <ul
+        id="video-entry-list"
+        ref="videoEntryListRef"
+        class="video-entry-list scrollable"
+      >
+        <VideoEntry
+          v-for="(video_entry, index) in store.activeCategory?.videoEntries"
+          :key="video_entry.id"
+          :video-entry="video_entry"
+          :videos-in-category="store.activeCategory?.videoEntries.length"
+          :index-in-category="index"
+          class="video-entry"
+        />
       </ul>
     </div>
   </MainPanel>

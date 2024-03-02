@@ -2622,17 +2622,17 @@ setInterval(() => {
       </g>
     </g>
     <g id="isla25">
-        <g class="el_tribunal__image">
-          <image
-            loading="lazy"
-            data-clickable="true"
-            data-category-name="el_tribunal"
-            width="100"
-            height="113"
-            transform="translate(1115.5 3639.83) rotate(180) scale(2.23)"
-            :href="image48"
-          />
-        </g>
+      <g class="el_tribunal__image">
+        <image
+          loading="lazy"
+          data-clickable="true"
+          data-category-name="el_tribunal"
+          width="100"
+          height="113"
+          transform="translate(1115.5 3639.83) rotate(180) scale(2.23)"
+          :href="image48"
+        />
+      </g>
       <g class="cls-39">
         <image
           loading="lazy"

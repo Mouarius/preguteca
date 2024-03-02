@@ -1,99 +1,87 @@
 <script setup lang="ts">
-import { Ref, computed, reactive, ref } from "vue";
+import { computed, reactive, ref, watch } from "vue";
 import SearchIcon from "../assets/search-icon.svg";
 import { useCategories } from "../queries/useCategories";
 import { TCategory } from "../types";
 import { updateActiveCategory, updateActivePanel } from "../store";
 import Fuse from "fuse.js";
 
-const props = defineProps<{
+defineProps<{
   setActiveCategory: (category: TCategory) => void;
 }>();
 
 const MIN_CHARACTERS_TO_START = 3;
+const MAX_LIST_LENGTH = 8;
 
 let searchText = ref("");
 
-const activeChoice = reactive({
-  key: -1,
-  category: undefined as TCategory | undefined,
-});
+const activeIndex = ref(0);
 const categories = reactive(useCategories());
-const matchedCategories: Ref<TCategory[]> = computed(() => {
+
+const matchedCategories = computed(() => {
   if (categories.data) {
     return getMatchedCategories(searchText.value, categories.data);
   }
   return [];
 });
-
-const setActiveChoice = (key: number, category: TCategory) => {
-  activeChoice.key = key;
-  activeChoice.category = category;
+const setActiveIndex = (value: number) => {
+  activeIndex.value = value;
 };
 
-function getMatchedCategories(
+const getMatchedCategories = (
   searchText: string,
   categoriesList: TCategory[]
-): TCategory[] {
+): TCategory[] => {
   const fuse = new Fuse(categoriesList, { keys: ["fullName", "name"] });
   const result = fuse.search(searchText);
-  return result.map((res) => res.item);
-}
+  return result.map((res) => res.item).slice(0, MAX_LIST_LENGTH);
+};
 
-function handleFormSubmit(event: Event) {
+const handleFormSubmit = (event: Event) => {
   event.preventDefault();
-  if (!searchText.value && categories.isError) return;
-  if (categories.data) {
-    const matchedCategories = getMatchedCategories(
-      searchText.value,
-      categories.data
-    );
-    if (matchedCategories.length === 0) return;
-    if (!activeChoice.category) {
-      activeChoice.category = matchedCategories[0];
-    }
+  if (
+    !searchText.value ||
+    categories.isError ||
+    matchedCategories.value.length === 0
+  )
+    return;
+  try {
+    const category = matchedCategories.value[activeIndex.value];
     updateActivePanel("category");
-    updateActiveCategory(activeChoice.category);
-    clearSearchBar();
+    updateActiveCategory(category);
+    setActiveIndex(0);
+    searchText.value = "";
+  } catch {
+    return;
   }
-}
-function clearSearchBar() {
-  activeChoice.category = undefined;
-  activeChoice.key = -1;
-  searchText.value = "";
-}
+};
 
-function handleSuggestionClick(index: number, category: TCategory) {
-  activeChoice.key = index;
-  activeChoice.category = category;
-  if (!activeChoice.category || !activeChoice.key) return;
-  props.setActiveCategory(activeChoice.category);
-  clearSearchBar();
-}
+const nextSuggestion = (current: number) => {
+  return Math.min(current + 1, MAX_LIST_LENGTH);
+};
+const prevSuggestion = (current: number) => {
+  return Math.max(current - 1, 0);
+};
 
 function handleKeyDown(event: KeyboardEvent) {
   switch (event.key) {
     case "ArrowDown":
-      if (activeChoice.key <= 8) {
-        activeChoice.key += 1;
-        activeChoice.category = matchedCategories.value[activeChoice.key];
-      }
-      break;
+      return setActiveIndex(nextSuggestion(activeIndex.value));
     case "ArrowUp":
-      if (activeChoice.key >= 1) {
-        activeChoice.key -= 1;
-        activeChoice.category = matchedCategories.value[activeChoice.key];
-      }
-      break;
-
+      return setActiveIndex(prevSuggestion(activeIndex.value));
     default:
       break;
   }
 }
+
+// Reset the active index when typing
+watch([searchText], () => {
+  setActiveIndex(0);
+});
 </script>
 <template>
   <div class="search-bar">
-    <form action="get" @submit="handleFormSubmit">
+    <form method="get" action="" @submit="handleFormSubmit">
       <input
         id="search-bar__autocomplete"
         v-model="searchText"
@@ -106,30 +94,32 @@ function handleKeyDown(event: KeyboardEvent) {
         type="text"
         :onkeydown="handleKeyDown"
       />
-      <button type="submit"><img :src="SearchIcon" /></button>
+      <button type="submit" class="search-bar__search-button">
+        <img :src="SearchIcon" alt="Search icon" />
+      </button>
+      <div
+        v-if="
+          matchedCategories.length > 0 &&
+          searchText.length >= MIN_CHARACTERS_TO_START
+        "
+        class="suggestions"
+      >
+        <ul>
+          <li
+            v-for="(category, index) in matchedCategories"
+            :key="category.id"
+            :class="{
+              suggestion__element: true,
+              active: index === activeIndex,
+            }"
+          >
+            <button type="submit" @mouseenter="() => setActiveIndex(index)">
+              {{ category.fullName.toLowerCase() }}
+            </button>
+          </li>
+        </ul>
+      </div>
     </form>
-    <div
-      v-if="
-        matchedCategories.length > 0 &&
-        searchText.length >= MIN_CHARACTERS_TO_START
-      "
-      class="suggestions"
-    >
-      <ul>
-        <li
-          v-for="(category, index) in matchedCategories"
-          :key="category.id"
-          :class="{
-            suggestion__element: true,
-            active: index === activeChoice.key,
-          }"
-          @mouseover="() => setActiveChoice(index, category)"
-          @click="() => handleSuggestionClick(index, category)"
-        >
-          {{ category.fullName.toLowerCase() }}
-        </li>
-      </ul>
-    </div>
   </div>
 </template>
 <style scoped>
@@ -141,6 +131,9 @@ function handleKeyDown(event: KeyboardEvent) {
 
 .suggestions {
   position: absolute;
+  top: 34px;
+  left: 0;
+  box-shadow: 0px 8px 18px rgba(0, 0, 0, 0.6);
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -153,12 +146,28 @@ function handleKeyDown(event: KeyboardEvent) {
 }
 
 .suggestions li {
-  padding: 8px;
   border-bottom: solid 1px rgba(255, 255, 255, 0.554);
 }
 
 .suggestion__element {
   cursor: pointer;
+}
+
+.suggestion__element button {
+  border: none;
+  background: none;
+  color: var(--text);
+  display: flex;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+  text-align: left;
+}
+
+.suggestion__element.active button {
+  color: var(--black);
+  font-weight: 500;
 }
 
 .search-bar__label {
@@ -198,7 +207,7 @@ function handleKeyDown(event: KeyboardEvent) {
   outline: none;
 }
 
-.search-bar form button {
+.search-bar__search-button {
   border: none;
   background: none;
   color: var(--text);

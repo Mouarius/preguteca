@@ -1,23 +1,25 @@
 @font-face {
-  font-family: 'Dela Gothic One';
-  src: url('/fonts/DelaGothicOne-Regular.woff2') format('woff2'),
-    url('/fonts/DelaGothicOne-Regular.woff') format('woff');
+  font-family: "Dela Gothic One";
+  src: url("/fonts/DelaGothicOne-Regular.woff2") format("woff2"),
+    url("/fonts/DelaGothicOne-Regular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Rethink Sans';
-  src: url('/fonts/RethinkSans-Regular.woff2') format('woff2 supports variations');
+  font-family: "Rethink Sans";
+  src: url("/fonts/RethinkSans-Regular.woff2")
+    format("woff2 supports variations");
   font-weight: 400 800;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Rethink Sans';
-  src: url('/fonts/RethinkSans-Italic.woff2') format('woff2 supports variations');
+  font-family: "Rethink Sans";
+  src: url("/fonts/RethinkSans-Italic.woff2")
+    format("woff2 supports variations");
   font-weight: 400 800;
   font-style: italic;
   font-display: swap;

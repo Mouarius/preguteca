@@ -288,12 +288,6 @@ a {
   cursor: default;
 }
 
-.tag:hover {
-  background: var(--white);
-  color: var(--black);
-  font-weight: 500;
-}
-
 .video-entry__description__questions {
   margin-bottom: 24px;
   text-align: justify;

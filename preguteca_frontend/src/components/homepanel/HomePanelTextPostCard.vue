@@ -17,12 +17,20 @@ defineProps<Props>();
     </div>
   </HomePanelCard>
 </template>
-<style scoped>
+<style>
 .details {
   padding: 8px;
 }
 
 .text-content {
   font-style: normal;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.text-content span a {
+  color: var(--text);
+  font-weight: 600;
+  word-break: break-all !important;
 }
 </style>

@@ -32,9 +32,10 @@ defineProps<Props>();
 .card-container {
   box-shadow: 4px 4px var(--orange);
   border: solid 1px var(--border-color);
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
-  min-width: 100%;
+  margin: 4px 0px;
+  width: 100%;
 }
 
 .card-container > div:not(:last-child) {

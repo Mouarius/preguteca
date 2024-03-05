@@ -112,6 +112,7 @@ defineProps<{
   display: flex;
   flex-direction: column;
   align-items: start;
+  line-height: 1.3;
   border-bottom: solid 1px var(--border-color);
 }
 

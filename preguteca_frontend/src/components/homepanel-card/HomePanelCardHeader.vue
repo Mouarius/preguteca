@@ -7,7 +7,7 @@ type HomePanelCardHeaderProps = {
 defineProps<HomePanelCardHeaderProps>();
 </script>
 <template>
-  <div class="row header">
+  <div class="header">
     <div class="header__element header__element--title">
       {{ title }}
     </div>
@@ -22,6 +22,10 @@ defineProps<HomePanelCardHeaderProps>();
 <style>
 .header {
   display: flex;
+  min-height: 32px;
+  padding: 8px;
+  line-height: 1.8;
+  height: fit-content;
   align-items: center;
 }
 
@@ -37,6 +41,7 @@ defineProps<HomePanelCardHeaderProps>();
   font-style: normal;
   font-weight: 600;
   font-family: var(--font-title);
+  height: 100%;
 }
 
 .header__element--type {

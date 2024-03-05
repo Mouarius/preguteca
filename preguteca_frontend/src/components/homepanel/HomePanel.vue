@@ -37,15 +37,11 @@ const homePage = useHomePage();
 </template>
 <style scoped>
 .panel-content {
-  display: grid;
+  columns: 1;
+  column-gap: 8px;
   position: relative;
   grid-area: aside;
-  grid-template-columns: 1fr;
   padding: 8px;
-  gap: 8px;
-  overflow-y: scroll;
-  width: 100%;
-  height: 100%;
 }
 
 .panel-container {
@@ -60,7 +56,7 @@ const homePage = useHomePage();
 
 @media screen and (min-width: 1200px) {
   .panel-content {
-    grid-template-columns: 1fr 1fr;
+    columns: 2;
   }
 }
 </style>

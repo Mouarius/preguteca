@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "question_library.apps.QuestionLibraryConfig",
+    "adminsortable2",
     "tinymce",
     "rest_framework",
     "corsheaders",

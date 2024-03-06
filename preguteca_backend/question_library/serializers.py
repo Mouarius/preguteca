@@ -1,10 +1,12 @@
 from rest_framework import serializers
 
+from question_library.admin import OrderedVideoInline
 from question_library.models import (
     Category,
     MenuPage,
     TextPost,
     VideoEntry,
+    VideoEntryWithPosition,
     VideoPost,
     VideoType,
     HomePage,
@@ -42,12 +44,22 @@ class VideoEntrySerializer(serializers.ModelSerializer):
 
 
 class CategorySerializer(serializers.ModelSerializer):
-    video_entries = VideoEntrySerializer(many=True, read_only=True)
-    test = ""
+    video_entries = serializers.SerializerMethodField()
+
+    def get_video_entries(self, obj):
+        videos = obj.ordered_videos.order_by("videoentrywithposition__position")
+        return VideoEntrySerializer(videos, many=True).data
 
     class Meta:
         model = Category
-        fields = ["id", "name", "full_name", "description", "video_entries", "keywords"]
+        fields = [
+            "id",
+            "name",
+            "full_name",
+            "description",
+            "video_entries",
+            "keywords",
+        ]
         lookup_field = "name"
 
 
@@ -56,18 +68,21 @@ class HomepageTextPostSerializer(serializers.ModelSerializer):
         model = TextPost
         fields = "__all__"
 
+
 class HomepageVideoPostSerializer(serializers.ModelSerializer):
-    video = VideoEntrySerializer(read_only = True)
+    video = VideoEntrySerializer(read_only=True)
+
     class Meta:
         model = VideoPost
         fields = "__all__"
+
 
 class HomepagePostSerializer(serializers.BaseSerializer):
     def to_representation(self, instance):
         if isinstance(instance, TextPost):
             return HomepageTextPostSerializer().to_representation(instance)
         return HomepageVideoPostSerializer().to_representation(instance)
-    
+
 
 class HomePageSerializer(serializers.ModelSerializer):
     month_category = CategorySerializer(read_only=True)
@@ -79,6 +94,7 @@ class HomePageSerializer(serializers.ModelSerializer):
     class Meta:
         model = HomePage
         fields = "__all__"
+
 
 class MenuPageSerializer(serializers.ModelSerializer):
     class Meta:

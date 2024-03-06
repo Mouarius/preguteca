@@ -3,6 +3,11 @@ from django.db import models
 from django.http.request import HttpRequest
 from django.utils.html import format_html
 from django.forms import TextInput
+from adminsortable2.admin import (
+    SortableAdminBase,
+    SortableInlineAdminMixin,
+    SortableTabularInline,
+)
 
 from .models import (
     Category,
@@ -10,6 +15,7 @@ from .models import (
     MenuPage,
     TextPost,
     VideoEntry,
+    VideoEntryWithPosition,
     VideoPost,
     VideoType,
     HomePage,
@@ -19,6 +25,7 @@ admin.site.register(
     [
         Comment,
         VideoType,
+        VideoEntryWithPosition
     ]
 )
 
@@ -58,18 +65,29 @@ class HomepageTextPostAdmin(HomepageBasePostAdmin):
     ]
 
 
+
 @admin.register(VideoPost)
 class HomepageVideoPostAdmin(HomepageBasePostAdmin):
     fieldsets = [("Content", {"fields": ("video", "content")})]
 
 
+class OrderedVideoInline(SortableInlineAdminMixin, admin.TabularInline):
+    model = Category.ordered_videos.through
+    raw_id_fields = ["video_entry"]
+    extra = 0
+
+
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(SortableAdminBase, admin.ModelAdmin):
     list_display = ["full_name", "name"]
     search_fields = ["full_name"]
     readonly_fields = ["name"]
-    fields = (("full_name", "name"), "description", "keywords", "video_entries")
-    filter_horizontal = ("video_entries",)
+    fields = (
+        ("full_name", "name"),
+        "description",
+        "keywords",
+    )
+    inlines = [OrderedVideoInline]
 
 
 @admin.register(VideoEntry)
@@ -88,7 +106,6 @@ class VideoEntryAdmin(admin.ModelAdmin):
         return format_html(
             f"<span style='width: 100%; display:flex; justify-content:space-between'>{obj.title[:40]}... <a href='{obj.video_url}'>(link)</a></span>"
         )
-
 
     @admin.display
     def categories(self, obj):

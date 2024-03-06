@@ -32,8 +32,16 @@ class Category(models.Model):
         verbose_name="Keywords", max_length=255, blank=True, null=True
     )
 
+    # NOTE: Deprecated in favor of ordered_videos
     video_entries = models.ManyToManyField(
         "question_library.VideoEntry", verbose_name="Video entries"
+    )
+
+    ordered_videos = models.ManyToManyField(
+        "question_library.VideoEntry",
+        verbose_name="Ordered videos",
+        through="VideoEntryWithPosition",
+        related_name="+"
     )
 
     def __str__(self):
@@ -97,6 +105,22 @@ class VideoType(models.Model):
 
     def __str__(self):
         return self.full_name
+
+
+class VideoEntryWithPosition(models.Model):
+    category = models.ForeignKey(
+        to="question_library.Category", on_delete=models.CASCADE
+    )
+    video_entry = models.ForeignKey(
+        to="question_library.VideoEntry", on_delete=models.CASCADE
+    )
+    position = models.PositiveSmallIntegerField(default=0, db_index=True)
+
+    def __str__(self) -> str:
+        return f"Video: {self.video_entry.title[:20]}... (id={self.video_entry.id})"
+
+    class Meta:
+        ordering = ["position"]
 
 
 class VideoEntry(models.Model):

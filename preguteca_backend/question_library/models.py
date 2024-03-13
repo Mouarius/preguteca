@@ -55,7 +55,7 @@ class Category(models.Model):
         verbose_name_plural = "Categories"
 
 
-class OrderedPost(models.Model):
+class PostWithPosition(models.Model):
     post = models.ForeignKey("question_library.Post", on_delete=models.CASCADE)
     home_page = models.ForeignKey("question_library.HomePage", on_delete=models.CASCADE)
     position = models.PositiveSmallIntegerField(default=0, db_index=True)
@@ -88,14 +88,10 @@ class HomePage(models.Model):
         verbose_name="Highlighted video",
     )
 
-    ordered_posts = models.ManyToManyField("question_library.Post", through=OrderedPost)
+    posts = models.ManyToManyField("question_library.Post", through="PostWithPosition")
 
     def __str__(self) -> str:
         return f"HomePage : {self.identifier}"
-
-    @property
-    def posts(self):
-        return list(self.text_posts.all()) + list(self.video_posts.all())
 
     class Meta:
         verbose_name = "HomePage"

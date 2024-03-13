@@ -71,7 +71,11 @@ class HomepagePostSerializer(serializers.ModelSerializer):
 class HomePageSerializer(serializers.ModelSerializer):
     month_category = CategorySerializer(read_only=True)
     highlighted_video = VideoEntrySerializer(read_only=True)
-    posts = HomepagePostSerializer(many=True, read_only=True)
+    posts = serializers.SerializerMethodField()
+
+    def get_posts(self, obj):
+        posts = obj.posts.order_by("postwithposition__position")
+        return HomepagePostSerializer(posts, many=True).data
 
     class Meta:
         model = HomePage

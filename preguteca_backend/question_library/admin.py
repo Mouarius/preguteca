@@ -24,7 +24,7 @@ admin.site.register([Comment, VideoType])
 
 
 class OrderedPostInline(SortableInlineAdminMixin, admin.TabularInline):
-    model = HomePage.ordered_posts.through
+    model = HomePage.posts.through
     raw_id_fields = ["post"]
     extra = 0
 

@@ -41,7 +41,7 @@ class Category(models.Model):
         "question_library.VideoEntry",
         verbose_name="Ordered videos",
         through="VideoEntryWithPosition",
-        related_name="+"
+        related_name="+",
     )
 
     def __str__(self):
@@ -53,6 +53,15 @@ class Category(models.Model):
     class Meta:
         verbose_name = "Category"
         verbose_name_plural = "Categories"
+
+
+class OrderedPost(models.Model):
+    post = models.ForeignKey("question_library.Post", on_delete=models.CASCADE)
+    home_page = models.ForeignKey("question_library.HomePage", on_delete=models.CASCADE)
+    position = models.PositiveSmallIntegerField(default=0, db_index=True)
+
+    class Meta:
+        ordering = ["position"]
 
 
 class HomePage(models.Model):
@@ -79,8 +88,7 @@ class HomePage(models.Model):
         verbose_name="Highlighted video",
     )
 
-    text_posts = models.ManyToManyField("question_library.TextPost", blank=True)
-    video_posts = models.ManyToManyField("question_library.VideoPost", blank=True)
+    ordered_posts = models.ManyToManyField("question_library.Post", through=OrderedPost)
 
     def __str__(self) -> str:
         return f"HomePage : {self.identifier}"
@@ -90,8 +98,8 @@ class HomePage(models.Model):
         return list(self.text_posts.all()) + list(self.video_posts.all())
 
     class Meta:
-        verbose_name = "Home Page"
-        verbose_name_plural = "Home Pages"
+        verbose_name = "HomePage"
+        verbose_name_plural = "HomePages"
 
 
 class VideoType(models.Model):
@@ -234,23 +242,18 @@ class BasePost(models.Model):
         abstract = True
 
 
-class TextPost(BasePost):
-    content = tinymce_models.HTMLField(verbose_name="Content")
-
-    class Meta:
-        verbose_name = "Homepage - Text Post"
-        verbose_name_plural = "Homepage - Text Posts"
-
-
-class VideoPost(BasePost):
+class Post(BasePost):
     video = models.ForeignKey(
-        to="question_library.VideoEntry", on_delete=models.CASCADE
+        to="question_library.VideoEntry",
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
     )
-    content = tinymce_models.HTMLField(verbose_name="Content")
+    content = tinymce_models.HTMLField(verbose_name="Content", blank=True)
 
     class Meta:
-        verbose_name = "Homepage - Video Post"
-        verbose_name_plural = "Homepage - Video Posts"
+        verbose_name = "Post"
+        verbose_name_plural = "Posts"
 
 
 class Comment(models.Model):

@@ -1,13 +1,10 @@
 from rest_framework import serializers
 
-from question_library.admin import OrderedVideoInline
 from question_library.models import (
     Category,
     MenuPage,
-    TextPost,
+    Post,
     VideoEntry,
-    VideoEntryWithPosition,
-    VideoPost,
     VideoType,
     HomePage,
 )
@@ -63,33 +60,18 @@ class CategorySerializer(serializers.ModelSerializer):
         lookup_field = "name"
 
 
-class HomepageTextPostSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = TextPost
-        fields = "__all__"
-
-
-class HomepageVideoPostSerializer(serializers.ModelSerializer):
+class HomepagePostSerializer(serializers.ModelSerializer):
     video = VideoEntrySerializer(read_only=True)
 
     class Meta:
-        model = VideoPost
+        model = Post
         fields = "__all__"
-
-
-class HomepagePostSerializer(serializers.BaseSerializer):
-    def to_representation(self, instance):
-        if isinstance(instance, TextPost):
-            return HomepageTextPostSerializer().to_representation(instance)
-        return HomepageVideoPostSerializer().to_representation(instance)
 
 
 class HomePageSerializer(serializers.ModelSerializer):
     month_category = CategorySerializer(read_only=True)
     highlighted_video = VideoEntrySerializer(read_only=True)
     posts = HomepagePostSerializer(many=True, read_only=True)
-    text_posts = HomepageTextPostSerializer(many=True, read_only=True)
-    video_posts = HomepageVideoPostSerializer(many=True, read_only=True)
 
     class Meta:
         model = HomePage

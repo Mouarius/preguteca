@@ -2,39 +2,38 @@ from django.contrib import admin
 from django.db import models
 from django.http.request import HttpRequest
 from django.utils.html import format_html
-from django.forms import TextInput
+from django.forms import (
+    TextInput,
+)
 from adminsortable2.admin import (
     SortableAdminBase,
     SortableInlineAdminMixin,
-    SortableTabularInline,
 )
 
 from .models import (
     Category,
     Comment,
     MenuPage,
-    TextPost,
+    Post,
     VideoEntry,
-    VideoEntryWithPosition,
-    VideoPost,
     VideoType,
     HomePage,
 )
 
-admin.site.register(
-    [
-        Comment,
-        VideoType,
-        VideoEntryWithPosition
-    ]
-)
+admin.site.register([Comment, VideoType])
+
+
+class OrderedPostInline(SortableInlineAdminMixin, admin.TabularInline):
+    model = HomePage.ordered_posts.through
+    raw_id_fields = ["post"]
+    extra = 0
 
 
 @admin.register(HomePage)
-class HomePageAdmin(admin.ModelAdmin):
+class HomePageAdmin(SortableAdminBase, admin.ModelAdmin):
     list_display = ("identifier", "active", "created_at", "modified_at")
     autocomplete_fields = ("highlighted_video",)
-    filter_horizontal = ("text_posts", "video_posts")
+    inlines = [OrderedPostInline]
 
 
 class HomepageBasePostAdmin(admin.ModelAdmin):
@@ -58,18 +57,12 @@ class HomepageBasePostAdmin(admin.ModelAdmin):
         return [*self.header_fieldsets, *fieldsets, *self.footer_fieldsets]
 
 
-@admin.register(TextPost)
-class HomepageTextPostAdmin(HomepageBasePostAdmin):
+@admin.register(Post)
+class PostAdmin(HomepageBasePostAdmin):
+    raw_id_fields = ["video"]
     fieldsets = [
-        ("Content", {"fields": ("content",)}),
+        ("Content", {"fields": ("content", "video")}),
     ]
-
-
-
-@admin.register(VideoPost)
-class HomepageVideoPostAdmin(HomepageBasePostAdmin):
-    fieldsets = [("Content", {"fields": ("video", "content")})]
-
 
 class OrderedVideoInline(SortableInlineAdminMixin, admin.TabularInline):
     model = Category.ordered_videos.through

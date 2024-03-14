@@ -65,11 +65,14 @@ export interface HomePageInformationCard {
   createdAt: string;
 }
 
-export interface TCategory {
+export interface BaseCategory {
   id: number;
   name: string;
-  keywords: string | null;
   fullName: string;
+}
+
+export interface TCategory extends BaseCategory {
+  keywords: string | null;
   description: string;
   videoEntries: TVideoEntry[];
 }

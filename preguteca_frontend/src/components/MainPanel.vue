@@ -59,6 +59,7 @@ const handleBackButtonClick = (evt: MouseEvent) => {
   font-size: 24px;
   font-weight: 600;
   height: 100%;
+  min-height: 24px;
 }
 
 .panel-header img {

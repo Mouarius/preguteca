@@ -2,7 +2,10 @@
 import VideoEntry from "./VideoEntry.vue";
 import { store } from "../store";
 import MainPanel from "./MainPanel.vue";
-import { onMounted, ref, watch } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
+import { useQuery } from "@tanstack/vue-query";
+import { TCategory } from "../types";
+import { fetchApi } from "../utils";
 
 const videoEntryListRef = ref<HTMLElement | null>(null);
 const descriptionRef = ref<HTMLElement | null>(null);
@@ -14,7 +17,16 @@ function resetVideoListScroll() {
   }
 }
 
+// Used to keep the reactivity
+const activeCategoryName = computed(() => store.activeCategory);
+
 defineProps<{ onBackButtonClick: (evt: MouseEvent) => void }>();
+
+const { data: category } = useQuery({
+  queryKey: ["category-list", activeCategoryName],
+  queryFn: () => fetchApi<TCategory>(`/categories/${activeCategoryName.value}`),
+  staleTime: Infinity,
+});
 
 watch(
   () => store.activeCategory,
@@ -32,7 +44,7 @@ const toggleDescription = () => {
 
 <template>
   <MainPanel
-    :title="store.activeCategory?.fullName"
+    :title="category?.fullName"
     :on-back-button-click="onBackButtonClick"
   >
     <div
@@ -44,9 +56,9 @@ const toggleDescription = () => {
             : 'translate(0)',
       }"
     >
-      <div v-if="store.activeCategory?.description" class="description">
+      <div v-if="category?.description" class="description">
         <p ref="descriptionRef">
-          {{ store.activeCategory?.description }}
+          {{ category.description }}
         </p>
         <button type="button" @click="toggleDescription">
           <span>
@@ -86,10 +98,10 @@ const toggleDescription = () => {
         class="video-entry-list scrollable"
       >
         <VideoEntry
-          v-for="(video_entry, index) in store.activeCategory?.videoEntries"
+          v-for="(video_entry, index) in category?.videoEntries"
           :key="video_entry.id"
           :video-entry="video_entry"
-          :videos-in-category="store.activeCategory?.videoEntries.length"
+          :videos-in-category="category?.videoEntries.length"
           :index-in-category="index"
           class="video-entry"
         />

@@ -41,6 +41,13 @@ class VideoEntrySerializer(serializers.ModelSerializer):
 
 
 class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ["id", "name", "full_name"]
+        lookup_field = "name"
+
+
+class CategoryDetailedSerializer(serializers.ModelSerializer):
     video_entries = serializers.SerializerMethodField()
 
     def get_video_entries(self, obj):
@@ -69,7 +76,7 @@ class HomepagePostSerializer(serializers.ModelSerializer):
 
 
 class HomePageSerializer(serializers.ModelSerializer):
-    month_category = CategorySerializer(read_only=True)
+    month_category = CategoryDetailedSerializer(read_only=True)
     highlighted_video = VideoEntrySerializer(read_only=True)
     posts = serializers.SerializerMethodField()
 

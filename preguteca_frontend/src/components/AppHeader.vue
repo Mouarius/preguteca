@@ -2,10 +2,10 @@
 import { updateActivePanel } from "../store";
 import SearchBar from "./SearchBar.vue";
 import MenuButton from "./MenuButton.vue";
-import { MenuPage, TCategory } from "../types";
+import { MenuPage } from "../types";
 defineProps<{
   setActiveMenu: (menu: MenuPage) => void;
-  setActiveCategory: (category: TCategory) => void;
+  setActiveCategory: (name: string) => void;
 }>();
 </script>
 

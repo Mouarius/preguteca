@@ -2,12 +2,12 @@
 import { computed, reactive, ref, watch } from "vue";
 import SearchIcon from "../assets/search-icon.svg";
 import { useCategories } from "../queries/useCategories";
-import { TCategory } from "../types";
-import { updateActiveCategory, updateActivePanel } from "../store";
+import { BaseCategory} from "../types";
+import { updateActivePanel } from "../store";
 import Fuse from "fuse.js";
 
-defineProps<{
-  setActiveCategory: (category: TCategory) => void;
+const props = defineProps<{
+  setActiveCategory: (name: string) => void;
 }>();
 
 const MIN_CHARACTERS_TO_START = 3;
@@ -30,8 +30,8 @@ const setActiveIndex = (value: number) => {
 
 const getMatchedCategories = (
   searchText: string,
-  categoriesList: TCategory[]
-): TCategory[] => {
+  categoriesList: BaseCategory[]
+): BaseCategory[] => {
   const fuse = new Fuse(categoriesList, { keys: ["fullName", "name"] });
   const result = fuse.search(searchText);
   return result.map((res) => res.item).slice(0, MAX_LIST_LENGTH);
@@ -48,7 +48,7 @@ const handleFormSubmit = (event: Event) => {
   try {
     const category = matchedCategories.value[activeIndex.value];
     updateActivePanel("category");
-    updateActiveCategory(category);
+    props.setActiveCategory(category.name);
     setActiveIndex(0);
     searchText.value = "";
   } catch {

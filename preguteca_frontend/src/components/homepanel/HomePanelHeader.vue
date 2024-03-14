@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { HomePage, TCategory } from "../../types";
+import { HomePage } from "../../types";
 
 defineProps<{
   homePage: HomePage;
-  setActiveCategory: (category: TCategory) => void;
+  setActiveCategory: (name: string) => void;
   onBackButtonClick: (evt: MouseEvent) => void;
   onHeaderClick?: (evt: MouseEvent) => void;
 }>();
@@ -13,7 +13,7 @@ defineProps<{
     <div class="panel-header__section hearder__part--building">
       <div
         class="panel-header__title"
-        @click="() => setActiveCategory(homePage.monthCategory)"
+        @click="() => setActiveCategory(homePage.monthCategory.name)"
       >
         {{ homePage.monthCategory.fullName }}
       </div>

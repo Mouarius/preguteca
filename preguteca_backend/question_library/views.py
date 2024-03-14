@@ -1,8 +1,9 @@
-from rest_framework import generics
+from rest_framework import generics, serializers
 from django.views.generic import TemplateView
 
 from .models import Category, MenuPage, Post, VideoEntry, HomePage
 from .serializers import (
+    CategoryDetailedSerializer,
     CategorySerializer,
     MenuPageSerializer,
     VideoEntrySerializer,
@@ -20,14 +21,14 @@ class HomePageView(generics.ListAPIView):
 
 
 class CategoryList(generics.ListAPIView):
-    queryset = Category.objects.all().order_by("name").prefetch_related("video_entries")
+    queryset = Category.objects.all().order_by("name").only("id", "name", "full_name")
     serializer_class = CategorySerializer
     lookup_field = "name"
 
 
 class CategoryDetail(generics.RetrieveAPIView):
     queryset = Category.objects.all()
-    serializer_class = CategorySerializer
+    serializer_class = CategoryDetailedSerializer
     lookup_field = "name"
 
 

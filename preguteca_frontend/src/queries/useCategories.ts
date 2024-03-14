@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/vue-query";
-import { TCategory } from "../types";
+import { BaseCategory } from "../types";
 import { fetchApi } from "../utils";
 import { initialCategories } from "../data/initialCategories";
 
-async function fetchCategories(): Promise<TCategory[]> {
+async function fetchCategories(): Promise<BaseCategory[]> {
   return fetchApi("/categories");
 }
 

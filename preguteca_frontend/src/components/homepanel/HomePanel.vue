@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { reactive } from "vue";
 import { useHomePage } from "../../queries/useHomePage";
-import { TCategory } from "../../types";
 import HomePanelHeader from "./HomePanelHeader.vue";
 import HomePanelCard from "../homepanel-card/HomePanelCard.vue";
 
 defineProps<{
   onBackButtonClick: (e: MouseEvent) => void;
-  setActiveCategory: (category: TCategory) => void;
+  setActiveCategory: (name: string) => void;
 }>();
 
 const homePage = reactive(useHomePage());

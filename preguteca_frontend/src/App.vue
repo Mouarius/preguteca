@@ -15,7 +15,7 @@ import HomePanel from "./components/homepanel/HomePanel.vue";
 import { useCategories } from "./queries/useCategories";
 import { useHomePage } from "./queries/useHomePage";
 import HomePanelHeader from "./components/homepanel/HomePanelHeader.vue";
-import { MenuPage, TCategory } from "./types";
+import { MenuPage } from "./types";
 
 const sidePanelContainerRef = ref<HTMLElement | null>(null);
 const pageContentRef = ref<HTMLElement | null>(null);
@@ -40,10 +40,9 @@ onMounted(() => {
 
 const smoothScrollActive = ref(false);
 
-const setActiveCategory = (category: TCategory) => {
+const setActiveCategory = (name: string) => {
   if (store.activePanel !== "category") updateActivePanel("category");
-  updateActiveCategory(category);
-
+  updateActiveCategory(name);
   setTimeout(() => {
     sidePanelContainerRef.value?.scrollIntoView();
   }, 0);
@@ -80,7 +79,7 @@ const updateCategoryFromHash = () => {
     (category) => category.name === hashValue
   );
   if (categoryFromHash) {
-    setActiveCategory(categoryFromHash);
+    setActiveCategory(categoryFromHash.name);
   }
 };
 
@@ -137,7 +136,6 @@ onMounted(() => {
       />
       <CategoryDetail
         v-if="store.activePanel === 'category'"
-        :active-category="store.activeCategory"
         :on-back-button-click="handleSidePanelBackButtonClick"
       />
       <MenuPanel

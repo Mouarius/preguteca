@@ -50,20 +50,13 @@ import image48 from "../assets/main-illustration/img/main_illustration_v348.png"
 import image49 from "../assets/main-illustration/img/main_illustration_v349.png";
 import image50 from "../assets/main-illustration/img/main_illustration_v350.png";
 
-import { computed, onMounted, reactive, ref } from "vue";
-import { useCategories } from "../queries/useCategories";
-import type { TCategory } from "../types/index.ts";
+import { onMounted, ref } from "vue";
 
 const props = defineProps<{
-  setActiveCategory: (category: TCategory) => void;
+  setActiveCategory: (name: string) => void;
 }>();
 
 const categoryName = ref("");
-const categories = reactive(useCategories());
-const category = computed(() =>
-  categories.data?.find((cat) => cat.name === categoryName.value)
-);
-
 onMounted(() => {
   const clickables = document.querySelectorAll("*[data-clickable='true']");
   const tagTextList = document.querySelectorAll("#etiquetes text");
@@ -85,10 +78,7 @@ onMounted(() => {
         event.stopPropagation();
         if (elem.dataset) {
           categoryName.value = elem.dataset.categoryName ?? "";
-          if (category.value) {
-            console.log(props);
-            props.setActiveCategory(category.value);
-          }
+          props.setActiveCategory(categoryName.value);
         }
       }
     );
@@ -8470,7 +8460,7 @@ svg {
 
 .cls-12 {
   font-size: 63.53px;
-  font-family: ArialMT, Arial;
+  font-family: sans-serif, ArialMT, Arial;
 }
 
 .cls-13 {

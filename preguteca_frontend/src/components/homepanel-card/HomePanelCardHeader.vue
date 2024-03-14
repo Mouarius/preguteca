@@ -2,6 +2,7 @@
 type HomePanelCardHeaderProps = {
   title: string;
   supplementaryInformation?: string | null;
+  isVideoPost: boolean
 };
 
 defineProps<HomePanelCardHeaderProps>();
@@ -12,7 +13,7 @@ defineProps<HomePanelCardHeaderProps>();
       {{ title }}
     </div>
     <div
-      v-if="supplementaryInformation"
+      v-if="supplementaryInformation && isVideoPost"
       class="header__element header__element--type"
     >
       {{ supplementaryInformation }}
@@ -23,7 +24,7 @@ defineProps<HomePanelCardHeaderProps>();
 .header {
   display: flex;
   min-height: 32px;
-  padding: 8px;
+  padding: 0px 8px;
   line-height: 1.8;
   height: fit-content;
   align-items: center;
@@ -31,12 +32,16 @@ defineProps<HomePanelCardHeaderProps>();
 
 .header__element {
   height: 100%;
+  padding: 8px 0px;
+  box-sizing: content-box;
+  min-height: 32px;
   display: flex;
   align-items: center;
 }
 
 .header__element--title {
   flex: 1;
+  min-width: 66%;
   font-size: 18px;
   font-style: normal;
   font-weight: 600;
@@ -47,6 +52,7 @@ defineProps<HomePanelCardHeaderProps>();
 .header__element--type {
   font-size: 14px;
   display: flex;
+  height: 100%;
   justify-content: center;
   border-left: solid 1px var(--border-color);
   padding-left: 8px;

@@ -32,13 +32,6 @@ export interface HomepagePost {
   footerRightValue: string | null;
   modifiedAt: string;
   createdAt: string;
-}
-
-export interface HomepageTextPost extends HomepagePost {
-  content: string;
-}
-
-export interface HomepageVideoPost extends HomepagePost {
   video: TVideoEntry;
   content: string;
 }
@@ -54,8 +47,6 @@ export interface HomePage {
   monthCategory: TCategory;
   highlightedVideo: TVideoEntry;
   posts: HomepagePost[];
-  textPosts: HomepageTextPost[];
-  videoPosts: HomepageVideoPost[];
 }
 
 export interface MenuPage {

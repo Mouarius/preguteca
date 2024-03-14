@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// TODO : Delete
 import HomePanelCard from "../homepanel-card/HomePanelCard.vue";
 
 type Props = {

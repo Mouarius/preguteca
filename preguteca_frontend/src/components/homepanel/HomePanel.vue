@@ -1,37 +1,26 @@
 <script setup lang="ts">
+import { watch, reactive } from "vue"
 import { useHomePage } from "../../queries/useHomePage";
 import { TCategory } from "../../types";
 import HomePanelHeader from "./HomePanelHeader.vue";
-import HomePanelTextPostCard from "./HomePanelTextPostCard.vue";
-import HomePanelVideoCard from "./HomePanelVideoCard.vue";
+import HomePanelCard from "../homepanel-card/HomePanelCard.vue"
 
 defineProps<{
   onBackButtonClick: (e: MouseEvent) => void;
   setActiveCategory: (category: TCategory) => void;
 }>();
 
-const homePage = useHomePage();
+const homePage = reactive(useHomePage());
+watch(homePage, () => {
+  console.log("hp", homePage.data)
+});
 </script>
 <template>
   <div class="panel-container">
-    <HomePanelHeader
-      v-if="homePage.isSuccess && homePage.data.value"
-      :home-page="homePage.data.value"
-      :set-active-category="setActiveCategory"
-      :on-back-button-click="onBackButtonClick"
-    />
-    <div v-if="homePage.isSuccess && homePage.data.value" class="panel-content">
-      <HomePanelVideoCard
-        v-for="videoPost in homePage.data.value?.videoPosts"
-        :key="videoPost.id"
-        :video-post="videoPost"
-      />
-      <HomePanelTextPostCard
-        v-for="textPost in homePage.data.value?.textPosts"
-        :key="textPost.id"
-        :title="textPost.headerTitle"
-        :content="textPost.content"
-      />
+    <HomePanelHeader v-if="homePage.isSuccess && homePage.data" :home-page="homePage.data"
+      :set-active-category="setActiveCategory" :on-back-button-click="onBackButtonClick" />
+    <div v-if="homePage.isSuccess && homePage.data.posts" class="panel-content">
+      <HomePanelCard v-for="post in homePage.data.posts" :key="post.id" :post="post" />
     </div>
   </div>
 </template>

@@ -145,7 +145,7 @@ button {
 
 .video-entry-list {
   scroll-padding-top: 8px;
-  scroll-snap-type: y mandatory;
+  scroll-snap-type: y proximity;
   scroll-behavior: smooth;
   overflow-y: scroll;
   max-height: 100%;

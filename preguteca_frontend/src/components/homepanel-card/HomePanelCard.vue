@@ -40,4 +40,9 @@ defineProps<Props>();
   height: 32px;
   min-height: 32px;
 }
+.text-content span a {
+  color: var(--text);
+  font-weight: 600;
+  word-break: break-all !important;
+}
 </style>

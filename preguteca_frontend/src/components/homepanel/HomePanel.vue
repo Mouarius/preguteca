@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { watch, reactive } from "vue"
+import { reactive } from "vue";
 import { useHomePage } from "../../queries/useHomePage";
 import { TCategory } from "../../types";
 import HomePanelHeader from "./HomePanelHeader.vue";
-import HomePanelCard from "../homepanel-card/HomePanelCard.vue"
+import HomePanelCard from "../homepanel-card/HomePanelCard.vue";
 
 defineProps<{
   onBackButtonClick: (e: MouseEvent) => void;
@@ -11,26 +11,37 @@ defineProps<{
 }>();
 
 const homePage = reactive(useHomePage());
-watch(homePage, () => {
-  console.log("hp", homePage.data)
-});
 </script>
 <template>
   <div class="panel-container">
-    <HomePanelHeader v-if="homePage.isSuccess && homePage.data" :home-page="homePage.data"
-      :set-active-category="setActiveCategory" :on-back-button-click="onBackButtonClick" />
+    <HomePanelHeader
+      v-if="homePage.isSuccess && homePage.data"
+      :home-page="homePage.data"
+      :set-active-category="setActiveCategory"
+      :on-back-button-click="onBackButtonClick"
+    />
     <div v-if="homePage.isSuccess && homePage.data.posts" class="panel-content">
-      <HomePanelCard v-for="post in homePage.data.posts" :key="post.id" :post="post" />
+      <HomePanelCard
+        v-for="post in homePage.data.posts"
+        :key="post.id"
+        :post="post"
+      />
     </div>
   </div>
 </template>
 <style scoped>
 .panel-content {
-  columns: 1;
-  column-gap: 8px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  min-width: 0px;
   position: relative;
   grid-area: aside;
   padding: 8px;
+}
+.panel-content * {
+  height: fit-content;
+  min-width: 0px;
 }
 
 .panel-container {
@@ -45,7 +56,7 @@ watch(homePage, () => {
 
 @media screen and (min-width: 1200px) {
   .panel-content {
-    columns: 2;
+    grid-template-columns: 1fr 1fr;
   }
 }
 </style>

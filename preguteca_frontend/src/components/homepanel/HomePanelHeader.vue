@@ -42,7 +42,7 @@ defineProps<{
         {{ homePage.dayQuestion }}
       </div>
       <div class="separator separator--subheader"></div>
-      <div class="panel-subheader__subtitle">Question del dia</div>
+      <div class="panel-subheader__subtitle">Pregunta del día</div>
     </div>
   </div>
 </template>

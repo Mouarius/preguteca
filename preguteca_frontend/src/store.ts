@@ -1,5 +1,5 @@
 import { reactive } from "vue";
-import { ActivePanel, BaseCategory, MenuPage, TCategory } from "./types";
+import { ActivePanel, MenuPage } from "./types";
 
 type Store = {
   isCategoryContainerVisible: boolean;
@@ -30,9 +30,7 @@ export function updateActiveMenuPage(menuPage: MenuPage) {
   return (store.activeMenuPage = menuPage);
 }
 
-export function updateActiveCategory(
-  name: string | null
-) {
+export function updateActiveCategory(name: string | null) {
   store.activeCategory = name;
   window.location.hash = name ?? "";
 }

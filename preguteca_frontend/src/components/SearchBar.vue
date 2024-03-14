@@ -2,7 +2,7 @@
 import { computed, reactive, ref, watch } from "vue";
 import SearchIcon from "../assets/search-icon.svg";
 import { useCategories } from "../queries/useCategories";
-import { BaseCategory} from "../types";
+import { BaseCategory } from "../types";
 import { updateActivePanel } from "../store";
 import Fuse from "fuse.js";
 

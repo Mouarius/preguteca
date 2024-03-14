@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { HomepagePost } from "../../types/"
+import type { HomepagePost } from "../../types/";
 import HomePanelCardHeader from "./HomePanelCardHeader.vue";
-import HomePanelCardContent from "./HomePanelCardContent.vue"
+import HomePanelCardContent from "./HomePanelCardContent.vue";
 import HomePanelCardFooter from "./HomePanelCardFooter.vue";
 
 type Props = {
@@ -12,11 +12,18 @@ defineProps<Props>();
 </script>
 <template>
   <div class="card-container">
-    <HomePanelCardHeader :title="post.headerTitle" :supplementary-information="post.headerSupplementaryInformation"
-      :is-video-post="post.video !== null" />
+    <HomePanelCardHeader
+      :title="post.headerTitle"
+      :supplementary-information="post.headerSupplementaryInformation"
+      :is-video-post="post.video !== null"
+    />
     <HomePanelCardContent :content="post.content" :video="post.video" />
-    <HomePanelCardFooter :left-name="post.footerLeftName" :left-value="post.footerLeftValue"
-      :right-name="post.footerRightName" :right-value="post.footerRightValue" />
+    <HomePanelCardFooter
+      :left-name="post.footerLeftName"
+      :left-value="post.footerLeftValue"
+      :right-name="post.footerRightName"
+      :right-value="post.footerRightValue"
+    />
   </div>
 </template>
 <style>
@@ -29,7 +36,7 @@ defineProps<Props>();
   width: 100%;
 }
 
-.card-container>div:not(:last-child) {
+.card-container > div:not(:last-child) {
   border-bottom: solid 1px var(--border-color);
 }
 

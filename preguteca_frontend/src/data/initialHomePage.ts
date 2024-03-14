@@ -37,8 +37,6 @@ export const initialHomePage: HomePage = {
     thumbnailUrl: "https://i.ytimg.com/vi/MGGBrj6bb5I/hqdefault.jpg",
   },
   posts: [],
-  textPosts: [],
-  videoPosts: [],
   active: true,
   identifier: "",
   modifiedAt: "2024-02-08T23:30:14.086776+01:00",

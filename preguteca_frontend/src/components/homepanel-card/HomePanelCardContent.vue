@@ -4,8 +4,8 @@ import type { TVideoEntry } from "../../types";
 import PlayButton from "../../assets/play-button--orange.svg";
 
 type Props = {
-  video: TVideoEntry | null
-  content: string
+  video: TVideoEntry | null;
+  content: string;
 };
 defineProps<Props>();
 
@@ -20,15 +20,28 @@ const setVideoVisible = () => {
     <a :href="video.videoUrl">{{ video.videoUrl }}</a>
   </div>
   <div v-if="video" class="video__viewport">
-    <iframe v-if="isVideoVisible" class="video__viewport__iframe" type="text/html" width="100%" height="100%"
-      allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0"
-      :src="`${video.videoEmbedUrl}?autoplay=1`"></iframe>
+    <iframe
+      v-if="isVideoVisible"
+      class="video__viewport__iframe"
+      type="text/html"
+      width="100%"
+      height="100%"
+      allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture"
+      frameborder="0"
+      :src="`${video.videoEmbedUrl}?autoplay=1`"
+    ></iframe>
     <template v-else>
       <button class="video__viewport__button" @click="setVideoVisible">
         <img :src="PlayButton" alt="" />
       </button>
-      <img v-if="video.thumbnailUrl" class="video__viewport__thumbnail" :src="video.thumbnailUrl" alt="Video Thumbnail"
-        height="360" width="480" />
+      <img
+        v-if="video.thumbnailUrl"
+        class="video__viewport__thumbnail"
+        :src="video.thumbnailUrl"
+        alt="Video Thumbnail"
+        height="360"
+        width="480"
+      />
     </template>
   </div>
   <div class="details">

@@ -2,7 +2,7 @@
 type HomePanelCardHeaderProps = {
   title: string;
   supplementaryInformation?: string | null;
-  isVideoPost: boolean
+  isVideoPost: boolean;
 };
 
 defineProps<HomePanelCardHeaderProps>();

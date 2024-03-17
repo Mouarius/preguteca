@@ -28,7 +28,7 @@ const setVideoVisible = () => {
       height="100%"
       allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture"
       frameborder="0"
-      :src="`${video.videoEmbedUrl}?autoplay=1`"
+      :src="`https://www.youtube.com/embed/${video.youtubeId}?autoplay=1`"
     ></iframe>
     <template v-else>
       <button class="video__viewport__button" @click="setVideoVisible">

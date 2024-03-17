@@ -27,9 +27,6 @@ defineProps<{
       <div class="separator separator--header"></div>
       <div class="header__subtitle">Palabras clave</div>
     </div>
-    <!-- <div class="arrow-right__container"> -->
-    <!--   <img src="../../assets/arrow-right.svg" /> -->
-    <!-- </div> -->
   </div>
   <div class="panel-subheader">
     <div class="panel-subheader__section subheader__section--left">
@@ -41,7 +38,6 @@ defineProps<{
       <div class="question-of-the-day">
         {{ homePage.dayQuestion }}
       </div>
-      <div class="separator separator--subheader"></div>
       <div class="panel-subheader__subtitle">Pregunta del día</div>
     </div>
   </div>
@@ -61,6 +57,7 @@ defineProps<{
   cursor: pointer;
   display: grid;
   height: min-content;
+  min-height: 40px;
   gap: 16px;
   grid-template-columns: 1fr;
 }
@@ -94,6 +91,7 @@ defineProps<{
   cursor: pointer;
   font-weight: 600;
   height: 100%;
+  min-width: 8ch;
 }
 
 .header__subtitle,
@@ -104,6 +102,8 @@ defineProps<{
 .panel-subheader__subtitle {
   color: var(--border-color);
   place-self: end;
+  position: absolute;
+  right: 10px;
 }
 
 .panel-subheader {
@@ -113,6 +113,8 @@ defineProps<{
   flex-direction: column;
   align-items: start;
   line-height: 1.3;
+  min-height: 6lh;
+  height: fit-content;
   border-bottom: solid 1px var(--border-color);
 }
 
@@ -129,11 +131,13 @@ defineProps<{
 
 .subheader__section--left {
   flex: 1;
+  min-width: 0px;
+  overflow: scroll;
 }
 
 .panel-subheader__general-questions {
-  height: 100%;
-  overflow: hidden;
+  min-height: 4lh;
+  height: fit-content;
   font-style: normal;
 }
 
@@ -145,6 +149,7 @@ defineProps<{
   font-weight: 600;
   word-break: break-word;
   height: 100%;
+  min-width: 8ch;
 }
 
 @media screen and (min-width: 812px) {

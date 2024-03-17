@@ -191,7 +191,14 @@ class VideoEntry(models.Model):
                 details = info_list[0]["contentDetails"]
                 self.title = snippet["title"]
                 self.yt_channel_title = snippet["channelTitle"]
-                self.yt_publish_time = dt.datetime.fromisoformat(snippet["publishedAt"])
+                try:
+                    self.yt_publish_time = dt.datetime.fromisoformat(
+                        snippet["publishedAt"]
+                    )
+                except ValueError:
+                    self.yt_publish_time = dt.datetime.strptime(
+                        snippet["publishedAt"], "%Y-%m-%dT%H:%M:%SZ"
+                    )
                 self.yt_embed_url = create_embed_url(self.youtube_id)
                 self.thumbnail_url = snippet["thumbnails"]["high"]["url"]
                 self.author = self.yt_channel_title

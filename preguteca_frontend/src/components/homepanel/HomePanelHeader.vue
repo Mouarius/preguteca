@@ -117,6 +117,9 @@ defineProps<{
   height: fit-content;
   border-bottom: solid 1px var(--border-color);
 }
+.subheader__section--right {
+  position: relative;
+}
 
 .panel-subheader__section {
   display: flex;

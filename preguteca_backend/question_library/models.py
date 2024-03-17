@@ -82,11 +82,6 @@ class HomePage(models.Model):
     day_question = models.CharField(
         verbose_name="Question of the day", max_length=180, blank=True, null=True
     )
-    highlighted_video = models.ForeignKey(
-        "question_library.VideoEntry",
-        on_delete=models.DO_NOTHING,
-        verbose_name="Highlighted video",
-    )
 
     posts = models.ManyToManyField("question_library.Post", through="PostWithPosition")
 

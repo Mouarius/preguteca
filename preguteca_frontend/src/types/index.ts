@@ -45,7 +45,6 @@ export interface HomePage {
   modifiedAt: string;
   createdAt: string;
   monthCategory: TCategory;
-  highlightedVideo: TVideoEntry;
   posts: HomepagePost[];
 }
 

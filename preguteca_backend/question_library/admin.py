@@ -32,7 +32,6 @@ class OrderedPostInline(SortableInlineAdminMixin, admin.TabularInline):
 @admin.register(HomePage)
 class HomePageAdmin(SortableAdminBase, admin.ModelAdmin):
     list_display = ("identifier", "active", "created_at", "modified_at")
-    autocomplete_fields = ("highlighted_video",)
     inlines = [OrderedPostInline]
 
 

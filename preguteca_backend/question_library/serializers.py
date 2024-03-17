@@ -77,7 +77,6 @@ class HomepagePostSerializer(serializers.ModelSerializer):
 
 class HomePageSerializer(serializers.ModelSerializer):
     month_category = CategoryDetailedSerializer(read_only=True)
-    highlighted_video = VideoEntrySerializer(read_only=True)
     posts = serializers.SerializerMethodField()
 
     def get_posts(self, obj):
@@ -86,7 +85,16 @@ class HomePageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = HomePage
-        fields = "__all__"
+        fields = [
+            "active",
+            "identifier",
+            "modified_at",
+            "created_at",
+            "month_category",
+            "month_questions",
+            "day_question",
+            "posts"
+        ]
 
 
 class MenuPageSerializer(serializers.ModelSerializer):

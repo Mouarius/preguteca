@@ -10,16 +10,14 @@ defineProps<{
   onHeaderClick?: (evt: MouseEvent) => void;
 }>();
 
-const result = reactive(useHomePage());
 const { isFetching } = useHomePage();
-watch(isFetching, () => console.log(isFetching));
 </script>
 <template>
   <div>
     <div class="panel-header" @click="onHeaderClick">
       <div
         class="panel-header__section hearder__part--building"
-        :class="{ hidden: result.isFetching }"
+        :class="{ hidden: isFetching }"
       >
         <div
           class="panel-header__title"
@@ -32,7 +30,7 @@ watch(isFetching, () => console.log(isFetching));
       </div>
       <div
         class="panel-header__section hearder__part--question"
-        :class="{ hidden: result.isFetching }"
+        :class="{ hidden: isFetching }"
       >
         <div class="header__keywords">
           {{ homePage.monthCategory.keywords }}
@@ -44,13 +42,13 @@ watch(isFetching, () => console.log(isFetching));
     <div class="panel-subheader">
       <div
         class="panel-subheader__section subheader__section--left"
-        :class="{ hidden: result.isFetching }"
+        :class="{ hidden: isFetching }"
       >
         {{ homePage.monthQuestions }}
       </div>
       <div
         class="panel-subheader__section subheader__section--right"
-        :class="{ hidden: result.isFetching }"
+        :class="{ hidden: isFetching }"
       >
         <div class="question-of-the-day">
           {{ homePage.dayQuestion }}

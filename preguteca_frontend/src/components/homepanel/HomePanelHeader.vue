@@ -9,36 +9,36 @@ defineProps<{
 }>();
 </script>
 <template>
-  <div class="panel-header" @click="onHeaderClick">
-    <div class="panel-header__section hearder__part--building">
-      <div
-        class="panel-header__title"
-        @click="() => setActiveCategory(homePage.monthCategory.name)"
-      >
-        {{ homePage.monthCategory.fullName }}
+  <div>
+    <div class="panel-header" @click="onHeaderClick">
+      <div class="panel-header__section hearder__part--building">
+        <div
+          class="panel-header__title"
+          @click="() => setActiveCategory(homePage.monthCategory.name)"
+        >
+          {{ homePage.monthCategory.fullName }}
+        </div>
+        <div class="separator separator--header"></div>
+        <div class="header__subtitle">Edificio del mes</div>
       </div>
-      <div class="separator separator--header"></div>
-      <div class="header__subtitle">Edificio del mes</div>
-    </div>
-    <div class="panel-header__section hearder__part--question">
-      <div class="header__keywords">
-        {{ homePage.monthCategory.keywords }}
+      <div class="panel-header__section hearder__part--question">
+        <div class="header__keywords">
+          {{ homePage.monthCategory.keywords }}
+        </div>
+        <div class="separator separator--header"></div>
+        <div class="header__subtitle">Palabras clave</div>
       </div>
-      <div class="separator separator--header"></div>
-      <div class="header__subtitle">Palabras clave</div>
     </div>
-  </div>
-  <div class="panel-subheader">
-    <div class="panel-subheader__section subheader__section--left">
-      <p class="panel-subheader__general-questions">
+    <div class="panel-subheader">
+      <div class="panel-subheader__section subheader__section--left">
         {{ homePage.monthQuestions }}
-      </p>
-    </div>
-    <div class="panel-subheader__section subheader__section--right">
-      <div class="question-of-the-day">
-        {{ homePage.dayQuestion }}
       </div>
-      <div class="panel-subheader__subtitle">Pregunta del día</div>
+      <div class="panel-subheader__section subheader__section--right">
+        <div class="question-of-the-day">
+          {{ homePage.dayQuestion }}
+        </div>
+        <div class="panel-subheader__subtitle">Pregunta del día</div>
+      </div>
     </div>
   </div>
 </template>
@@ -77,6 +77,16 @@ defineProps<{
   border: solid 1px black;
 }
 
+.panel-subheader {
+  color: var(--border-color);
+  background-color: var(--black);
+  display: flex;
+  flex-direction: column;
+  height: min-content;
+  line-height: 1.3;
+  border-bottom: solid 1px var(--border-color);
+}
+
 .separator--subheader {
   border: solid 1px var(--border-color);
   height: auto;
@@ -95,53 +105,31 @@ defineProps<{
   font-size: 14px;
 }
 
-.panel-subheader__subtitle {
-  color: var(--border-color);
-  place-self: end;
-  position: absolute;
-  right: 10px;
-}
-
-.panel-subheader {
-  color: var(--border-color);
-  background-color: var(--black);
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  line-height: 1.3;
-  min-height: 6lh;
-  height: fit-content;
-  border-bottom: solid 1px var(--border-color);
-}
-.subheader__section--right {
-  position: relative;
-}
-
-.panel-subheader__section {
-  display: flex;
-  padding: 8px;
-  height: 100%;
-}
-
 .question-of-the-day {
   font-weight: 600;
   font-style: normal;
 }
 
 .subheader__section--left {
+  flex: 2;
+  overflow-y: scroll;
+  padding: 8px;
+}
+
+.subheader__section--right {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   flex: 1;
-  min-width: 0px;
-  overflow: scroll;
+  border-top: solid 1px var(--border-color);
 }
 
-.panel-subheader__general-questions {
-  min-height: 4lh;
-  height: fit-content;
-  font-style: normal;
-}
-
-.subheader__section--right .question-of-the-day {
-  flex-shrink: 0;
+.panel-subheader__subtitle {
+  color: var(--border-color);
+  position: relative;
+  margin-top: 8px;
+  place-self: end;
 }
 
 .header__keywords {

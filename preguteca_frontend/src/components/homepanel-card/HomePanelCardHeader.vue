@@ -28,6 +28,10 @@ defineProps<HomePanelCardHeaderProps>();
   line-height: 1.8;
   height: fit-content;
   align-items: center;
+  position: sticky;
+  top: 0px;
+  z-index: 10;
+  background: var(--black);
 }
 
 .header__element {

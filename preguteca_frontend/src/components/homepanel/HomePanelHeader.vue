@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { reactive, watch } from "vue";
 import { useHomePage } from "../../queries/useHomePage";
 import { HomePage } from "../../types";
 

@@ -50,22 +50,18 @@ defineProps<{
 
 .panel-header {
   padding: 8px;
-  padding-left: 10px;
-  padding-right: 12px;
+  justify-content: space-between;
   background: var(--white);
   color: var(--black);
   cursor: pointer;
-  display: grid;
-  height: min-content;
-  min-height: 40px;
+  display: flex;
   gap: 16px;
-  grid-template-columns: 1fr;
 }
 
 .panel-header__section {
   display: flex;
   align-items: end;
-  height: 100%;
+  height: 40px;
 }
 
 .separator {
@@ -158,7 +154,6 @@ defineProps<{
 @media screen and (min-width: 812px) {
   .panel-header {
     gap: 8px;
-    grid-template-columns: 2fr 3fr;
   }
 
   .panel-subheader {

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useHomePage } from "../../queries/useHomePage";
+
 type HomePanelCardHeaderProps = {
   title: string;
   supplementaryInformation?: string | null;

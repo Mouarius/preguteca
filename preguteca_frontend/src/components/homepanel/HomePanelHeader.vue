@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { reactive, watch } from "vue";
+import { useHomePage } from "../../queries/useHomePage";
 import { HomePage } from "../../types";
 
 defineProps<{
@@ -7,11 +9,18 @@ defineProps<{
   onBackButtonClick: (evt: MouseEvent) => void;
   onHeaderClick?: (evt: MouseEvent) => void;
 }>();
+
+const result = reactive(useHomePage());
+const { isFetching } = useHomePage();
+watch(isFetching, () => console.log(isFetching));
 </script>
 <template>
   <div>
     <div class="panel-header" @click="onHeaderClick">
-      <div class="panel-header__section hearder__part--building">
+      <div
+        class="panel-header__section hearder__part--building"
+        :class="{ hidden: result.isFetching }"
+      >
         <div
           class="panel-header__title"
           @click="() => setActiveCategory(homePage.monthCategory.name)"
@@ -21,7 +30,10 @@ defineProps<{
         <div class="separator separator--header"></div>
         <div class="header__subtitle">Edificio del mes</div>
       </div>
-      <div class="panel-header__section hearder__part--question">
+      <div
+        class="panel-header__section hearder__part--question"
+        :class="{ hidden: result.isFetching }"
+      >
         <div class="header__keywords">
           {{ homePage.monthCategory.keywords }}
         </div>
@@ -30,10 +42,16 @@ defineProps<{
       </div>
     </div>
     <div class="panel-subheader">
-      <div class="panel-subheader__section subheader__section--left">
+      <div
+        class="panel-subheader__section subheader__section--left"
+        :class="{ hidden: result.isFetching }"
+      >
         {{ homePage.monthQuestions }}
       </div>
-      <div class="panel-subheader__section subheader__section--right">
+      <div
+        class="panel-subheader__section subheader__section--right"
+        :class="{ hidden: result.isFetching }"
+      >
         <div class="question-of-the-day">
           {{ homePage.dayQuestion }}
         </div>
@@ -43,6 +61,13 @@ defineProps<{
   </div>
 </template>
 <style scoped>
+* {
+  opacity: 1;
+  transition: opacity 0.2s ease-in;
+}
+.hidden {
+  opacity: 0;
+}
 .arrow-right__container {
   display: flex;
   justify-content: flex-end;

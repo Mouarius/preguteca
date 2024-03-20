@@ -12,6 +12,8 @@ export function useHomePage() {
   return useQuery<HomePage, Error>({
     queryKey: ["home-page"],
     queryFn: fetchHomePage,
+    refetchOnWindowFocus: false,
+    staleTime: Infinity,
     placeholderData: initialHomePage,
   });
 }

@@ -10,5 +10,6 @@ export function useMenuPages() {
   return useQuery({
     queryKey: ["menu-page"],
     queryFn: fetchMenuPages,
+    refetchOnWindowFocus: false,
   });
 }

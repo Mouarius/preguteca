@@ -11,6 +11,8 @@ export function useCategories() {
   return useQuery({
     queryKey: ["category-list"],
     queryFn: fetchCategories,
+    refetchOnWindowFocus: false,
+    staleTime: Infinity,
     placeholderData: initialCategories,
   });
 }

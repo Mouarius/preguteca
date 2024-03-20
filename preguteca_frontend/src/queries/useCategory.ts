@@ -13,6 +13,8 @@ export const useCategory = () => {
   } = useQuery({
     queryKey: ["category-list", store.activeCategory],
     queryFn: () => fetchApi<TCategory>(`/categories/${store.activeCategory}`),
+    refetchOnWindowFocus: false,
+    staleTime: Infinity,
   });
   return {
     isLoading,

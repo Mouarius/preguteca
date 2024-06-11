@@ -1,56 +1,26 @@
-# PREGUTECA
+# Videoteca Sondeo (ex Preguteca)
 
-## Installation
+This is the code for the website [Videoteca Sondeo](https://www.videotecasondeo.com) an online ressource for discussing about videos of society topics.
 
-### Set up the initial database
+## Technical description
+This website is divided into :
+- a frontend made with VueJS.
+- a backend as a Django server that is serving the index page containing the frontend code, and endpoints for a REST API using Django REST Framework for interacting with the database.
 
-1. Initialize the database:  
-   `python manage.py migrate`
-2. Verify that the data from `preguteca_backend/question_library/data/video_data__parsed.json` is correct, if not, run
-   the script `parse_video_data.py` from the same folder, ensuring there is a file named `video_data.xlsx` in the
-   folder, containing the raw data exported from the Excel with the correct column names.
-3. Load the data from `video_data__parsed.json` into the database:  
-   `python manage.py load_video_data`
-4. Extract Youtube video id and complete the video entries data with it:  
-   `python manage.py extract_youtube_id`
-5. Generate the missing content with Youtube API:  
-   `python manage.py generate_youtube_data`
-6. Fill video channels and thumbnails:
-   `python manage.py get_youtube_channel get_youtube_thumbnails`
+## Developping locally
+To run the website on your local machine, you will need to install the required dependencies in the frontend, and in the backend.
 
-## TODO
+### Frontend (`preguteca_frontend`)
+#### Installation
+Run `npm install` to install the dependencies
 
-### Homepage
-[x] Homepage like a blog
-[x] final visual fixes
+#### Running the development server
+Run `npm run dev` to run the local `vite` development server locally.
 
-[x] Building : add more information for each building
-[x] menu : (administrable like CMS)
-    - Who are we section
-    - privacy policy
-    - fundings
-    - copyright notice
-
-[x] channel creator link on click
-
-### Fixes :
-[x] check the buildings that doesn't work
-    - la_residencia_de_ancianos : wrong name in admin
-    - el_cuartel_militar : same
-    - la_inmobiliaria : same
-    - la_television : no match in admin -> which category ?
-
-Mobile landing :
-[x] Illustration + little block with building of the month and questions of the month, if click go to the building. Disappear on scroll
-
-### FINAL FIXES :
-[x] fix the addition of new videos
-[x] + automation of video metadata when pasting youtube url
-[x] fix search bar
-[x] fix iframe
-[] fix html input text posts style
-
-### In the future :
-- comments
-- illustration animation
-- ...
+### Backend (`preguteca_backend`)
+#### Setup the python virtual environment
+1. Setup a *python virtual enviromnent* with the method of your choice (ex: https://docs.python.org/3/library/venv.html)
+2. Install the required dependencies with `pip install -r requirements.txt`
+3. Initialize the database with `python manage.py migrate`
+4. Be sure to load a dump of the production site if you want some data to start with
+5. Run the django server with `python manage.py runserver`
